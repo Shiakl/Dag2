@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
     {
         private static void breakShit(string state)
         {
-            state = "Shit is now broken";
+            state = "Shit is now broken  ";
             return state;
         }
 
