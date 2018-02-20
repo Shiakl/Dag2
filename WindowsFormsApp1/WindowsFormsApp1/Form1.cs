@@ -12,7 +12,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        private static void breakShit(string state)
+        private static void BreakShit(string state)
         {
             state = "Shit is now broken";
             return;
@@ -23,6 +23,10 @@ namespace WindowsFormsApp1
             breakShit(invoer);
         }
 
+        private static void FunctieD()
+        {
+
+        }
 
         public Form1()
         {
