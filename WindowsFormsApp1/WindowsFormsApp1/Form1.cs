@@ -12,6 +12,13 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        private static void breakShit(string state)
+        {
+            state = "Shit is now broken";
+            return state;
+        }
+
+
         public Form1()
         {
             InitializeComponent();
