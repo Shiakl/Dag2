@@ -15,7 +15,12 @@ namespace WindowsFormsApp1
         private static void breakShit(string state)
         {
             state = "Shit is now broken";
-            return state;
+            return;
+        }
+
+        private static void FunctieC(string invoer) //This function actually breaks shit
+        {
+            breakShit(invoer);
         }
 
 
