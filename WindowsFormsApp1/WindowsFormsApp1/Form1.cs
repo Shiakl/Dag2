@@ -20,7 +20,7 @@ namespace WindowsFormsApp1
 
         private static void FunctieC(string invoer) //This function actually breaks shit
         {
-            breakShit(invoer);
+            BreakShit(invoer);
         }
 
         private static void FunctieD()
