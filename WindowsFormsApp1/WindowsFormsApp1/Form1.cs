@@ -12,18 +12,27 @@ namespace Vang_de_volger
 {
     public partial class Form1 : Form
     {
+        Field _playZone = new Field();
         public Form1()
         {
             InitializeComponent();
-            Field _playZone = new Field();
+            GenerateField();
+        }
+
+        public void GenerateField()
+        {
             _playZone.CreateTiles();
             _playZone.ShuffleTiles();
             _playZone.CreateField(this);
+            this.Invalidate();
+            this.Refresh();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
+
     }
 }
