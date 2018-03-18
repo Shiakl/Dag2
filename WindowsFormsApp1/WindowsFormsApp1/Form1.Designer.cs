@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace Vang_de_volger
 {
     partial class Form1
     {
