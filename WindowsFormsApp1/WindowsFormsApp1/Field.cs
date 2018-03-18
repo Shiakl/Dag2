@@ -101,6 +101,22 @@ namespace Vang_de_volger
                     pb[y, x].Image = playfield[tilecounter].myImage;
                     PlayForm.Controls.Add(pb[y, x]);
 
+                    if (tilecounter > x_gridSize-1)
+                    {
+                        playfield[tilecounter]._neighbourTop = playfield[tilecounter - x_gridSize];
+                    }
+                    if (tilecounter<NUM_OF_TILES-1-x_gridSize)
+                    {
+                        playfield[tilecounter]._neighbourBottom = playfield[tilecounter + x_gridSize];
+                    }
+                    if (tilecounter%x_gridSize>0)
+                    {
+                        playfield[tilecounter]._neighbourRight = playfield[tilecounter +1];
+                    }
+                    if (tilecounter % x_gridSize < x_gridSize-1)
+                    {
+                        playfield[tilecounter]._neighbourRight = playfield[tilecounter - 1];
+                    }
 
                     tilecounter++;
                 }
