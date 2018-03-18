@@ -109,13 +109,13 @@ namespace Vang_de_volger
                     {
                         playfield[tilecounter]._neighbourBottom = playfield[tilecounter + x_gridSize];
                     }
-                    if (tilecounter%x_gridSize>0)
+                    if (tilecounter % x_gridSize < x_gridSize - 1)
                     {
                         playfield[tilecounter]._neighbourRight = playfield[tilecounter +1];
                     }
-                    if (tilecounter % x_gridSize < x_gridSize-1)
+                    if (tilecounter % x_gridSize > 0)
                     {
-                        playfield[tilecounter]._neighbourRight = playfield[tilecounter - 1];
+                        playfield[tilecounter]._neighbourLeft = playfield[tilecounter - 1];
                     }
 
                     tilecounter++;
