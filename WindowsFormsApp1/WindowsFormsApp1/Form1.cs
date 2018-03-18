@@ -12,20 +12,13 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        private static void BreakShit(string state)
-        {
-            state = "Shit is now broken";
-            return;
-        }
-
-        private static void FunctieD()
-        {
-
-        }
-
         public Form1()
         {
             InitializeComponent();
+            Field _playZone = new Field();
+            _playZone.CreateTiles();
+            _playZone.ShuffleTiles();
+            _playZone.CreateField(this);
         }
 
         private void Form1_Load(object sender, EventArgs e)
