@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace Vang_de_volger
 {
     class Tile : Field
     {
@@ -12,9 +14,24 @@ namespace WindowsFormsApp1
 
         public enum TILETYPE
         {
-            WALL,
+            BLOCK,
             TILE
         }
+
+        public Image myImage;
+
+        public void Check_Tile_Type()
+        {
+            if(MyType == TILETYPE.BLOCK)
+            {
+                myImage = Image.FromFile(@"..\..\Resources\Block.jpg");
+            }
+            else if (MyType == TILETYPE.TILE)
+            {
+                myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
+            }
+        }
+        
 
         public TILETYPE MyType { get; set; }
 
@@ -32,18 +49,17 @@ namespace WindowsFormsApp1
         }
 
         private Tile[] _myNeighbours = new Tile[4];
-
-        private void AddNeighbours()
+        public Tile _neighbourLeft;
+        public Tile _neighbourRight;
+        public Tile _neighbourTop;
+        public Tile _neighbourBottom;
+        public void AddNeighbours()
         {
             _myNeighbours[0] = _neighbourLeft;
             _myNeighbours[1] = _neighbourRight;
             _myNeighbours[2] = _neighbourTop;
             _myNeighbours[3] = _neighbourBottom;
         }
-        private Tile _neighbourLeft;
-        private Tile _neighbourRight;
-        private Tile _neighbourTop;
-        private Tile _neighbourBottom;
 
         public Tile NeighbourLeft
         {

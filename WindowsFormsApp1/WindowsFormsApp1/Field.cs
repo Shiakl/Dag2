@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace Vang_de_volger
 {
     class Field
     {
@@ -38,7 +38,7 @@ namespace WindowsFormsApp1
                 }
                 else if (i > ((NUM_OF_TILES - 1) * wallRatio+tileRatio))
                 {
-                    playfield[i] = new Tile { MyType = Tile.TILETYPE.WALL };
+                    playfield[i] = new Tile { MyType = Tile.TILETYPE.BLOCK };
                     i++;
                 }
             }
@@ -85,6 +85,7 @@ namespace WindowsFormsApp1
             //
 
             //Create a grid of pictureboxes
+            int tilecounter = 0;
             for (int y = 0; y < y_gridSize; y++)
             {
                 for (int x = 0; x < x_gridSize; x++)
@@ -96,7 +97,12 @@ namespace WindowsFormsApp1
                     pb[y, x].Visible = true;
                     pb[y, x].BorderStyle = BorderStyle.FixedSingle;
                     pb[y, x].BringToFront();
+                    playfield[tilecounter].Check_Tile_Type();
+                    pb[y, x].Image = playfield[tilecounter].myImage;
                     PlayForm.Controls.Add(pb[y, x]);
+
+
+                    tilecounter++;
                 }
             }
 
