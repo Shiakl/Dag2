@@ -33,6 +33,9 @@ namespace Vang_de_volger
 
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
