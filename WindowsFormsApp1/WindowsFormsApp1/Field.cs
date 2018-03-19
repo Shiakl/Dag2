@@ -162,10 +162,14 @@ namespace Vang_de_volger
             }
         }
 
+        double boxRatio = NUM_OF_TILES * 0.2;
         private void SpawnUnits()
         {
             Point HeroSpawn = new Point();
             Point VillainSpawn = new Point();
+            Hero Hero = new Hero();
+            Villain Villain = new Villain();
+            Box[] Boxes = new Box[Convert.ToInt32(boxRatio)];
 
         }
     }
