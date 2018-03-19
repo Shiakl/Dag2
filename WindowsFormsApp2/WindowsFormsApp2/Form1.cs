@@ -8,20 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
-        private static void BreakShit(string state)
-        {
-            state = "Shit is now broken";
-            return;
-        }
-
-        private static void FunctieD()
-        {
-
-        }
+        public Label nameLabel = new Label();
+        public 
 
         public Form1()
         {
@@ -30,7 +22,7 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

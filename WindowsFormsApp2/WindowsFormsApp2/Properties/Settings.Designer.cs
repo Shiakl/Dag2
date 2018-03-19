@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Vang_de_volger.Properties
+namespace WindowsFormsApp2.Properties
 {
 
 
