@@ -18,7 +18,7 @@ namespace Vang_de_volger
             TILE
         }
 
-        public Image myImage;
+        public Image myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
 
         public void Check_Tile_Type()
         {

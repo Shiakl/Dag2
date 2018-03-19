@@ -31,7 +31,7 @@ namespace Vang_de_volger
             double tileRatio = 1 - wallRatio;
            while(i<NUM_OF_TILES)
             {
-                if (i <= (NUM_OF_TILES* wallRatio) && (i>0 || i< NUM_OF_TILES-1))
+                if (i <= (NUM_OF_TILES* wallRatio) && i>0 )
                 {
                     playfield[i] = new Tile { MyType = Tile.TILETYPE.BLOCK };
                     i++;
@@ -53,7 +53,7 @@ namespace Vang_de_volger
             //shuffle 100 times
             for(int shuffle = 0; shuffle<100; shuffle++)
             {
-                for(int i = 0; i < NUM_OF_TILES; i++)
+                for(int i = 1; i < NUM_OF_TILES-1; i++)
                 {
                     //swap 2 tiles
                     int secondTileIndex = rndShuffle.Next(1, NUM_OF_TILES-2);
@@ -70,18 +70,20 @@ namespace Vang_de_volger
         }
 
         PictureBox[,] pb = new PictureBox[y_gridSize,x_gridSize];
+        private Bitmap _buffer;
+        private Size _bufferSize;
         public void CreateField(Form PlayForm)
         {
-            //Create labels to track tile Neighbours
+            PlayForm.Size = new Size(x_gridSize * Tile.tileSize * 2, y_gridSize * Tile.tileSize + 4 * Tile.tileSize);
+            PlayForm.StartPosition = FormStartPosition.Manual;
+            PlayForm.Left = 50;
+            PlayForm.Top = 50;
+            /*Create labels to track tile Neighbours
             string[] labelNeighbours = new string[4];
             labelNeighbours[0] = "Left";
             labelNeighbours[1] = "Right";
             labelNeighbours[2] = "Top";
             labelNeighbours[3] = "Bottom";
-            PlayForm.Size = new Size(x_gridSize*Tile.tileSize*2, y_gridSize * Tile.tileSize+4*Tile.tileSize);
-            PlayForm.StartPosition = FormStartPosition.Manual;
-            PlayForm.Left = 50;
-            PlayForm.Top = 50;
             for (int labelAmount = 0; labelAmount < 4; labelAmount++)
             {
                 Label txt = new Label();
@@ -90,7 +92,7 @@ namespace Vang_de_volger
                 txt.Text = labelNeighbours[labelAmount] + " Neighbour = ";
                 PlayForm.Controls.Add(txt);
             }
-            //
+            */
 
             //Create a new field with button
             Button button = new Button();
@@ -100,22 +102,40 @@ namespace Vang_de_volger
             button.Click += new EventHandler(ButtonClick);
             PlayForm.Controls.Add(button);
 
-            //Create a grid of pictureboxes
-            int tilecounter = 0;
+            _bufferSize = new Size(x_gridSize * Tile.tileSize, x_gridSize * Tile.tileSize);
+            _buffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
+            var picture = new PictureBox
+            {
+                Name = "FieldBox",
+                Size = new Size(_bufferSize.Width, _bufferSize.Height),
+                Location = new Point(Tile.tileSize, 0),
+            };
+            PlayForm.Controls.Add(picture);
+
+            using (Graphics graphics = Graphics.FromImage(_buffer))
+            {
+
+                //Create a grid of pictureboxes
+                int tilecounter = 0;
             for (int y = 0; y < y_gridSize; y++)
             {
                 for (int x = 0; x < x_gridSize; x++)
                 {
-                    //Create picture box to represent empty tiles and blocks
-                    pb[y, x] = new PictureBox();
-                    pb[y, x].Location = new Point(y * Tile.tileSize+ Tile.tileSize, x * Tile.tileSize+ Tile.tileSize);
-                    pb[y, x].Width = Tile.tileSize;
-                    pb[y, x].Height = Tile.tileSize;
-                    pb[y, x].Visible = true;
-                    pb[y, x].BorderStyle = BorderStyle.FixedSingle;
-                    playfield[tilecounter].Check_Tile_Type();
-                    pb[y, x].Image = playfield[tilecounter].myImage;
-                    PlayForm.Controls.Add(pb[y, x]);
+                        /*Create picture box to represent empty tiles and blocks
+                        pb[y, x] = new PictureBox();
+                        pb[y, x].Location = new Point(y * Tile.tileSize+ Tile.tileSize, x * Tile.tileSize+ Tile.tileSize);
+                        pb[y, x].Width = Tile.tileSize;
+                        pb[y, x].Height = Tile.tileSize;
+                        pb[y, x].Visible = true;
+                        pb[y, x].BorderStyle = BorderStyle.FixedSingle;
+                        playfield[tilecounter].Check_Tile_Type();
+                        pb[y, x].Image = playfield[tilecounter].myImage;
+                        PlayForm.Controls.Add(pb[y, x]);
+                        */
+
+                        playfield[tilecounter].Check_Tile_Type();
+                        graphics.DrawImage(playfield[tilecounter].myImage, x * Tile.tileSize, y * Tile.tileSize + Tile.tileSize, Tile.tileSize, Tile.tileSize);
+   
 
                     //Add neighbours to Array in Tile Class
                     if (tilecounter > x_gridSize-1)
@@ -134,9 +154,10 @@ namespace Vang_de_volger
                     {
                         playfield[tilecounter]._neighbourLeft = playfield[tilecounter - 1];
                     }
-
                     tilecounter++;
+                    picture.Image = _buffer;
                 }
+            }
             }
 
         }
