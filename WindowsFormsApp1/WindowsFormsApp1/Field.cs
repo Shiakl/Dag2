@@ -19,6 +19,7 @@ namespace Vang_de_volger
         public Field()
         {
             playfield = new Tile[NUM_OF_TILES];
+
         }
 
         public Tile[] getPlayfield { get { return playfield; } } //get current playfield
