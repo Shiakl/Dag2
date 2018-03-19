@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Vang_de_volger
 {
-    class Tile : Field
+    class Tile
     {
         public const int tileSize = 40;
 

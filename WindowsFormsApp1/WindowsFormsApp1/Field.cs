@@ -159,9 +159,13 @@ namespace Vang_de_volger
                 }
             }
             }
+        }
+
+        private void SpawnUnits()
+        {
+            Point HeroSpawn = new Point();
+            Point VillainSpawn = new Point();
 
         }
     }
-
-
 }
