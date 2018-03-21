@@ -73,6 +73,7 @@ namespace Vang_de_volger
         PictureBox[,] pb = new PictureBox[y_gridSize,x_gridSize];
         private Bitmap _buffer;
         private Size _bufferSize;
+        public Point[] tileLocations = new Point[NUM_OF_TILES];
         public void CreateField(Form PlayForm)
         {
             PlayForm.Size = new Size(x_gridSize * Tile.tileSize * 2, y_gridSize * Tile.tileSize + 4 * Tile.tileSize);
