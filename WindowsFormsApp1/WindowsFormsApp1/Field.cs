@@ -137,7 +137,7 @@ namespace Vang_de_volger
 
                         playfield[tilecounter].Check_Tile_Type();
                         graphics.DrawImage(playfield[tilecounter].myImage, x * Tile.tileSize, y * Tile.tileSize + Tile.tileSize, Tile.tileSize, Tile.tileSize);
-   
+                        
 
                     //Add neighbours to Array in Tile Class
                     if (tilecounter > x_gridSize-1)
