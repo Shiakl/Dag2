@@ -1,35 +1,41 @@
 ﻿using System;
 
-public class Villain : Unit
+namespace Vang_de_volger
 {
-
-	public Move()
-	{
-
-	}
-
-    protected Kill()
+    public class Villain : Unit
     {
+        public Villain(int[,] startPosition, int speed) : base(startPosition, speed)
+        {
+        }
 
-    }
+        public void Move()
+        {
 
-    protected PathFinder()
-    {
+        }
 
-    }
+        protected void Kill()
+        {
 
-    protected HeroTracking()
-    {
+        }
 
-    }
+        protected void PathFinder()
+        {
 
-    protected RandomPick()
-    {
+        }
 
-    }
+        protected void HeroTracking()
+        {
 
-    protected UsePowerUp()
-    {
+        }
 
+        protected void RandomPick()
+        {
+
+        }
+
+        protected void UsePowerUp()
+        {
+
+        }
     }
 }

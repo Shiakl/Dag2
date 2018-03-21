@@ -15,7 +15,10 @@ namespace Vang_de_volger
         public enum TILETYPE
         {
             BLOCK,
-            TILE
+            TILE,
+            BOX,
+            HERO,
+            VILLAIN
         }
 
         public Image myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
@@ -29,6 +32,10 @@ namespace Vang_de_volger
             else if (MyType == TILETYPE.TILE)
             {
                 myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
+            }
+            else if (MyType == TILETYPE.BOX)
+            {
+                myImage = Image.FromFile(@"..\..Resources\Box.jpg");
             }
         }
         
