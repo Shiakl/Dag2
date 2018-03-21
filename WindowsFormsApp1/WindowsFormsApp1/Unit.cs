@@ -1,13 +1,22 @@
 ﻿using System;
 
-public class Unit
+namespace Vang_de_volger
 {
-    //[2,2] has been put in to evade error placements.
-    protected int[,] startPosition = new int[2,2];
-    protected int speed;
+    public class Unit : Field
+    {
+        //[2,2] has been put in to evade error placements.
+        protected int[,] startPosition = new int[2, 2];
+        protected int speed;
 
-	protected void Move()
-	{
-        
-	}
+        public Unit(int[,] startPosition, int speed)
+        {
+            this.startPosition = startPosition;
+            this.speed = speed;
+        }
+
+        protected void Move()
+        {
+
+        }
+    }
 }

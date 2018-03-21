@@ -1,21 +1,24 @@
 ﻿using System;
 
-public class Hero : Unit
+namespace Vang_de_volger
 {
-    
-
-	public KeyBoardMove()
+    public class Hero : Unit
     {
 
-    }
 
-    protected PickPowerUp()
-    {
+        public void KeyBoardMove()
+        {
 
-    }
+        }
 
-    public Die()
-    {
+        protected void PickPowerUp()
+        {
 
+        }
+
+        public void Die()
+        {
+
+        }
     }
 }
