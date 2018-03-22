@@ -30,7 +30,12 @@ namespace Vang_de_volger
         public Field()
         {
             playfield = new Tile[NUM_OF_TILES];
+            mouse = new Hero();
+            slime = new Villain();
         }
+
+        Hero mouse;
+        Villain slime;
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
         public void CreateTiles()

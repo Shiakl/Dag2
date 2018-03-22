@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Vang_de_volger
 {
     public class Hero : Unit
     {
-        private int _heroSpeed;
+        public Image myImage = Image.FromFile(@"..\..\Resources\HeroTemp.png");
+        public Point pointTracker = new Point();
 
         public void KeyBoardMove()
         {
