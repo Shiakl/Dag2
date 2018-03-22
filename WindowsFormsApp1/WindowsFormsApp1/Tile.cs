@@ -37,8 +37,28 @@ namespace Vang_de_volger
             {
                 myImage = Image.FromFile(@"..\..Resources\Box.jpg");
             }
+           
         }
-        
+
+        public void Tile_check_movement(Point heroPoint, String direction)
+        {
+            if (direction.Equals("Left") && moveArray[0] == true)
+            {
+                heroPoint.X += tileSize;
+            }
+            else if (direction.Equals("Right") && moveArray[1] == true)
+            {
+                heroPoint.X += tileSize;
+            }
+            else if (direction.Equals("Up") && moveArray[2] == true)
+            {
+                heroPoint.Y -= tileSize;
+            }
+            else if (direction.Equals("Down") && moveArray[3] == true)
+            {
+                heroPoint.Y += tileSize;
+            }
+        }
 
         public TILETYPE MyType { get; set; }
 
@@ -55,25 +75,7 @@ namespace Vang_de_volger
             }
         }
 
-        public void Tile_check_movement(Point heroPoint, String direction)
-        {
-            if (direction.Equals("Left") && moveArray[0]  == true)
-            {
-                heroPoint.X -= tileSize;
-            }
-            else if (direction.Equals("Right") && moveArray[1] == true)
-            {
-                heroPoint.X += tileSize;
-            }
-            else if (direction.Equals("Up") && moveArray[2] == true)
-            {
-                heroPoint.Y -= tileSize;
-            }
-            else if (direction.Equals("Down") && moveArray[3] == true)
-            {
-                heroPoint.Y += tileSize;
-            }
-        }
+
 
         private Tile[] _myNeighbours = new Tile[4];
         public Tile neighbourLeft;
@@ -88,7 +90,7 @@ namespace Vang_de_volger
             _myNeighbours[3] = neighbourBottom;
         }
 
-        bool[] moveArray = new bool[4];
+        public bool[] moveArray = new bool[4];
         private void Possible_moves()
         {
             for(int i = 0; i < 4; i++)

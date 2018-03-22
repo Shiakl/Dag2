@@ -37,6 +37,7 @@
             this.AutoSize = true;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(282, 253);
+            this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "Vang de volger";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);

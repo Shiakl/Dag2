@@ -20,5 +20,10 @@ namespace Vang_de_volger
         {
 
         }
+
+        public void Hero_Move(string direction)
+        {
+
+        }
     }
 }
