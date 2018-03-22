@@ -20,8 +20,10 @@ namespace Vang_de_volger
         private Size _bufferSize; //Size of the bitmap
         private Image _heroImage = Image.FromFile(@"..\..\Resources\HeroTemp.png");
         public Point heroPosition = new Point(); //Position of the Hero
+        public Tile heroTile;
         private Image _villainImage = Image.FromFile(@"..\..\Resources\VillainTemp.png");
         public Point villainPosition = new Point(); //Position of the Villain
+        public Tile villainTile;
         private Point[] tileLocation = new Point[NUM_OF_TILES]; //Array holding all tile position
 
         //Constructor
@@ -98,13 +100,14 @@ namespace Vang_de_volger
             }
             */
 
-            //Create a new field with button
+           /* //Create a new field with button
             Button button = new Button();
             button.Location = new Point(Tile.tileSize * x_gridSize + Tile.tileSize, Tile.tileSize + 20);
             button.Text = "Generate Field";
             button.AutoSize = true;
             button.Click += new EventHandler(ButtonClick);
             PlayForm.Controls.Add(button);
+            */
 
             _bufferSize = new Size(x_gridSize * Tile.tileSize, x_gridSize * Tile.tileSize);
             _buffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
@@ -169,8 +172,10 @@ namespace Vang_de_volger
                 //Draw the hero on the field
                 heroPosition.X = tileLocation[0].X; heroPosition.Y = tileLocation[0].Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
+                playfield[0] = heroTile;
                 villainPosition.X = tileLocation[NUM_OF_TILES-1].X; villainPosition.Y = tileLocation[NUM_OF_TILES-1].Y;
                 playfield[NUM_OF_TILES-1].MyType = Tile.TILETYPE.VILLAIN;
+                playfield[NUM_OF_TILES-1] = villainTile;
 
                 graphics.DrawImage(_heroImage, heroPosition.X, heroPosition.Y, _heroImage.Size.Width, _heroImage.Size.Height);
                 graphics.DrawImage(_villainImage, villainPosition.X, villainPosition.Y, _villainImage.Size.Width, _villainImage.Size.Height);
@@ -180,7 +185,8 @@ namespace Vang_de_volger
 
         public void Move_check_field(string direction)
         {
-            
+            heroTile.Tile_check_movement(heroPosition, direction);
+
         }
 
     }
