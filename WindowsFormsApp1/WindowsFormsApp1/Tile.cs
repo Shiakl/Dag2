@@ -22,7 +22,12 @@ namespace Vang_de_volger
             VILLAIN
         }
 
-        public Image myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
+        public Tile()
+        {
+            myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
+        }
+
+        public Image myImage;
 
         public void Check_Tile_Type()
         {
@@ -36,7 +41,7 @@ namespace Vang_de_volger
             }
             else if (MyType == TILETYPE.BOX)
             {
-                myImage = Image.FromFile(@"..\..Resources\Box.jpg");
+                myImage = Image.FromFile(@"..\..\Resources\Box.png");
             }
            
         }

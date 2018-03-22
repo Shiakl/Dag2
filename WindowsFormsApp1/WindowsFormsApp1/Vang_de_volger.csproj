@@ -89,12 +89,11 @@
     <None Include="Resources\Block.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Box.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Tile.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Box.jpg" />
+    <Content Include="Resources\Box.png" />
     <Content Include="Resources\HeroTemp.png" />
     <Content Include="Resources\VillainTemp.png" />
   </ItemGroup>

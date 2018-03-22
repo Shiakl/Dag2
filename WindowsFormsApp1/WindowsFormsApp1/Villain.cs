@@ -14,12 +14,14 @@ namespace Vang_de_volger
     {
         int villainMoveInterval = 500; //interval at which villain moves in milliseconds
         Timer timerVillainMove = new Timer();
-        public Image myImage = Image.FromFile(@"..\..\Resources\VillainTemp.png");
-        public Point pointTracker = new Point();
+        public Image myImage;
+        public Point pointTracker;
         
 
         public Villain()
         {
+            myImage = Image.FromFile(@"..\..\Resources\VillainTemp.png");
+            pointTracker = new Point();
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
 
