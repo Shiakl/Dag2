@@ -148,30 +148,41 @@ namespace Vang_de_volger
                     //Add neighbours to Array in Tile Class
                     if (tilecounter > x_gridSize-1)
                     {
-                        playfield[tilecounter]._neighbourTop = playfield[tilecounter - x_gridSize];
+                        playfield[tilecounter].neighbourTop = playfield[tilecounter - x_gridSize];
                     }
                     if (tilecounter<NUM_OF_TILES-1-x_gridSize)
                     {
-                        playfield[tilecounter]._neighbourBottom = playfield[tilecounter + x_gridSize];
+                        playfield[tilecounter].neighbourBottom = playfield[tilecounter + x_gridSize];
                     }
                     if (tilecounter % x_gridSize < x_gridSize - 1)
                     {
-                        playfield[tilecounter]._neighbourRight = playfield[tilecounter +1];
+                        playfield[tilecounter].neighbourRight = playfield[tilecounter +1];
                     }
                     if (tilecounter % x_gridSize > 0)
                     {
-                        playfield[tilecounter]._neighbourLeft = playfield[tilecounter - 1];
+                        playfield[tilecounter].neighbourLeft = playfield[tilecounter - 1];
                     }
                     tilecounter++;
                     
                 }
             }
                 //Draw the hero on the field
-                graphics.DrawImage(_heroImage, tileLocation[0].X, tileLocation[0].Y, _heroImage.Size.Width, _heroImage.Size.Height);
-                graphics.DrawImage(_villainImage, tileLocation[NUM_OF_TILES-1].X, tileLocation[NUM_OF_TILES - 1].Y, _villainImage.Size.Width, _villainImage.Size.Height);
+                heroPosition.X = tileLocation[0].X; heroPosition.Y = tileLocation[0].Y;
+                playfield[0].MyType = Tile.TILETYPE.HERO;
+                villainPosition.X = tileLocation[NUM_OF_TILES-1].X; villainPosition.Y = tileLocation[NUM_OF_TILES-1].Y;
+                playfield[NUM_OF_TILES-1].MyType = Tile.TILETYPE.VILLAIN;
+
+                graphics.DrawImage(_heroImage, heroPosition.X, heroPosition.Y, _heroImage.Size.Width, _heroImage.Size.Height);
+                graphics.DrawImage(_villainImage, villainPosition.X, villainPosition.Y, _villainImage.Size.Width, _villainImage.Size.Height);
             }
                 picture.Image = _buffer;
         }
+
+        public void Move_check_field(string direction)
+        {
+            
+        }
+
     }
 
 

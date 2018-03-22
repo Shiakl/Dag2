@@ -39,6 +39,7 @@
             this.ClientSize = new System.Drawing.Size(282, 253);
             this.Name = "MainForm";
             this.Text = "Vang de volger";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.ResumeLayout(false);
 
         }
