@@ -10,18 +10,25 @@ namespace Vang_de_volger
 {
     class Field
     {
-        const int x_gridSize = 15;
-        const int y_gridSize = 15;
+        const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
+        const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field
         const int NUM_OF_TILES = x_gridSize*y_gridSize; //Number of tiles on the field
         private Tile[] playfield; //Tile class array
+
+        PictureBox[,] pb = new PictureBox[y_gridSize, x_gridSize];
+        private Bitmap _buffer; //Bitmap that draws the field
+        private Size _bufferSize; //Size of the bitmap
+        private Image _heroImage = Image.FromFile(@"..\..\Resources\HeroTemp.png");
+        public Point heroPosition = new Point(); //Position of the Hero
+        private Image _villainImage = Image.FromFile(@"..\..\Resources\VillainTemp.png");
+        public Point villainPosition = new Point(); //Position of the Villain
+        private Point[] tileLocation = new Point[NUM_OF_TILES]; //Array holding all tile position
 
         //Constructor
         public Field()
         {
             playfield = new Tile[NUM_OF_TILES];
         }
-
-        public Tile[] getPlayfield { get { return playfield; } } //get current playfield
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
         public void CreateTiles()
@@ -69,15 +76,12 @@ namespace Vang_de_volger
             Application.Restart();
         }
 
-        PictureBox[,] pb = new PictureBox[y_gridSize,x_gridSize];
-        private Bitmap _buffer;
-        private Size _bufferSize;
         public void CreateField(Form PlayForm)
         {
-            PlayForm.Size = new Size(x_gridSize * Tile.tileSize * 2, y_gridSize * Tile.tileSize + 4 * Tile.tileSize);
-            PlayForm.StartPosition = FormStartPosition.Manual;
-            PlayForm.Left = 50;
-            PlayForm.Top = 50;
+            //PlayForm.Size = new Size(x_gridSize * Tile.tileSize * 2, y_gridSize * Tile.tileSize + 4 * Tile.tileSize);
+           // PlayForm.StartPosition = FormStartPosition.Manual;
+            //PlayForm.Left = 50;
+            //PlayForm.Top = 50;
             /*Create labels to track tile Neighbours
             string[] labelNeighbours = new string[4];
             labelNeighbours[0] = "Left";
@@ -108,7 +112,7 @@ namespace Vang_de_volger
             {
                 Name = "FieldBox",
                 Size = new Size(_bufferSize.Width, _bufferSize.Height),
-                Location = new Point(Tile.tileSize, 0),
+                Location = new Point(0, 0),
             };
             PlayForm.Controls.Add(picture);
 
@@ -134,8 +138,12 @@ namespace Vang_de_volger
                         */
 
                         playfield[tilecounter].Check_Tile_Type();
-                        graphics.DrawImage(playfield[tilecounter].myImage, x * Tile.tileSize, y * Tile.tileSize + Tile.tileSize, Tile.tileSize, Tile.tileSize);
-   
+
+                        //Add positions of each tile to the Point Array
+                        tileLocation[tilecounter] = new Point(x * Tile.tileSize, y * Tile.tileSize);
+                        //Draw each tile
+                        graphics.DrawImage(playfield[tilecounter].myImage, tileLocation[tilecounter].X, tileLocation[tilecounter].Y, Tile.tileSize, Tile.tileSize);
+
 
                     //Add neighbours to Array in Tile Class
                     if (tilecounter > x_gridSize-1)
@@ -155,11 +163,14 @@ namespace Vang_de_volger
                         playfield[tilecounter]._neighbourLeft = playfield[tilecounter - 1];
                     }
                     tilecounter++;
-                    picture.Image = _buffer;
+                    
                 }
             }
+                //Draw the hero on the field
+                graphics.DrawImage(_heroImage, tileLocation[0].X, tileLocation[0].Y, _heroImage.Size.Width, _heroImage.Size.Height);
+                graphics.DrawImage(_villainImage, tileLocation[NUM_OF_TILES-1].X, tileLocation[NUM_OF_TILES - 1].Y, _villainImage.Size.Width, _villainImage.Size.Height);
             }
-
+                picture.Image = _buffer;
         }
     }
 

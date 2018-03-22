@@ -4,7 +4,9 @@ namespace Vang_de_volger
 {
     public class Villain : Unit
     {
-        public Villain(int[,] startPosition, int speed) : base(startPosition, speed)
+        private int _villainSpeed;
+
+        public Villain()
         {
         }
 

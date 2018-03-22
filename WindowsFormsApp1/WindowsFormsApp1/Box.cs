@@ -4,25 +4,28 @@ namespace Vang_de_volger
 {
     public class Box : Unit
     {
+
+        private int _boxSpeed;
         //Eventhandler here to catch direction
         //
         //
 
 
         //Move based on point Array 
-        public Move()
+        public void Move()
         {
-            return;
+            /*            //Check first with Eventhandler if any direction is good to move to.
+            if (neighbourTop = true || neighbourLeft = true || neighbourRight = true || neighbourBottom = true)
+            {
+
+            }
+            */
         }
 
         //Constructor
         public Box()
         {
-            //Check first with Eventhandler if any direction is good to move too.
-            if (neighboorTop = true || neighboorLeft = true || neighboorRight = true || neighboorBottom = true)
-            {
 
-            }
         }
     }
 }
