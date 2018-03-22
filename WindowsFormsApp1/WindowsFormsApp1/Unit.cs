@@ -13,12 +13,5 @@ namespace Vang_de_volger
 
         }
 
-        protected void Move()
-        {
-
-        }
-
-
-        
     }
 }
