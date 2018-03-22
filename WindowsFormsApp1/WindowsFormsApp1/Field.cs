@@ -85,35 +85,7 @@ namespace Vang_de_volger
 
         public void CreateField(Form PlayForm)
         {
-            //PlayForm.Size = new Size(x_gridSize * Tile.tileSize * 2, y_gridSize * Tile.tileSize + 4 * Tile.tileSize);
-           // PlayForm.StartPosition = FormStartPosition.Manual;
-            //PlayForm.Left = 50;
-            //PlayForm.Top = 50;
-            /*Create labels to track tile Neighbours
-            string[] labelNeighbours = new string[4];
-            labelNeighbours[0] = "Left";
-            labelNeighbours[1] = "Right";
-            labelNeighbours[2] = "Top";
-            labelNeighbours[3] = "Bottom";
-            for (int labelAmount = 0; labelAmount < 4; labelAmount++)
-            {
-                Label txt = new Label();
-                txt.Location = new Point(Tile.tileSize * x_gridSize+Tile.tileSize, Tile.tileSize+100 + 20*labelAmount);
-                txt.AutoSize = true;
-                txt.Text = labelNeighbours[labelAmount] + " Neighbour = ";
-                PlayForm.Controls.Add(txt);
-            }
-            */
-
-           /* //Create a new field with button
-            Button button = new Button();
-            button.Location = new Point(Tile.tileSize * x_gridSize + Tile.tileSize, Tile.tileSize + 20);
-            button.Text = "Generate Field";
-            button.AutoSize = true;
-            button.Click += new EventHandler(ButtonClick);
-            PlayForm.Controls.Add(button);
-            */
-
+            //Create buffering bitmap
             _bufferSize = new Size(x_gridSize * Tile.tileSize, x_gridSize * Tile.tileSize);
             _buffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
             var picture = new PictureBox
@@ -133,18 +105,6 @@ namespace Vang_de_volger
             {
                 for (int x = 0; x < x_gridSize; x++)
                 {
-                        /*Create picture box to represent empty tiles and blocks
-                        pb[y, x] = new PictureBox();
-                        pb[y, x].Location = new Point(y * Tile.tileSize+ Tile.tileSize, x * Tile.tileSize+ Tile.tileSize);
-                        pb[y, x].Width = Tile.tileSize;
-                        pb[y, x].Height = Tile.tileSize;
-                        pb[y, x].Visible = true;
-                        pb[y, x].BorderStyle = BorderStyle.FixedSingle;
-                        playfield[tilecounter].Check_Tile_Type();
-                        pb[y, x].Image = playfield[tilecounter].myImage;
-                        PlayForm.Controls.Add(pb[y, x]);
-                        */
-
                         playfield[tilecounter].Check_Tile_Type();
 
                         //Add positions of each tile to the Point Array
@@ -191,6 +151,11 @@ namespace Vang_de_volger
         public void Move_check_field(string direction)
         {
             heroTile.Tile_check_movement(heroPosition, direction);
+
+        }
+
+        public void Villain_random_move()
+        {
 
         }
 

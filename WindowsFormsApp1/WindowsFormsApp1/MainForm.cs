@@ -19,6 +19,7 @@ namespace Vang_de_volger
             GenerateField();
         }
 
+
         public void GenerateField()
         {
             _playZone.CreateTiles();
@@ -47,5 +48,7 @@ namespace Vang_de_volger
                 _playZone.Move_check_field("Down");
             }
         }
+
+
     }
 }

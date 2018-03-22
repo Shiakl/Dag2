@@ -1,47 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Vang_de_volger
 {
     public class Villain : Unit
     {
+        int villainMoveInterval = 500; //interval at which villain moves in milliseconds
+        Timer timerVillainMove = new Timer();
         public Image myImage = Image.FromFile(@"..\..\Resources\VillainTemp.png");
         public Point pointTracker = new Point();
-
-        private int _villainSpeed;
+        
 
         public Villain()
         {
-        }
-
-        public void Move()
-        {
+            timerVillainMove.Interval = villainMoveInterval;
+            timerVillainMove.Tick += TimerVillainMove_Tick;
 
         }
 
-        protected void Kill()
+        private void TimerVillainMove_Tick(object sender, EventArgs e)
         {
-
-        }
-
-        protected void PathFinder()
-        {
-
-        }
-
-        protected void HeroTracking()
-        {
-
-        }
-
-        protected void RandomPick()
-        {
-
-        }
-
-        protected void UsePowerUp()
-        {
-
+            //Make the villain do funky stuff
         }
     }
 }
