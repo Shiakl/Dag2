@@ -55,28 +55,64 @@ namespace Vang_de_volger
             }
         }
 
+        public void Tile_check_movement(Point heroPoint, String direction)
+        {
+            if (direction.Equals("Left") && moveArray[0]  == true)
+            {
+                heroPoint.X -= tileSize;
+            }
+            else if (direction.Equals("Right") && moveArray[1] == true)
+            {
+                heroPoint.X += tileSize;
+            }
+            else if (direction.Equals("Up") && moveArray[2] == true)
+            {
+                heroPoint.Y -= tileSize;
+            }
+            else if (direction.Equals("Down") && moveArray[3] == true)
+            {
+                heroPoint.Y += tileSize;
+            }
+        }
+
         private Tile[] _myNeighbours = new Tile[4];
-        public Tile _neighbourLeft;
-        public Tile _neighbourRight;
-        public Tile _neighbourTop;
-        public Tile _neighbourBottom;
+        public Tile neighbourLeft;
+        public Tile neighbourRight;
+        public Tile neighbourTop;
+        public Tile neighbourBottom;
         public void AddNeighbours()
         {
-            _myNeighbours[0] = _neighbourLeft;
-            _myNeighbours[1] = _neighbourRight;
-            _myNeighbours[2] = _neighbourTop;
-            _myNeighbours[3] = _neighbourBottom;
+            _myNeighbours[0] = neighbourLeft;
+            _myNeighbours[1] = neighbourRight;
+            _myNeighbours[2] = neighbourTop;
+            _myNeighbours[3] = neighbourBottom;
+        }
+
+        bool[] moveArray = new bool[4];
+        private void Possible_moves()
+        {
+            for(int i = 0; i < 4; i++)
+            {
+               if( _myNeighbours[i].MyType == TILETYPE.BLOCK)
+                {
+                    moveArray[i] = false;
+                }
+                else if (_myNeighbours[i].MyType == TILETYPE.TILE)
+                {
+                    moveArray[i] = true;
+                }
+            }
         }
 
         public Tile NeighbourLeft
         {
             get
             {
-                return _neighbourLeft;
+                return neighbourLeft;
             }
             set
             {
-                _neighbourLeft = value;
+                neighbourLeft = value;
             }
         }
 
@@ -84,11 +120,11 @@ namespace Vang_de_volger
         {
             get
             {
-                return _neighbourRight;
+                return neighbourRight;
             }
             set
             {
-                _neighbourRight = value;
+                neighbourRight = value;
             }
         }
 
@@ -96,11 +132,11 @@ namespace Vang_de_volger
         {
             get
             {
-                return _neighbourTop;
+                return neighbourTop;
             }
             set
             {
-                _neighbourTop = value;
+                neighbourTop = value;
             }
         }
 
@@ -108,11 +144,11 @@ namespace Vang_de_volger
         {
             get
             {
-                return _neighbourBottom;
+                return neighbourBottom;
             }
             set
             {
-                _neighbourBottom = value;
+                neighbourBottom = value;
             }
         }
 
