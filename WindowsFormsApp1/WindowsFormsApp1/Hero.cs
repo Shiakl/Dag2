@@ -4,7 +4,7 @@ namespace Vang_de_volger
 {
     public class Hero : Unit
     {
-
+        private int _heroSpeed;
 
         public void KeyBoardMove()
         {
