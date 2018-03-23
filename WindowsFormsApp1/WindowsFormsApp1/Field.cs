@@ -116,23 +116,23 @@ namespace Vang_de_volger
             {
                 for (int x = 0; x < x_gridSize; x++)
                 {
-                        playfield[tilecounter].Check_Tile_Type();
+                    playfield[tilecounter].Check_Tile_Type();
 
-                        //Add positions of each tile to the Point Array
-                        tileLocation[tilecounter] = new Point(x * Tile.tileSize, y * Tile.tileSize);
-                        //Draw each tile
-                        graphics.DrawImage(playfield[tilecounter].myImage, tileLocation[tilecounter].X, tileLocation[tilecounter].Y, Tile.tileSize, Tile.tileSize);
+                    //Add positions of each tile to the Point Array
+                    tileLocation[tilecounter] = new Point(x * Tile.tileSize, y * Tile.tileSize);
+                    //Draw each tile
+                    graphics.DrawImage(playfield[tilecounter].myImage, tileLocation[tilecounter].X, tileLocation[tilecounter].Y, Tile.tileSize, Tile.tileSize);
 
-                        if (playfield[tilecounter].MyType == Tile.TILETYPE.BOX)
-                        {
-                            _box[boxcounter] = new Box();
-                            _box[boxcounter].pointTracker = tileLocation[tilecounter];
-                            graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
-                            boxcounter++;
-                        }
+                    if (playfield[tilecounter].MyType == Tile.TILETYPE.BOX)
+                    {
+                        _box[boxcounter] = new Box();
+                        _box[boxcounter].pointTracker = tileLocation[tilecounter];
+                        graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
+                        boxcounter++;
+                    }
 
-                        //Add neighbours to Array in Tile Class
-                        if (tilecounter > x_gridSize-1)
+                    //Add neighbours to Array in Tile Class
+                    if (tilecounter > x_gridSize-1)
                     {
                         playfield[tilecounter].neighbourTop = playfield[tilecounter - x_gridSize];
                     }
