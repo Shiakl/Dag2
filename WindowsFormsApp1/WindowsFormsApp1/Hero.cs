@@ -37,20 +37,5 @@ namespace Vang_de_volger
                 }
              */
         }
-
-        protected void PickPowerUp()
-        {
-
-        }
-
-        public void Die()
-        {
-
-        }
-
-        public void Hero_Move(string direction)
-        {
-
-        }
     }
 }

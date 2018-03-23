@@ -10,15 +10,13 @@ namespace Vang_de_volger
 {
     class Field
     {
-        const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
-        const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field
-        const int NUM_OF_TILES = x_gridSize*y_gridSize; //Number of tiles on the field
+        const int NUM_OF_TILES = MainForm.x_gridSize* MainForm.y_gridSize; //Number of tiles on the field
         private Tile[] playfield; //Tile class array
         private Box[] _box;
 
-        PictureBox[,] pb = new PictureBox[y_gridSize, x_gridSize];
-        private Bitmap _buffer; //Bitmap that draws the field
-        private Size _bufferSize; //Size of the bitmap
+        public Bitmap _buffer; //Bitmap that draws the field
+        public Bitmap _unitBuffer; //Bitmap that draws the field
+        public Size bufferSize; //Size of the bitmap
         private Image _heroImage = Image.FromFile(@"..\..\Resources\HeroTemp.png");
         public Point heroPosition = new Point(); //Position of the Hero
         public Tile heroTile;
@@ -90,38 +88,37 @@ namespace Vang_de_volger
         {
             Application.Restart();
         }
-
-        public void CreateField(Form PlayForm)
+        //public PictureBox picture = new PictureBox();
+        public void CreateField(Form PlayForm,PictureBox picture)
         {
-
             //Create buffering bitmap
-            _bufferSize = new Size(x_gridSize * Tile.tileSize, x_gridSize * Tile.tileSize);
-            _buffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
+            bufferSize = new Size(MainForm.x_gridSize * MainForm.tileSize, MainForm.x_gridSize * MainForm.tileSize);
+            _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
+            /*
             var picture = new PictureBox
             {
                 Name = "FieldBox",
-                Size = new Size(_bufferSize.Width, _bufferSize.Height),
+                Size = new Size(bufferSize.Width, bufferSize.Height),
                 Location = new Point(0, 0),
             };
             PlayForm.Controls.Add(picture);
-
+            */
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
-
                 //Create a grid of pictureboxes
                 int tilecounter = 0;
                 _box = new Box[boxRatio];
                 int boxcounter = 0;
-                for (int y = 0; y < y_gridSize; y++)
+                for (int y = 0; y < MainForm.y_gridSize; y++)
             {
-                for (int x = 0; x < x_gridSize; x++)
+                for (int x = 0; x < MainForm.x_gridSize; x++)
                 {
                     playfield[tilecounter].Check_Tile_Type();
 
                     //Add positions of each tile to the Point Array
-                    tileLocation[tilecounter] = new Point(x * Tile.tileSize, y * Tile.tileSize);
+                    tileLocation[tilecounter] = new Point(x * MainForm.tileSize, y * MainForm.tileSize);
                     //Draw each tile
-                    graphics.DrawImage(playfield[tilecounter].myImage, tileLocation[tilecounter].X, tileLocation[tilecounter].Y, Tile.tileSize, Tile.tileSize);
+                    graphics.DrawImage(playfield[tilecounter].myImage, tileLocation[tilecounter].X, tileLocation[tilecounter].Y, MainForm.tileSize, MainForm.tileSize);
 
                     if (playfield[tilecounter].MyType == Tile.TILETYPE.BOX)
                     {
@@ -132,24 +129,23 @@ namespace Vang_de_volger
                     }
 
                     //Add neighbours to Array in Tile Class
-                    if (tilecounter > x_gridSize-1)
+                    if (tilecounter > MainForm.x_gridSize -1)
                     {
-                        playfield[tilecounter].neighbourTop = playfield[tilecounter - x_gridSize];
+                        playfield[tilecounter].neighbourTop = playfield[tilecounter - MainForm.x_gridSize];
                     }
-                    if (tilecounter<NUM_OF_TILES-1-x_gridSize)
+                    if (tilecounter<NUM_OF_TILES-1- MainForm.x_gridSize)
                     {
-                        playfield[tilecounter].neighbourBottom = playfield[tilecounter + x_gridSize];
+                        playfield[tilecounter].neighbourBottom = playfield[tilecounter + MainForm.x_gridSize];
                     }
-                    if (tilecounter % x_gridSize < x_gridSize - 1)
+                    if (tilecounter % MainForm.x_gridSize < MainForm.x_gridSize - 1)
                     {
                         playfield[tilecounter].neighbourRight = playfield[tilecounter +1];
                     }
-                    if (tilecounter % x_gridSize > 0)
+                    if (tilecounter % MainForm.x_gridSize > 0)
                     {
                         playfield[tilecounter].neighbourLeft = playfield[tilecounter - 1];
                     }
-                    tilecounter++;
-                    
+                    tilecounter++;                   
                 }
             }
                 //Draw the hero on the field
@@ -166,6 +162,23 @@ namespace Vang_de_volger
             }
                 picture.Image = _buffer;
         }
+
+        /*
+        public void Draw(PictureBox picture)
+        {
+            _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
+            using (Graphics graphics = Graphics.FromImage(_buffer))
+            {
+                for(int i = 0; i < boxRatio; i++)
+                {
+                    graphics.DrawImage(_box[i].myImage, _box[i].pointTracker.X, _box[i].pointTracker.Y, _box[i].myImage.Size.Width, _box[i].myImage.Size.Height);
+                }
+                graphics.DrawImage(_heroImage, heroPosition.X, heroPosition.Y, _heroImage.Size.Width, _heroImage.Size.Height);
+                graphics.DrawImage(_villainImage, villainPosition.X, villainPosition.Y, _villainImage.Size.Width, _villainImage.Size.Height);
+            }
+            picture.Image = _buffer;
+        }
+        */
 
         public void Move_check_field(string direction)
         {

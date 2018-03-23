@@ -13,19 +13,38 @@ namespace Vang_de_volger
     public partial class MainForm : Form
     {
         Field _playZone = new Field();
+        int villainMoveInterval = 500; //interval at which villain moves in milliseconds
+        Timer timerVillainMove = new Timer();
+        public const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
+        public const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field
+        public const int tileSize = 40;
+        
+        Size pbSize;
+
         public MainForm()
         {
             InitializeComponent();
+            pbSize = new Size(x_gridSize * tileSize, x_gridSize * tileSize);
+            pbLevel.Size = pbSize;
+            timerVillainMove.Interval = villainMoveInterval;
+            timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
         }
 
 
+
+        public void TimerVillainMove_Tick(object sender, EventArgs e)
+        {
+            //Make the villain do funky stuff
+
+        }
+
         public void GenerateField()
         {
+            this.Invalidate();
             _playZone.CreateTiles();
             _playZone.ShuffleTiles();
-            _playZone.CreateField(this);
-            this.Invalidate();
+            _playZone.CreateField(this,pbLevel);
             this.Refresh();
         }
 
@@ -50,5 +69,9 @@ namespace Vang_de_volger
         }
 
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //_playZone.Draw();
+        }
     }
 }

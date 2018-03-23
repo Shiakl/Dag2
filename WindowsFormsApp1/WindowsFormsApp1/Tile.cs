@@ -8,9 +8,8 @@ using System.Windows.Forms;
 
 namespace Vang_de_volger
 {
-    class Tile : Field
-    {
-        public const int tileSize = 40;
+    class Tile
+    {       
 
         public enum TILETYPE
         {
@@ -49,19 +48,19 @@ namespace Vang_de_volger
         {
             if (direction.Equals("Left") && moveArray[0] == true)
             {
-                heroPoint.X += tileSize;
+                heroPoint.X += MainForm.tileSize;
             }
             else if (direction.Equals("Right") && moveArray[1] == true)
             {
-                heroPoint.X += tileSize;
+                heroPoint.X += MainForm.tileSize;
             }
             else if (direction.Equals("Up") && moveArray[2] == true)
             {
-                heroPoint.Y -= tileSize;
+                heroPoint.Y -= MainForm.tileSize;
             }
             else if (direction.Equals("Down") && moveArray[3] == true)
             {
-                heroPoint.Y += tileSize;
+                heroPoint.Y += MainForm.tileSize;
             }
         }
 
