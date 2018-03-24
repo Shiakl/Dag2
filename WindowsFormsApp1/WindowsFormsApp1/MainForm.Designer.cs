@@ -64,6 +64,7 @@
             this.Name = "MainForm";
             this.Text = "Vang de volger";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.pbLevel)).EndInit();
             this.ResumeLayout(false);
 

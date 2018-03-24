@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Vang_de_volger
 {
@@ -13,29 +14,36 @@ namespace Vang_de_volger
             myImage = Image.FromFile(@"..\..\Resources\HeroTemp.png");
             pointTracker = new Point();
         }
-        public void KeyBoardMove()
+        public void KeyBoardMove(object sender, KeyEventArgs e)
         {
-            /*
-             void Form1_KeyPress(object sender, KeyPressEventArgs e)
-                {
-                    if (e.KeyChar >= 48 && e.KeyChar <= 57)
-                    {
-                        MessageBox.Show("Form.KeyPress: '" +
-                            e.KeyChar.ToString() + "' pressed.");
-
-                        switch (e.KeyChar)
-                        {
-                            case (char)49:
-                            case (char)52:
-                            case (char)55:
-                                MessageBox.Show("Form.KeyPress: '" +
-                                    e.KeyChar.ToString() + "' consumed.");
-                                e.Handled = true;
-                                break;
-                        }
-                    }
-                }
-             */
+            if (e.KeyCode == Keys.Up)
+            {
+                //Add point
+                Tile_check_movement("Up"); //Add Tile checker
+                //Add point changer
+                //Add redraw event caller
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                //Add point
+                Tile_check_movement("Down"); //Add Tile checker
+                //Add point changer
+                //Add redraw event caller
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                //Add point
+                Tile_check_movement("Right"); //Add Tile checker
+                //Add point changer
+                //Add redraw event caller
+            }
+            else if (e.KeyCode == Keys.Left)
+            {
+                //Add point
+                Tile_check_movement("Left"); //Add Tile checker
+                //Add point changer
+                //Add redraw event caller
+            }
         }
     }
 }
