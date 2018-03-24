@@ -110,44 +110,44 @@ namespace Vang_de_volger
                 _box = new Box[boxRatio];
                 int boxcounter = 0;
                 for (int y = 0; y < MainForm.y_gridSize; y++)
-            {
-                for (int x = 0; x < MainForm.x_gridSize; x++)
                 {
-                    playfield[tilecounter].Check_Tile_Type();
+                    for (int x = 0; x < MainForm.x_gridSize; x++)
+                    {
+                        playfield[tilecounter].Check_Tile_Type();
 
-                    //Add positions of each tile to the Point Array
-                    tileLocation[tilecounter] = new Point(x * MainForm.tileSize, y * MainForm.tileSize);
-                    //Draw each tile
-                    graphics.DrawImage(playfield[tilecounter].myImage, tileLocation[tilecounter].X, tileLocation[tilecounter].Y, MainForm.tileSize, MainForm.tileSize);
+                        //Add positions of each tile to the Point Array
+                        tileLocation[tilecounter] = new Point(x * MainForm.tileSize, y * MainForm.tileSize);
+                        //Draw each tile
+                        graphics.DrawImage(playfield[tilecounter].myImage, tileLocation[tilecounter].X, tileLocation[tilecounter].Y, MainForm.tileSize, MainForm.tileSize);
 
-                    if (playfield[tilecounter].MyType == Tile.TILETYPE.BOX)
-                    {
-                        _box[boxcounter] = new Box();
-                        _box[boxcounter].pointTracker = tileLocation[tilecounter];
-                        graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
-                        boxcounter++;
-                    }
+                        if (playfield[tilecounter].MyType == Tile.TILETYPE.BOX)
+                        {
+                            _box[boxcounter] = new Box();
+                            _box[boxcounter].pointTracker = tileLocation[tilecounter];
+                            graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
+                            boxcounter++;
+                        }
 
-                    //Add neighbours to Array in Tile Class
-                    if (tilecounter > MainForm.x_gridSize -1)
-                    {
-                        playfield[tilecounter].neighbourTop = playfield[tilecounter - MainForm.x_gridSize];
+                        //Add neighbours to Array in Tile Class
+                        if (tilecounter > MainForm.x_gridSize -1)
+                        {
+                            playfield[tilecounter].neighbourTop = playfield[tilecounter - MainForm.x_gridSize];
+                        }
+                        if (tilecounter<NUM_OF_TILES-1- MainForm.x_gridSize)
+                        {
+                            playfield[tilecounter].neighbourBottom = playfield[tilecounter + MainForm.x_gridSize];
+                        }
+                        if (tilecounter % MainForm.x_gridSize < MainForm.x_gridSize - 1)
+                        {
+                            playfield[tilecounter].neighbourRight = playfield[tilecounter +1];
+                        }
+                        if (tilecounter % MainForm.x_gridSize > 0)
+                        {
+                            playfield[tilecounter].neighbourLeft = playfield[tilecounter - 1];
+                        }
+                        tilecounter++;                   
                     }
-                    if (tilecounter<NUM_OF_TILES-1- MainForm.x_gridSize)
-                    {
-                        playfield[tilecounter].neighbourBottom = playfield[tilecounter + MainForm.x_gridSize];
-                    }
-                    if (tilecounter % MainForm.x_gridSize < MainForm.x_gridSize - 1)
-                    {
-                        playfield[tilecounter].neighbourRight = playfield[tilecounter +1];
-                    }
-                    if (tilecounter % MainForm.x_gridSize > 0)
-                    {
-                        playfield[tilecounter].neighbourLeft = playfield[tilecounter - 1];
-                    }
-                    tilecounter++;                   
                 }
-            }
                 //Draw the hero on the field
                 heroPosition.X = tileLocation[0].X; heroPosition.Y = tileLocation[0].Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
@@ -182,8 +182,11 @@ namespace Vang_de_volger
 
         public void Move_check_field(string direction)
         {
-            heroTile.Tile_check_movement(heroPosition, direction);
-
+            using (Graphics graphics = Graphics.FromImage(_buffer))
+            {
+                heroTile.Tile_check_movement(heroPosition, direction);
+                graphics.DrawImage(_heroImage, heroPosition.X, heroPosition.Y, _heroImage.Size.Width, _heroImage.Size.Height);
+            }
         }
 
         public void Villain_random_move()
