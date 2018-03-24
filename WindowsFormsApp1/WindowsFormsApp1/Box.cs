@@ -10,6 +10,7 @@ namespace Vang_de_volger
 
         
 
+
         //Constructor
         public Box()
         {
