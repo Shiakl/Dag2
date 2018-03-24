@@ -71,7 +71,8 @@ namespace Vang_de_volger
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //_playZone.Draw();
+            GenerateField();
+           // _playZone.Draw(pbLevel);
         }
     }
 }
