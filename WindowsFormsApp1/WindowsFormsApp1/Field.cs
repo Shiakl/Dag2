@@ -163,7 +163,7 @@ namespace Vang_de_volger
                 picture.Image = _buffer;
         }
 
-        /*
+        
         public void Draw(PictureBox picture)
         {
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
@@ -178,7 +178,7 @@ namespace Vang_de_volger
             }
             picture.Image = _buffer;
         }
-        */
+        
 
         public void Move_check_field(string direction)
         {
