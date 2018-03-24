@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vang_de_volger", "WindowsFormsApp1\Vang_de_volger.csproj", "{F42BDB4C-1F4D-4D5D-A813-8FDF7A3E592E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBZ", "..\..\DBZv0.11\WindowsFormsApplication2\WindowsFormsApplication2\DBZ.csproj", "{9639AD87-E45F-4578-8485-5ABA5BC052BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F42BDB4C-1F4D-4D5D-A813-8FDF7A3E592E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F42BDB4C-1F4D-4D5D-A813-8FDF7A3E592E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F42BDB4C-1F4D-4D5D-A813-8FDF7A3E592E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9639AD87-E45F-4578-8485-5ABA5BC052BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9639AD87-E45F-4578-8485-5ABA5BC052BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9639AD87-E45F-4578-8485-5ABA5BC052BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9639AD87-E45F-4578-8485-5ABA5BC052BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

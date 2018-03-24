@@ -68,10 +68,16 @@ namespace Vang_de_volger
             }
         }
 
-
+        //Spacebar activates this function as well
         private void button1_Click(object sender, EventArgs e)
         {
             //_playZone.Draw();
+            GenerateField();
+        }
+
+        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
         }
     }
 }
