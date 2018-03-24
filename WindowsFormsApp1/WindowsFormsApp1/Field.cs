@@ -178,14 +178,20 @@ namespace Vang_de_volger
             }
             picture.Image = _buffer;
         }
-        
+
+        public void Swap_contain(Tile old_Tile, Tile new_Tile)
+        {
+            Tile temp_Tile = new Tile { MyType = old_Tile.MyType };
+
+            old_Tile.MyType = Tile.TILETYPE.TILE;
+            new_Tile.MyType = temp_Tile.MyType;
+        }
 
         public void Move_check_field(string direction)
         {
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
                 heroTile.Tile_check_movement(heroPosition, direction);
-                graphics.DrawImage(_heroImage, heroPosition.X, heroPosition.Y, _heroImage.Size.Width, _heroImage.Size.Height);
             }
         }
 
@@ -193,6 +199,8 @@ namespace Vang_de_volger
         {
 
         }
+
+        
 
     }
 
