@@ -38,6 +38,9 @@ namespace Vang_de_volger
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
         int boxRatio = NUM_OF_TILES / 5;
+
+        public Tile.TILETYPE MyType { get; private set; }
+
         public void CreateTiles()
         {
             int i = 0;
@@ -185,6 +188,25 @@ namespace Vang_de_volger
 
             old_Tile.MyType = Tile.TILETYPE.TILE;
             new_Tile.MyType = temp_Tile.MyType;
+        }
+
+        public void Tile_handler()
+        {
+            if(MyType == Tile.TILETYPE.TILE)
+            {
+                //Potential fix: work with enum TILETYPE numbers instead of variable names
+                Tile old_Tile = Tile.TILETYPE.TILE;
+                Tile new_Tile = Tile.TILETYPE.HERO;
+
+                Swap_contain(old_Tile, new_Tile);
+
+            }
+            else if (MyType == Tile.TILETYPE.BLOCK)
+            {
+                //Stop movement function
+
+            }
+            //Add extra type handlers after functionality tests 
         }
 
         public void Move_check_field(string direction)

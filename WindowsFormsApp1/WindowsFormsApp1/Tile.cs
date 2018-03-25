@@ -49,6 +49,7 @@ namespace Vang_de_volger
             if (direction.Equals("Left") && moveArray[0] == true)
             {
                 heroPoint.X += MainForm.tileSize;
+                
             }
             else if (direction.Equals("Right") && moveArray[1] == true)
             {
