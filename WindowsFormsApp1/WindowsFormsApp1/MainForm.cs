@@ -42,8 +42,8 @@ namespace Vang_de_volger
         public void GenerateField()
         {
             this.Invalidate();
-            playZone.CreateTiles();
-            playZone.ShuffleTiles();
+           // playZone.CreateTiles();
+           // playZone.ShuffleTiles();
             playZone.CreateField(this,pbLevel);
             this.Refresh();
         }
