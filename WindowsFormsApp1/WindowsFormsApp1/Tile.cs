@@ -10,6 +10,8 @@ namespace Vang_de_volger
 {
     class Tile
     {       
+        public Image myImage;
+        public Point pointTracker;
 
         public enum TILETYPE
         {
@@ -23,9 +25,9 @@ namespace Vang_de_volger
         public Tile()
         {
             myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
+            pointTracker = new Point();
         }
 
-        public Image myImage;
 
         public void Check_Tile_Type()
         {
@@ -36,12 +38,7 @@ namespace Vang_de_volger
             else if (MyType == TILETYPE.TILE)
             {
                 myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
-            }
-            else if (MyType == TILETYPE.BOX)
-            {
-                myImage = Image.FromFile(@"..\..\Resources\Box.png");
-            }
-           
+            }          
         }
 
         public void Tile_check_movement(Point heroPoint, String direction)
@@ -66,21 +63,6 @@ namespace Vang_de_volger
 
         public TILETYPE MyType { get; set; }
 
-        private string _contains;
-        public string Contains
-        {
-            get
-            {
-                return _contains;
-            }
-            set
-            {
-                _contains = value;
-            }
-        }
-
-
-
         private Tile[] _myNeighbours = new Tile[4];
         public Tile neighbourLeft;
         public Tile neighbourRight;
@@ -95,15 +77,16 @@ namespace Vang_de_volger
         }
 
         public bool[] moveArray = new bool[4];
+
         private void Possible_moves()
         {
             for(int i = 0; i < 4; i++)
             {
-               if( _myNeighbours[i].MyType == TILETYPE.BLOCK)
+               if( _myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i]== null)
                 {
                     moveArray[i] = false;
                 }
-                else if (_myNeighbours[i].MyType == TILETYPE.TILE)
+                else
                 {
                     moveArray[i] = true;
                 }

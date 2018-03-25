@@ -17,24 +17,19 @@ namespace Vang_de_volger
         public Bitmap _buffer; //Bitmap that draws the field
         public Bitmap _unitBuffer; //Bitmap that draws the field
         public Size bufferSize; //Size of the bitmap
-        private Image _heroImage = Image.FromFile(@"..\..\Resources\HeroTemp.png");
         public Point heroPosition = new Point(); //Position of the Hero
         public Tile heroTile;
-        private Image _villainImage = Image.FromFile(@"..\..\Resources\VillainTemp.png");
         public Point villainPosition = new Point(); //Position of the Villain
         public Tile villainTile;
-        private Point[] tileLocation = new Point[NUM_OF_TILES]; //Array holding all tile position
+         Hero mouse = new Hero();
+         Villain slime = new Villain();
 
         //Constructor
         public Field()
         {
             playfield = new Tile[NUM_OF_TILES];
-            mouse = new Hero();
-            slime = new Villain();
         }
 
-        Hero mouse;
-        Villain slime;
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
         int boxRatio = NUM_OF_TILES / 5;
@@ -94,15 +89,10 @@ namespace Vang_de_volger
             //Create buffering bitmap
             bufferSize = new Size(MainForm.x_gridSize * MainForm.tileSize, MainForm.x_gridSize * MainForm.tileSize);
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
-            /*
-            var picture = new PictureBox
-            {
-                Name = "FieldBox",
-                Size = new Size(bufferSize.Width, bufferSize.Height),
-                Location = new Point(0, 0),
-            };
-            PlayForm.Controls.Add(picture);
-            */
+            _unitBuffer = new Bitmap(bufferSize.Width, bufferSize.Height);
+
+
+
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
                 //Create a grid of pictureboxes
@@ -114,16 +104,16 @@ namespace Vang_de_volger
                     for (int x = 0; x < MainForm.x_gridSize; x++)
                     {
                         playfield[tilecounter].Check_Tile_Type();
+                        playfield[tilecounter].pointTracker.X = x * MainForm.tileSize;
+                        playfield[tilecounter].pointTracker.Y = y * MainForm.tileSize;
 
-                        //Add positions of each tile to the Point Array
-                        tileLocation[tilecounter] = new Point(x * MainForm.tileSize, y * MainForm.tileSize);
                         //Draw each tile
-                        graphics.DrawImage(playfield[tilecounter].myImage, tileLocation[tilecounter].X, tileLocation[tilecounter].Y, MainForm.tileSize, MainForm.tileSize);
+                        graphics.DrawImage(playfield[tilecounter].myImage, playfield[tilecounter].pointTracker.X, playfield[tilecounter].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
 
                         if (playfield[tilecounter].MyType == Tile.TILETYPE.BOX)
                         {
                             _box[boxcounter] = new Box();
-                            _box[boxcounter].pointTracker = tileLocation[tilecounter];
+                            _box[boxcounter].pointTracker = playfield[tilecounter].pointTracker;
                             graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
                             boxcounter++;
                         }
@@ -149,15 +139,15 @@ namespace Vang_de_volger
                     }
                 }
                 //Draw the hero on the field
-                heroPosition.X = tileLocation[0].X; heroPosition.Y = tileLocation[0].Y;
+                heroPosition.X = playfield[0].pointTracker.X; heroPosition.Y = playfield[0].pointTracker.Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
                 playfield[0] = heroTile;
-                villainPosition.X = tileLocation[NUM_OF_TILES-1].X; villainPosition.Y = tileLocation[NUM_OF_TILES-1].Y;
+                villainPosition.X = playfield[NUM_OF_TILES-1].pointTracker.X; villainPosition.Y = playfield[NUM_OF_TILES-1].pointTracker.Y;
                 playfield[NUM_OF_TILES-1].MyType = Tile.TILETYPE.VILLAIN;
                 playfield[NUM_OF_TILES-1] = villainTile;
 
-                graphics.DrawImage(_heroImage, heroPosition.X, heroPosition.Y, _heroImage.Size.Width, _heroImage.Size.Height);
-                graphics.DrawImage(_villainImage, villainPosition.X, villainPosition.Y, _villainImage.Size.Width, _villainImage.Size.Height);
+                graphics.DrawImage(mouse.myImage, mouse.pointTracker.X, mouse.pointTracker.Y, mouse.myImage.Size.Width, mouse.myImage.Size.Height);
+                graphics.DrawImage(slime.myImage, villainPosition.X, villainPosition.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
 
             }
                 picture.Image = _buffer;
@@ -173,8 +163,8 @@ namespace Vang_de_volger
                 {
                     graphics.DrawImage(_box[i].myImage, _box[i].pointTracker.X, _box[i].pointTracker.Y, _box[i].myImage.Size.Width, _box[i].myImage.Size.Height);
                 }
-                graphics.DrawImage(_heroImage, heroPosition.X, heroPosition.Y, _heroImage.Size.Width, _heroImage.Size.Height);
-                graphics.DrawImage(_villainImage, villainPosition.X, villainPosition.Y, _villainImage.Size.Width, _villainImage.Size.Height);
+                graphics.DrawImage(mouse.myImage, mouse.pointTracker.X, mouse.pointTracker.Y, mouse.myImage.Size.Width, mouse.myImage.Size.Height);
+                graphics.DrawImage(slime.myImage, villainPosition.X, villainPosition.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
             }
             picture.Image = _buffer;
         }
@@ -195,9 +185,36 @@ namespace Vang_de_volger
             }
         }
 
-        public void Villain_random_move()
-        {
 
+        public void Find_Villain_Tile()
+        {
+            for (int i = 0; i < NUM_OF_TILES; i++)
+            {
+                if (playfield[i].MyType == Tile.TILETYPE.VILLAIN)
+                {
+                    Villain_random_move(playfield[i]);
+                }
+            }
+        }
+
+        private void Villain_random_move(Tile villainTile)
+        {
+            int move_Numbers = 0;
+            int arraycount = 0;
+            string[] directions = new string[4] {"Left","Right","Top","Bottom" };
+            string[] possible_Directions = new string[4];
+            for (int a = 0; a < villainTile.moveArray.Length; a++)
+            {
+                if (villainTile.moveArray[a] == true)
+                {
+                    possible_Directions[arraycount] = directions[a];
+                    arraycount++;
+                }
+            }
+
+            Random rndDirection = new Random();
+            int villain_Direction = rndDirection.Next(0,arraycount);
+            string chosen_Random_Direction = possible_Directions[villain_Direction];
         }
 
         
