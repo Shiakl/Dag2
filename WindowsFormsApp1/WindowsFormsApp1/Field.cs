@@ -179,6 +179,14 @@ namespace Vang_de_volger
             picture.Image = _buffer;
         }
         
+        public void swap_contain(Tile old_Tile, Tile new_Tile)
+        {
+            Tile temp_Tile = new Tile { MyType = old_Tile.MyType};
+
+            old_Tile.MyType = Tile.TILETYPE.TILE;
+            new_Tile.MyType = temp_Tile.MyType;
+        }
+
 
         public void Move_check_field(string direction)
         {
