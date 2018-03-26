@@ -38,7 +38,6 @@ namespace Vang_de_volger
 
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
-
         int boxRatio = NUM_OF_TILES / 5;
 
         void ButtonClick(object sender, EventArgs e)
@@ -125,7 +124,6 @@ namespace Vang_de_volger
                             graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
                             boxcounter++;
                         }
-
                         tilecounter++;
                     }
                 }
@@ -156,12 +154,11 @@ namespace Vang_de_volger
                 //Draw the hero on the field
                 slime.pointTracker.X = playfield[0].pointTracker.X; slime.pointTracker.Y = playfield[0].pointTracker.Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
+                villainTile = playfield[NUM_OF_TILES - 1];
                 slime.pointTracker.X = playfield[NUM_OF_TILES - 1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES - 1].pointTracker.Y;
                 playfield[NUM_OF_TILES - 1].MyType = Tile.TILETYPE.VILLAIN;
-
                 graphics.DrawImage(mouse.myImage, mouse.pointTracker.X, mouse.pointTracker.Y, mouse.myImage.Size.Width, mouse.myImage.Size.Height);
                 graphics.DrawImage(slime.myImage, slime.pointTracker.X, slime.pointTracker.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
-
             }
             picture.Image = _buffer;
         }
@@ -191,7 +188,7 @@ namespace Vang_de_volger
             picture.Image = _buffer;
         }
 
-        public void Swap_contain(Tile old_Tile, Tile new_Tile)
+        public void Swap_MyType(Tile old_Tile, Tile new_Tile)
         {
             Point temppPoint = new Point(0, 0);
             Tile temp_Tile = new Tile(Tile.TILETYPE.TILE, temppPoint, Image.FromFile(@"..\..\Resources\Tile.jpg"));
@@ -201,6 +198,7 @@ namespace Vang_de_volger
             new_Tile.MyType = temp_Tile.MyType;
         }
 
+        /*
         public void Move_check_field(string direction)
         {
             using (Graphics graphics = Graphics.FromImage(_buffer))
@@ -208,36 +206,78 @@ namespace Vang_de_volger
                 heroTile.Tile_check_movement(mouse.pointTracker, direction);
             }
         }
+        */
 
-
+        string chosen_Random_Direction;
+        string[] possible_Directions = new string[4];
         public void Villain_random_move(Tile villainTile)
         {
-            villainTile = playfield[NUM_OF_TILES - 1];
             villainTile.Possible_moves_villain();
             int move_Numbers = 0;
             int arraycount = 0;
-            string[] possible_Directions = new string[4];
             for (int a = 0; a < villainTile.moveArray.Length; a++)
             {
                 if (villainTile.moveArrayVillain[a] == true)
                 {
-                    possible_Directions[arraycount] = villainTile.directions[a];
-                    arraycount++;
+                        possible_Directions[arraycount] = villainTile.all_Directions[a];
+                        arraycount++;     
                 }
             }
 
             Random rndDirection = new Random();
             int villain_Direction = rndDirection.Next(0, arraycount);
-            string chosen_Random_Direction = possible_Directions[villain_Direction];
-            villainTile.Villain_Move(chosen_Random_Direction);
-            slime.pointTracker.X -= MainForm.tileSize;
-            Swap_contain(villainTile, villainTile.NeighbourLeft);
+            chosen_Random_Direction = possible_Directions[villain_Direction];
+
+            Move_Unit(slime,chosen_Random_Direction, villainTile);
         }
 
-        int move_index = 0;
-        public void testVillainMove(PictureBox picturet)
+        int move_count;
+        public bool villain_Lose()
         {
-            Draw(picturet);
+            villainTile.Possible_moves_villain();
+            move_count = 0;
+            for(int cc = 0; cc < 4; cc++)
+            {
+                if (villainTile.moveArrayVillain[cc] == false)
+                {
+                    move_count++;
+                }
+            }
+            if (move_count== 4)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        //Changes the unit's point according to the move executed. Note: Use swap contain after to notify the tile the unit it's on that it has moved.
+        public void Move_Unit(Villain unit, string direction,Tile unitTile)
+        {
+            //unit.pointTracker.X -= MainForm.tileSize;
+            if (direction.Equals(unitTile.all_Directions[0]))
+            {
+                unit.pointTracker.X -= MainForm.tileSize;
+                Swap_MyType(unitTile, unitTile.NeighbourLeft);
+                villainTile = unitTile.neighbourLeft;
+            }
+            else if (direction.Equals(unitTile.all_Directions[1]))
+            {
+                unit.pointTracker.X += MainForm.tileSize;
+                Swap_MyType(unitTile, unitTile.NeighbourRight);
+                villainTile = unitTile.neighbourRight;
+            }
+            else if (direction.Equals(unitTile.all_Directions[2]))
+            {
+                unit.pointTracker.Y -= MainForm.tileSize;
+                Swap_MyType(unitTile, unitTile.NeighbourTop);
+                villainTile = unitTile.neighbourTop;
+            }
+            else if (direction.Equals(unitTile.all_Directions[3]))
+            {
+                unit.pointTracker.Y += MainForm.tileSize;
+                Swap_MyType(unitTile, unitTile.NeighbourBottom);
+                villainTile = unitTile.neighbourBottom;
+            }
         }
     }
 }
