@@ -122,14 +122,18 @@ namespace Vang_de_volger
             {
                 if(_myNeighbours[i] != null)
                 {
-                if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i].MyType == TILETYPE.BOX)
-                {
-                    moveArrayVillain[i] = false;
-                }
-                else
-                {
-                    moveArrayVillain[i] = true;
-                }
+                    if (_myNeighbours[i].MyType == TILETYPE.HERO)
+                    {
+                        //Go to the hero
+                    }
+                    else if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i].MyType == TILETYPE.BOX)
+                    {
+                        moveArrayVillain[i] = false;
+                    }
+                    else
+                    {
+                        moveArrayVillain[i] = true;
+                    }
                 }
             }
         }
