@@ -12,7 +12,6 @@ namespace Vang_de_volger
     {       
         public Image myImage;
         public Point pointTracker;
-        string currentType;
         public string[] directions = new string[4] { "Left", "Right", "Top", "Bottom" };
 
         public Tile(TILETYPE type, Point firstPoint, Image baseImage)
@@ -109,13 +108,17 @@ namespace Vang_de_volger
         {
             for (int i = 0; i < 4; i++)
             {
-                if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i] == null|| _myNeighbours[i].MyType == TILETYPE.BOX)
+                if(_myNeighbours[i] != null)
+                {
+                if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i].MyType == TILETYPE.BOX)
                 {
                     moveArrayVillain[i] = false;
                 }
                 else
                 {
                     moveArrayVillain[i] = true;
+                }
+
                 }
             }
         }
