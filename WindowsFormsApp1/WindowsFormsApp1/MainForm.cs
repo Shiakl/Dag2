@@ -29,21 +29,29 @@ namespace Vang_de_volger
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
+            //timerVillainMove.Start();
         }
 
 
 
+        int testcounter = 0;
         public void TimerVillainMove_Tick(object sender, EventArgs e)
         {
-            playZone.Find_Villain_Tile();
-            playZone.Draw(pbLevel);
+                 playZone.Villain_random_move(playZone.villainTile);
+            //   playZone.Draw(pbLevel);
+               playZone.testVillainMove(pbLevel);
+
+            textBox1.Text = testcounter.ToString();
+            testcounter++;
+            this.Refresh();
         }
 
         public void GenerateField()
         {
             this.Invalidate();
-           // playZone.CreateTiles();
-           // playZone.ShuffleTiles();
+            // playZone.CreateTiles();
+            // playZone.ShuffleTiles();
+            playZone.Create_Tiles();
             playZone.CreateField(this,pbLevel);
             this.Refresh();
         }
@@ -83,6 +91,12 @@ namespace Vang_de_volger
         private void button2_Click(object sender, EventArgs e)
         {
             playZone.Draw(pbLevel);
+            //playZone.CreateField(this, pbLevel);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -8,9 +8,6 @@ namespace Vang_de_volger
         public Image myImage;
         public Point pointTracker;
 
-        
-
-
         //Constructor
         public Box()
         {

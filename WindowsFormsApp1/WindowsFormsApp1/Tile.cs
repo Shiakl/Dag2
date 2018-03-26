@@ -12,6 +12,15 @@ namespace Vang_de_volger
     {       
         public Image myImage;
         public Point pointTracker;
+        string currentType;
+        public string[] directions = new string[4] { "Left", "Right", "Top", "Bottom" };
+
+        public Tile()
+        {
+            //currentType = type;
+            myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
+            pointTracker = new Point();
+        }
 
         public enum TILETYPE
         {
@@ -21,13 +30,6 @@ namespace Vang_de_volger
             HERO,
             VILLAIN
         }
-
-        public Tile()
-        {
-            myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
-            pointTracker = new Point();
-        }
-
 
         public void Check_Tile_Type()
         {
@@ -77,6 +79,7 @@ namespace Vang_de_volger
         }
 
         public bool[] moveArray = new bool[4];
+        public bool[] moveArrayVillain = new bool[4];
 
         private void Possible_moves()
         {
@@ -89,6 +92,21 @@ namespace Vang_de_volger
                 else
                 {
                     moveArray[i] = true;
+                }
+            }
+        }
+
+        public void Possible_moves_villain()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i] == null|| _myNeighbours[i].MyType == TILETYPE.BOX)
+                {
+                    moveArrayVillain[i] = false;
+                }
+                else
+                {
+                    moveArrayVillain[i] = true;
                 }
             }
         }
@@ -141,5 +159,9 @@ namespace Vang_de_volger
             }
         }
 
+        public void Villain_Move(string direction)
+        {
+
+        }
     }
 }
