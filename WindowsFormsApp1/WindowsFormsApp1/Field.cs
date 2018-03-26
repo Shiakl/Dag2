@@ -150,7 +150,6 @@ namespace Vang_de_volger
                 //Draw the hero on the field
                 slime.pointTracker.X = playfield[0].pointTracker.X; slime.pointTracker.Y = playfield[0].pointTracker.Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
-                playfield[0] = heroTile;
                 slime.pointTracker.X = playfield[NUM_OF_TILES-1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES-1].pointTracker.Y;
                 playfield[NUM_OF_TILES-1].MyType = Tile.TILETYPE.VILLAIN;
 
@@ -168,15 +167,16 @@ namespace Vang_de_volger
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
-                /*
+                
                 //Draw Tiles               
                 for (int k = 0; k < NUM_OF_TILES; k++)
                 {
-                    graphics.DrawImage(Image.FromFile(@"..\..\Resources\Block.jpg"), 100,100, MainForm.tileSize, MainForm.tileSize);
+                    graphics.DrawImage(playfield[k].myImage, playfield[k].pointTracker.X, playfield[k].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
                     //playfield[k].pointTracker.X
                 }
-                */
+                
 
+                /*
                 for (int y = 0; y < MainForm.y_gridSize; y++)
                 {
                     for (int x = 0; x < MainForm.x_gridSize; x++)
@@ -184,6 +184,7 @@ namespace Vang_de_volger
                         graphics.DrawImage(Image.FromFile(@"..\..\Resources\Tile.jpg"), x * MainForm.tileSize, y * MainForm.tileSize, MainForm.tileSize, MainForm.tileSize);
                     }
                 }
+                */
             
 
             //Draw Boxes

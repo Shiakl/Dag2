@@ -29,7 +29,7 @@ namespace Vang_de_volger
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
-            //timerVillainMove.Start();
+            timerVillainMove.Start();
         }
 
 
@@ -49,8 +49,6 @@ namespace Vang_de_volger
         public void GenerateField()
         {
             this.Invalidate();
-            // playZone.CreateTiles();
-            // playZone.ShuffleTiles();
             playZone.Create_Tiles();
             playZone.CreateField(this,pbLevel);
             this.Refresh();
@@ -79,7 +77,6 @@ namespace Vang_de_volger
         //Spacebar activates this function as well
         private void button1_Click(object sender, EventArgs e)
         {
-            //_playZone.Draw();
             GenerateField();
         }
 
