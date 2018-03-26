@@ -40,53 +40,6 @@ namespace Vang_de_volger
         //Assign Type values to tiles in a Tile class array depending on playfield size
 
         int boxRatio = NUM_OF_TILES / 5;
-        /*
-        public void CreateTiles()
-        {
-            int i = 0;
-            double wallRatio = 0.05;
-            double tileRatio = 1 - wallRatio;
-            
-           while(i<NUM_OF_TILES)
-            {
-                if (i <= (NUM_OF_TILES* wallRatio) && i>0 )
-                {
-                    playfield[i] = new Tile { MyType = Tile.TILETYPE.BLOCK };
-                    i++;
-                }
-                else if(i<(NUM_OF_TILES * wallRatio + boxRatio)&& i >= (NUM_OF_TILES * wallRatio))
-                {
-                    playfield[i] = new Tile { MyType = Tile.TILETYPE.BOX};
-                    i++;
-                }
-                else
-                {
-                    playfield[i] = new Tile { MyType = Tile.TILETYPE.TILE };
-                    i++;
-                }
-            }
-        }
-
-        //Shuffle the Tiles class array
-        public void ShuffleTiles()
-        {
-            Random rndShuffle = new Random();
-            Tile tempTile;
-
-            //shuffle 100 times
-            for(int shuffle = 0; shuffle<100; shuffle++)
-            {
-                for(int i = 1; i < NUM_OF_TILES-1; i++)
-                {
-                    //swap 2 tiles
-                    int secondTileIndex = rndShuffle.Next(1, NUM_OF_TILES-2);
-                    tempTile = playfield[i];
-                    playfield[i] = playfield[secondTileIndex];
-                    playfield[secondTileIndex] = tempTile;
-                }
-            }
-        }
-        */
 
         void ButtonClick(object sender, EventArgs e)
         {
@@ -95,7 +48,7 @@ namespace Vang_de_volger
 
         public void Create_Tiles()
         {
-            //Create the tiles and assign a type to them.
+            //Put MYTYPE values in an array
             int i = 0;
             double wallRatio = 0.05;
             double tileRatio = 1 - wallRatio;
@@ -135,7 +88,6 @@ namespace Vang_de_volger
                     typeArray_Tiles[randomTypeNR] = tempType;
                 }
             }
-
         }
 
         Point tempPoint;
@@ -174,6 +126,24 @@ namespace Vang_de_volger
                             boxcounter++;
                         }
 
+                        //Add neighbours to Array in Tile Class
+                        if (tilecounter > MainForm.x_gridSize - 1)
+                        {
+                            playfield[tilecounter].neighbourTop = playfield[tilecounter - MainForm.x_gridSize];
+                        }
+                        if (tilecounter < NUM_OF_TILES - 1 - MainForm.x_gridSize)
+                        {
+                            playfield[tilecounter].neighbourBottom = playfield[tilecounter + MainForm.x_gridSize];
+                        }
+                        if (tilecounter % MainForm.x_gridSize < MainForm.x_gridSize - 1)
+                        {
+                            playfield[tilecounter].neighbourRight = playfield[tilecounter + 1];
+                        }
+                        if (tilecounter % MainForm.x_gridSize > 0)
+                        {
+                            playfield[tilecounter].neighbourLeft = playfield[tilecounter - 1];
+                        }
+
                         tilecounter++;                   
                     }
                 }
@@ -198,15 +168,26 @@ namespace Vang_de_volger
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
-
+                /*
                 //Draw Tiles               
                 for (int k = 0; k < NUM_OF_TILES; k++)
                 {
-                    graphics.DrawImage(playfield[k].myImage, playfield[k].pointTracker.X, playfield[k].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
-                }            
-                
-                //Draw Boxes
-                for (int i = 0; i < boxRatio; i++)
+                    graphics.DrawImage(Image.FromFile(@"..\..\Resources\Block.jpg"), 100,100, MainForm.tileSize, MainForm.tileSize);
+                    //playfield[k].pointTracker.X
+                }
+                */
+
+                for (int y = 0; y < MainForm.y_gridSize; y++)
+                {
+                    for (int x = 0; x < MainForm.x_gridSize; x++)
+                    {
+                        graphics.DrawImage(Image.FromFile(@"..\..\Resources\Tile.jpg"), x * MainForm.tileSize, y * MainForm.tileSize, MainForm.tileSize, MainForm.tileSize);
+                    }
+                }
+            
+
+            //Draw Boxes
+            for (int i = 0; i < boxRatio; i++)
                 {
                     graphics.DrawImage(_box[i].myImage, _box[i].pointTracker.X, _box[i].pointTracker.Y, _box[i].myImage.Size.Width, _box[i].myImage.Size.Height);
                 }
@@ -271,8 +252,6 @@ namespace Vang_de_volger
             }
             picture.Image = _buffer;
         }
-
     }
-
 
 }

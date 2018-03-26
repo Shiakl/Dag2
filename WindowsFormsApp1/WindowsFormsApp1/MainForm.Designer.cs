@@ -47,6 +47,7 @@
             // 
             // pbLevel
             // 
+            this.pbLevel.BackColor = System.Drawing.Color.Transparent;
             this.pbLevel.Location = new System.Drawing.Point(3, 2);
             this.pbLevel.Name = "pbLevel";
             this.pbLevel.Size = new System.Drawing.Size(649, 507);
