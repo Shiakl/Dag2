@@ -138,7 +138,7 @@ namespace Vang_de_volger
 
         }
 
-
+        Point tempPoint;
         //Function for creating the field and all the tiles.
         public void CreateField(Form PlayForm,PictureBox picture)
         {
@@ -158,10 +158,10 @@ namespace Vang_de_volger
                 {
                     for (int x = 0; x < MainForm.x_gridSize; x++)
                     {
-                        playfield[tilecounter] = new Tile { MyType = typeArray_Tiles[tilecounter]};
+                        tempPoint.X = x * MainForm.tileSize;
+                        tempPoint.Y = y * MainForm.tileSize;
+                        playfield[tilecounter] = new Tile(typeArray_Tiles[tilecounter], tempPoint, Image.FromFile(@"..\..\Resources\Tile.jpg"));
                         playfield[tilecounter].Check_Tile_Type();
-                        playfield[tilecounter].pointTracker.X = x * MainForm.tileSize;
-                        playfield[tilecounter].pointTracker.Y = y * MainForm.tileSize;
 
                         //Draw each tile
                         graphics.DrawImage(playfield[tilecounter].myImage, playfield[tilecounter].pointTracker.X, playfield[tilecounter].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
@@ -172,24 +172,6 @@ namespace Vang_de_volger
                             _box[boxcounter].pointTracker = playfield[tilecounter].pointTracker;
                             graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
                             boxcounter++;
-                        }
-
-                        //Add neighbours to Array in Tile Class
-                        if (tilecounter > MainForm.x_gridSize - 1)
-                        {
-                            playfield[tilecounter].neighbourTop = playfield[tilecounter - MainForm.x_gridSize];
-                        }
-                        if (tilecounter < NUM_OF_TILES - 1 - MainForm.x_gridSize)
-                        {
-                            playfield[tilecounter].neighbourBottom = playfield[tilecounter + MainForm.x_gridSize];
-                        }
-                        if (tilecounter % MainForm.x_gridSize < MainForm.x_gridSize - 1)
-                        {
-                            playfield[tilecounter].neighbourRight = playfield[tilecounter + 1];
-                        }
-                        if (tilecounter % MainForm.x_gridSize > 0)
-                        {
-                            playfield[tilecounter].neighbourLeft = playfield[tilecounter - 1];
                         }
 
                         tilecounter++;                   
@@ -216,34 +198,13 @@ namespace Vang_de_volger
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
-                //Draw tiles
-                /*
-                for (int j = 0; j< NUM_OF_TILES;j++)
-                {
-                    for (int y = 0; y < MainForm.y_gridSize; y++)
-                    {
-                        for (int x = 0; x < MainForm.x_gridSize; x++)
-                        {
-                            //tilePoint[j].X = x * MainForm.tileSize;
-                            //tilePoint[j].Y = y * MainForm.tileSize;
-                            //testImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
-                            //graphics.DrawImage(testImage, x * MainForm.tileSize, y * MainForm.tileSize, MainForm.tileSize, MainForm.tileSize);
 
-                            Debug.WriteLine("Sysout1");
-                            //graphics.DrawImage(playfield[j].myImage, playfield[j].pointTracker.X, playfield[j].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
-
-                        }
-                    }
-                }
-                */
-
-                //Draw Tiles
+                //Draw Tiles               
                 for (int k = 0; k < NUM_OF_TILES; k++)
                 {
-                    //graphics.DrawImage(playfield[k].myImage, playfield[k].pointTracker.X, playfield[k].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
+                    graphics.DrawImage(playfield[k].myImage, playfield[k].pointTracker.X, playfield[k].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
                 }            
-
-
+                
                 //Draw Boxes
                 for (int i = 0; i < boxRatio; i++)
                 {
@@ -258,9 +219,11 @@ namespace Vang_de_volger
 
         public void Swap_contain(Tile old_Tile, Tile new_Tile)
         {
-            Tile temp_Tile = new Tile { MyType = old_Tile.MyType };
+            Point temppPoint = new Point(0,0);
+            Tile temp_Tile = new Tile (Tile.TILETYPE.TILE, temppPoint,Image.FromFile(@"..\..\Resources\Tile.jpg"));
 
-            old_Tile.MyType = Tile.TILETYPE.TILE;
+            temp_Tile.MyType = old_Tile.MyType;
+            old_Tile.MyType = new_Tile.MyType;
             new_Tile.MyType = temp_Tile.MyType;
         }
 
