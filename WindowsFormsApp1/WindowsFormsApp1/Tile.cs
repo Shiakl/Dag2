@@ -8,18 +8,26 @@ using System.Windows.Forms;
 
 namespace Vang_de_volger
 {
-    class Tile
+    class Tile: Unit
     {       
         public Image myImage;
         public Point pointTracker;
-        string currentType;
         public string[] directions = new string[4] { "Left", "Right", "Top", "Bottom" };
 
-        public Tile()
+        public Tile(TILETYPE type, Point firstPoint, Image baseImage)
         {
-            //currentType = type;
-            myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
-            pointTracker = new Point();
+            MyType = type;
+            Check_Tile_Type();
+            pointTracker = firstPoint;
+            myImage = baseImage;
+            if (MyType == TILETYPE.BLOCK)
+            {
+                myImage = Image.FromFile(@"..\..\Resources\Block.jpg");
+            }
+            else if (MyType == TILETYPE.TILE)
+            {
+                myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
+            }
         }
 
         public enum TILETYPE
@@ -100,13 +108,17 @@ namespace Vang_de_volger
         {
             for (int i = 0; i < 4; i++)
             {
-                if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i] == null|| _myNeighbours[i].MyType == TILETYPE.BOX)
+                if(_myNeighbours[i] != null)
+                {
+                if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i].MyType == TILETYPE.BOX)
                 {
                     moveArrayVillain[i] = false;
                 }
                 else
                 {
                     moveArrayVillain[i] = true;
+                }
+
                 }
             }
         }

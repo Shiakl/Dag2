@@ -49,8 +49,6 @@ namespace Vang_de_volger
         public void GenerateField()
         {
             this.Invalidate();
-            // playZone.CreateTiles();
-            // playZone.ShuffleTiles();
             playZone.Create_Tiles();
             playZone.CreateField(this,pbLevel);
             this.Refresh();
@@ -79,7 +77,6 @@ namespace Vang_de_volger
         //Spacebar activates this function as well
         private void button1_Click(object sender, EventArgs e)
         {
-            //_playZone.Draw();
             GenerateField();
         }
 
@@ -92,11 +89,18 @@ namespace Vang_de_volger
         {
             playZone.Draw(pbLevel);
             //playZone.CreateField(this, pbLevel);
+            textBox1.Text = testcounter.ToString();
+            testcounter++;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            timerVillainMove.Start();
         }
     }
 }

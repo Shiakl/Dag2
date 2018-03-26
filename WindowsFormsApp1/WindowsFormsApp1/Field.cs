@@ -11,7 +11,7 @@ namespace Vang_de_volger
 {
     class Field
     {
-        const int NUM_OF_TILES = MainForm.x_gridSize* MainForm.y_gridSize; //Number of tiles on the field
+        const int NUM_OF_TILES = MainForm.x_gridSize * MainForm.y_gridSize; //Number of tiles on the field
         private Tile[] playfield; //Tile class array
         private Box[] _box;
         public Image testImage;
@@ -19,12 +19,12 @@ namespace Vang_de_volger
         public Bitmap _buffer; //Bitmap that draws the field
         public Bitmap _unitBuffer; //Bitmap that draws the field
         public Size bufferSize; //Size of the bitmap
-       // public Point heroPosition = new Point(); //Position of the Hero
+                                // public Point heroPosition = new Point(); //Position of the Hero
         public Tile heroTile;
         //public Point villainPosition = new Point(); //Position of the Villain
         public Tile villainTile;
-         Hero mouse = new Hero();
-         Villain slime = new Villain();
+        Hero mouse = new Hero();
+        Villain slime = new Villain();
 
         public Point[] tilePoint = new Point[NUM_OF_TILES];
         private Tile.TILETYPE[] typeArray_Tiles = new Tile.TILETYPE[NUM_OF_TILES];
@@ -40,53 +40,6 @@ namespace Vang_de_volger
         //Assign Type values to tiles in a Tile class array depending on playfield size
 
         int boxRatio = NUM_OF_TILES / 5;
-        /*
-        public void CreateTiles()
-        {
-            int i = 0;
-            double wallRatio = 0.05;
-            double tileRatio = 1 - wallRatio;
-            
-           while(i<NUM_OF_TILES)
-            {
-                if (i <= (NUM_OF_TILES* wallRatio) && i>0 )
-                {
-                    playfield[i] = new Tile { MyType = Tile.TILETYPE.BLOCK };
-                    i++;
-                }
-                else if(i<(NUM_OF_TILES * wallRatio + boxRatio)&& i >= (NUM_OF_TILES * wallRatio))
-                {
-                    playfield[i] = new Tile { MyType = Tile.TILETYPE.BOX};
-                    i++;
-                }
-                else
-                {
-                    playfield[i] = new Tile { MyType = Tile.TILETYPE.TILE };
-                    i++;
-                }
-            }
-        }
-
-        //Shuffle the Tiles class array
-        public void ShuffleTiles()
-        {
-            Random rndShuffle = new Random();
-            Tile tempTile;
-
-            //shuffle 100 times
-            for(int shuffle = 0; shuffle<100; shuffle++)
-            {
-                for(int i = 1; i < NUM_OF_TILES-1; i++)
-                {
-                    //swap 2 tiles
-                    int secondTileIndex = rndShuffle.Next(1, NUM_OF_TILES-2);
-                    tempTile = playfield[i];
-                    playfield[i] = playfield[secondTileIndex];
-                    playfield[secondTileIndex] = tempTile;
-                }
-            }
-        }
-        */
 
         void ButtonClick(object sender, EventArgs e)
         {
@@ -95,7 +48,7 @@ namespace Vang_de_volger
 
         public void Create_Tiles()
         {
-            //Create the tiles and assign a type to them.
+            //Put MYTYPE values in an array
             int i = 0;
             double wallRatio = 0.05;
             double tileRatio = 1 - wallRatio;
@@ -135,12 +88,11 @@ namespace Vang_de_volger
                     typeArray_Tiles[randomTypeNR] = tempType;
                 }
             }
-
         }
 
-
+        Point tempPoint;
         //Function for creating the field and all the tiles.
-        public void CreateField(Form PlayForm,PictureBox picture)
+        public void CreateField(Form PlayForm, PictureBox picture)
         {
             //Create buffering bitmap
             bufferSize = new Size(MainForm.x_gridSize * MainForm.tileSize, MainForm.x_gridSize * MainForm.tileSize);
@@ -158,10 +110,10 @@ namespace Vang_de_volger
                 {
                     for (int x = 0; x < MainForm.x_gridSize; x++)
                     {
-                        playfield[tilecounter] = new Tile { MyType = typeArray_Tiles[tilecounter]};
+                        tempPoint.X = x * MainForm.tileSize;
+                        tempPoint.Y = y * MainForm.tileSize;
+                        playfield[tilecounter] = new Tile(typeArray_Tiles[tilecounter], tempPoint, Image.FromFile(@"..\..\Resources\Tile.jpg"));
                         playfield[tilecounter].Check_Tile_Type();
-                        playfield[tilecounter].pointTracker.X = x * MainForm.tileSize;
-                        playfield[tilecounter].pointTracker.Y = y * MainForm.tileSize;
 
                         //Draw each tile
                         graphics.DrawImage(playfield[tilecounter].myImage, playfield[tilecounter].pointTracker.X, playfield[tilecounter].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
@@ -174,11 +126,12 @@ namespace Vang_de_volger
                             boxcounter++;
                         }
 
-                        tilecounter++;                   
+                        tilecounter++;
                     }
                 }
 
-                for(int tc = 0; tc < NUM_OF_TILES; tc++)
+                //Add tile neighbours
+                for (int tc = 0; tc<NUM_OF_TILES;tc++)
                 {
                     //Add neighbours to Array in Tile Class
                     if (tc > MainForm.x_gridSize - 1)
@@ -199,21 +152,20 @@ namespace Vang_de_volger
                     }
                     playfield[tc].AddNeighbours();
                 }
+
                 //Draw the hero on the field
                 slime.pointTracker.X = playfield[0].pointTracker.X; slime.pointTracker.Y = playfield[0].pointTracker.Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
-                
-                slime.pointTracker.X = playfield[NUM_OF_TILES-1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES-1].pointTracker.Y;
-                playfield[NUM_OF_TILES-1].MyType = Tile.TILETYPE.VILLAIN;
+                slime.pointTracker.X = playfield[NUM_OF_TILES - 1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES - 1].pointTracker.Y;
+                playfield[NUM_OF_TILES - 1].MyType = Tile.TILETYPE.VILLAIN;
 
                 graphics.DrawImage(mouse.myImage, mouse.pointTracker.X, mouse.pointTracker.Y, mouse.myImage.Size.Width, mouse.myImage.Size.Height);
                 graphics.DrawImage(slime.myImage, slime.pointTracker.X, slime.pointTracker.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
 
             }
-                picture.Image = _buffer;
+            picture.Image = _buffer;
         }
 
-        
         //Method for redrawing the game
         public void Draw(PictureBox picture)
         {
@@ -221,12 +173,11 @@ namespace Vang_de_volger
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
 
-                //Draw Tiles
+                //Draw Tiles               
                 for (int k = 0; k < NUM_OF_TILES; k++)
                 {
                     graphics.DrawImage(playfield[k].myImage, playfield[k].pointTracker.X, playfield[k].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
-                }            
-
+                }
 
                 //Draw Boxes
                 for (int i = 0; i < boxRatio; i++)
@@ -242,9 +193,11 @@ namespace Vang_de_volger
 
         public void Swap_contain(Tile old_Tile, Tile new_Tile)
         {
-            Tile temp_Tile = new Tile { MyType = old_Tile.MyType };
+            Point temppPoint = new Point(0, 0);
+            Tile temp_Tile = new Tile(Tile.TILETYPE.TILE, temppPoint, Image.FromFile(@"..\..\Resources\Tile.jpg"));
 
-            old_Tile.MyType = Tile.TILETYPE.TILE;
+            temp_Tile.MyType = old_Tile.MyType;
+            old_Tile.MyType = new_Tile.MyType;
             new_Tile.MyType = temp_Tile.MyType;
         }
 
@@ -262,7 +215,7 @@ namespace Vang_de_volger
             villainTile = playfield[NUM_OF_TILES - 1];
             villainTile.Possible_moves_villain();
             int move_Numbers = 0;
-            int arraycount = 0;           
+            int arraycount = 0;
             string[] possible_Directions = new string[4];
             for (int a = 0; a < villainTile.moveArray.Length; a++)
             {
@@ -274,7 +227,7 @@ namespace Vang_de_volger
             }
 
             Random rndDirection = new Random();
-            int villain_Direction = rndDirection.Next(0,arraycount);
+            int villain_Direction = rndDirection.Next(0, arraycount);
             string chosen_Random_Direction = possible_Directions[villain_Direction];
             villainTile.Villain_Move(chosen_Random_Direction);
             slime.pointTracker.X -= MainForm.tileSize;
@@ -282,18 +235,9 @@ namespace Vang_de_volger
         }
 
         int move_index = 0;
-        public void testVillainMove(PictureBox picture)
+        public void testVillainMove(PictureBox picturet)
         {
-            move_index -= MainForm.tileSize;
-            _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
-            using (Graphics graphics = Graphics.FromImage(_buffer))
-            {
-                graphics.DrawImage(slime.myImage, slime.pointTracker.X+move_index, slime.pointTracker.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
-            }
-            picture.Image = _buffer;
+            Draw(picturet);
         }
-
     }
-
-
 }
