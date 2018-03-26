@@ -174,31 +174,35 @@ namespace Vang_de_volger
                             boxcounter++;
                         }
 
-                        //Add neighbours to Array in Tile Class
-                        if (tilecounter > MainForm.x_gridSize - 1)
-                        {
-                            playfield[tilecounter].neighbourTop = playfield[tilecounter - MainForm.x_gridSize];
-                        }
-                        if (tilecounter < NUM_OF_TILES - 1 - MainForm.x_gridSize)
-                        {
-                            playfield[tilecounter].neighbourBottom = playfield[tilecounter + MainForm.x_gridSize];
-                        }
-                        if (tilecounter % MainForm.x_gridSize < MainForm.x_gridSize - 1)
-                        {
-                            playfield[tilecounter].neighbourRight = playfield[tilecounter + 1];
-                        }
-                        if (tilecounter % MainForm.x_gridSize > 0)
-                        {
-                            playfield[tilecounter].neighbourLeft = playfield[tilecounter - 1];
-                        }
-
                         tilecounter++;                   
                     }
+                }
+
+                for(int tc = 0; tc < NUM_OF_TILES; tc++)
+                {
+                    //Add neighbours to Array in Tile Class
+                    if (tc > MainForm.x_gridSize - 1)
+                    {
+                        playfield[tc].neighbourTop = playfield[tc - MainForm.x_gridSize];
+                    }
+                    if (tc < NUM_OF_TILES - 1 - MainForm.x_gridSize)
+                    {
+                        playfield[tc].neighbourBottom = playfield[tc + MainForm.x_gridSize];
+                    }
+                    if (tc % MainForm.x_gridSize < MainForm.x_gridSize - 1)
+                    {
+                        playfield[tc].neighbourRight = playfield[tc + 1];
+                    }
+                    if (tc % MainForm.x_gridSize > 0)
+                    {
+                        playfield[tc].neighbourLeft = playfield[tc - 1];
+                    }
+                    playfield[tc].AddNeighbours();
                 }
                 //Draw the hero on the field
                 slime.pointTracker.X = playfield[0].pointTracker.X; slime.pointTracker.Y = playfield[0].pointTracker.Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
-                playfield[0] = heroTile;
+                
                 slime.pointTracker.X = playfield[NUM_OF_TILES-1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES-1].pointTracker.Y;
                 playfield[NUM_OF_TILES-1].MyType = Tile.TILETYPE.VILLAIN;
 
@@ -216,31 +220,11 @@ namespace Vang_de_volger
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
-                //Draw tiles
-                /*
-                for (int j = 0; j< NUM_OF_TILES;j++)
-                {
-                    for (int y = 0; y < MainForm.y_gridSize; y++)
-                    {
-                        for (int x = 0; x < MainForm.x_gridSize; x++)
-                        {
-                            //tilePoint[j].X = x * MainForm.tileSize;
-                            //tilePoint[j].Y = y * MainForm.tileSize;
-                            //testImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
-                            //graphics.DrawImage(testImage, x * MainForm.tileSize, y * MainForm.tileSize, MainForm.tileSize, MainForm.tileSize);
-
-                            Debug.WriteLine("Sysout1");
-                            //graphics.DrawImage(playfield[j].myImage, playfield[j].pointTracker.X, playfield[j].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
-
-                        }
-                    }
-                }
-                */
 
                 //Draw Tiles
                 for (int k = 0; k < NUM_OF_TILES; k++)
                 {
-                    //graphics.DrawImage(playfield[k].myImage, playfield[k].pointTracker.X, playfield[k].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
+                    graphics.DrawImage(playfield[k].myImage, playfield[k].pointTracker.X, playfield[k].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
                 }            
 
 
