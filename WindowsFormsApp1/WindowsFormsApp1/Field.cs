@@ -11,7 +11,7 @@ namespace Vang_de_volger
 {
     class Field
     {
-        const int NUM_OF_TILES = MainForm.x_gridSize* MainForm.y_gridSize; //Number of tiles on the field
+        const int NUM_OF_TILES = MainForm.x_gridSize * MainForm.y_gridSize; //Number of tiles on the field
         private Tile[] playfield; //Tile class array
         private Box[] _box;
         public Image testImage;
@@ -19,12 +19,12 @@ namespace Vang_de_volger
         public Bitmap _buffer; //Bitmap that draws the field
         public Bitmap _unitBuffer; //Bitmap that draws the field
         public Size bufferSize; //Size of the bitmap
-       // public Point heroPosition = new Point(); //Position of the Hero
+                                // public Point heroPosition = new Point(); //Position of the Hero
         public Tile heroTile;
         //public Point villainPosition = new Point(); //Position of the Villain
         public Tile villainTile;
-         Hero mouse = new Hero();
-         Villain slime = new Villain();
+        Hero mouse = new Hero();
+        Villain slime = new Villain();
 
         public Point[] tilePoint = new Point[NUM_OF_TILES];
         private Tile.TILETYPE[] typeArray_Tiles = new Tile.TILETYPE[NUM_OF_TILES];
@@ -92,7 +92,7 @@ namespace Vang_de_volger
 
         Point tempPoint;
         //Function for creating the field and all the tiles.
-        public void CreateField(Form PlayForm,PictureBox picture)
+        public void CreateField(Form PlayForm, PictureBox picture)
         {
             //Create buffering bitmap
             bufferSize = new Size(MainForm.x_gridSize * MainForm.tileSize, MainForm.x_gridSize * MainForm.tileSize);
@@ -126,69 +126,61 @@ namespace Vang_de_volger
                             boxcounter++;
                         }
 
-                        //Add neighbours to Array in Tile Class
-                        if (tilecounter > MainForm.x_gridSize - 1)
-                        {
-                            playfield[tilecounter].neighbourTop = playfield[tilecounter - MainForm.x_gridSize];
-                        }
-                        if (tilecounter < NUM_OF_TILES - 1 - MainForm.x_gridSize)
-                        {
-                            playfield[tilecounter].neighbourBottom = playfield[tilecounter + MainForm.x_gridSize];
-                        }
-                        if (tilecounter % MainForm.x_gridSize < MainForm.x_gridSize - 1)
-                        {
-                            playfield[tilecounter].neighbourRight = playfield[tilecounter + 1];
-                        }
-                        if (tilecounter % MainForm.x_gridSize > 0)
-                        {
-                            playfield[tilecounter].neighbourLeft = playfield[tilecounter - 1];
-                        }
-
-                        tilecounter++;                   
+                        tilecounter++;
                     }
                 }
+
+                //Add tile neighbours
+                for (int tc = 0; tc<NUM_OF_TILES;tc++)
+                {
+                    //Add neighbours to Array in Tile Class
+                    if (tc > MainForm.x_gridSize - 1)
+                    {
+                        playfield[tc].neighbourTop = playfield[tc - MainForm.x_gridSize];
+                    }
+                    if (tc < NUM_OF_TILES - 1 - MainForm.x_gridSize)
+                    {
+                        playfield[tc].neighbourBottom = playfield[tc + MainForm.x_gridSize];
+                    }
+                    if (tc % MainForm.x_gridSize < MainForm.x_gridSize - 1)
+                    {
+                        playfield[tc].neighbourRight = playfield[tc + 1];
+                    }
+                    if (tc % MainForm.x_gridSize > 0)
+                    {
+                        playfield[tc].neighbourLeft = playfield[tc - 1];
+                    }
+                    playfield[tc].AddNeighbours();
+                }
+
                 //Draw the hero on the field
                 slime.pointTracker.X = playfield[0].pointTracker.X; slime.pointTracker.Y = playfield[0].pointTracker.Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
-                slime.pointTracker.X = playfield[NUM_OF_TILES-1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES-1].pointTracker.Y;
-                playfield[NUM_OF_TILES-1].MyType = Tile.TILETYPE.VILLAIN;
+                slime.pointTracker.X = playfield[NUM_OF_TILES - 1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES - 1].pointTracker.Y;
+                playfield[NUM_OF_TILES - 1].MyType = Tile.TILETYPE.VILLAIN;
 
                 graphics.DrawImage(mouse.myImage, mouse.pointTracker.X, mouse.pointTracker.Y, mouse.myImage.Size.Width, mouse.myImage.Size.Height);
                 graphics.DrawImage(slime.myImage, slime.pointTracker.X, slime.pointTracker.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
 
             }
-                picture.Image = _buffer;
+            picture.Image = _buffer;
         }
 
-        
         //Method for redrawing the game
         public void Draw(PictureBox picture)
         {
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
-                
+
                 //Draw Tiles               
                 for (int k = 0; k < NUM_OF_TILES; k++)
                 {
                     graphics.DrawImage(playfield[k].myImage, playfield[k].pointTracker.X, playfield[k].pointTracker.Y, MainForm.tileSize, MainForm.tileSize);
-                    //playfield[k].pointTracker.X
                 }
-                
 
-                /*
-                for (int y = 0; y < MainForm.y_gridSize; y++)
-                {
-                    for (int x = 0; x < MainForm.x_gridSize; x++)
-                    {
-                        graphics.DrawImage(Image.FromFile(@"..\..\Resources\Tile.jpg"), x * MainForm.tileSize, y * MainForm.tileSize, MainForm.tileSize, MainForm.tileSize);
-                    }
-                }
-                */
-            
-
-            //Draw Boxes
-            for (int i = 0; i < boxRatio; i++)
+                //Draw Boxes
+                for (int i = 0; i < boxRatio; i++)
                 {
                     graphics.DrawImage(_box[i].myImage, _box[i].pointTracker.X, _box[i].pointTracker.Y, _box[i].myImage.Size.Width, _box[i].myImage.Size.Height);
                 }
@@ -201,8 +193,8 @@ namespace Vang_de_volger
 
         public void Swap_contain(Tile old_Tile, Tile new_Tile)
         {
-            Point temppPoint = new Point(0,0);
-            Tile temp_Tile = new Tile (Tile.TILETYPE.TILE, temppPoint,Image.FromFile(@"..\..\Resources\Tile.jpg"));
+            Point temppPoint = new Point(0, 0);
+            Tile temp_Tile = new Tile(Tile.TILETYPE.TILE, temppPoint, Image.FromFile(@"..\..\Resources\Tile.jpg"));
 
             temp_Tile.MyType = old_Tile.MyType;
             old_Tile.MyType = new_Tile.MyType;
@@ -223,7 +215,7 @@ namespace Vang_de_volger
             villainTile = playfield[NUM_OF_TILES - 1];
             villainTile.Possible_moves_villain();
             int move_Numbers = 0;
-            int arraycount = 0;           
+            int arraycount = 0;
             string[] possible_Directions = new string[4];
             for (int a = 0; a < villainTile.moveArray.Length; a++)
             {
@@ -235,7 +227,7 @@ namespace Vang_de_volger
             }
 
             Random rndDirection = new Random();
-            int villain_Direction = rndDirection.Next(0,arraycount);
+            int villain_Direction = rndDirection.Next(0, arraycount);
             string chosen_Random_Direction = possible_Directions[villain_Direction];
             villainTile.Villain_Move(chosen_Random_Direction);
             slime.pointTracker.X -= MainForm.tileSize;
@@ -243,16 +235,9 @@ namespace Vang_de_volger
         }
 
         int move_index = 0;
-        public void testVillainMove(PictureBox picture)
+        public void testVillainMove(PictureBox picturet)
         {
-            move_index -= MainForm.tileSize;
-            _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
-            using (Graphics graphics = Graphics.FromImage(_buffer))
-            {
-                graphics.DrawImage(slime.myImage, slime.pointTracker.X+move_index, slime.pointTracker.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
-            }
-            picture.Image = _buffer;
+            Draw(picturet);
         }
     }
-
 }

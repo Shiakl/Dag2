@@ -29,7 +29,7 @@ namespace Vang_de_volger
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
-            timerVillainMove.Start();
+            //timerVillainMove.Start();
         }
 
 
@@ -89,11 +89,18 @@ namespace Vang_de_volger
         {
             playZone.Draw(pbLevel);
             //playZone.CreateField(this, pbLevel);
+            textBox1.Text = testcounter.ToString();
+            testcounter++;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            timerVillainMove.Start();
         }
     }
 }
