@@ -203,7 +203,8 @@ namespace Vang_de_volger
         /// <summary>
         ///     Method for randomly moving the Villain.   
         /// </summary>
-        string chosen_Random_Direction;
+        string chosen_Random_Direction; //For the Villain
+        string chosen_Direction;        //For the hero
         string[] possible_Directions = new string[4];
         public void Villain_random_move(Tile villainTile)
         {
@@ -245,6 +246,18 @@ namespace Vang_de_volger
             return false;
         }
 
+        public void Hero_move(Tile heroTile, int hero_Direction)
+        {
+            heroTile.Possible_moves();
+            if(heroTile.moveArray[hero_Direction] == true)
+            {
+                chosen_Direction = heroTile.all_Directions[hero_Direction];
+                Move_Unit(player, chosen_Direction, heroTile);
+            }
+
+            
+        }
+
         //Changes the unit's point according to the move executed. Note: Use swap contain after to notify the tile the unit it's on that it has moved.
         public void Move_Unit(Unit unit, string direction,Tile unitTile)
         {
@@ -253,25 +266,25 @@ namespace Vang_de_volger
                 //unit.pointTracker.X -= MainForm.tileSize;
                 if (direction.Equals(unitTile.all_Directions[0]))
                 {
-                    unit.pointTracker.X -= MainForm.tileSize;
+                    enemy.pointTracker.X -= MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourLeft);
                     villainTile = unitTile.neighbourLeft;
                 }
                 else if (direction.Equals(unitTile.all_Directions[1]))
                 {
-                    unit.pointTracker.X += MainForm.tileSize;
+                    enemy.pointTracker.X += MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourRight);
                     villainTile = unitTile.neighbourRight;
                 }
                 else if (direction.Equals(unitTile.all_Directions[2]))
                 {
-                    unit.pointTracker.Y -= MainForm.tileSize;
+                    enemy.pointTracker.Y -= MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourTop);
                     villainTile = unitTile.neighbourTop;
                 }
                 else if (direction.Equals(unitTile.all_Directions[3]))
                 {
-                    unit.pointTracker.Y += MainForm.tileSize;
+                    enemy.pointTracker.Y += MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourBottom);
                     villainTile = unitTile.neighbourBottom;
                 }
@@ -281,27 +294,27 @@ namespace Vang_de_volger
                 //unit.pointTracker.X -= MainForm.tileSize;
                 if (direction.Equals(unitTile.all_Directions[0]))
                 {
-                    unit.pointTracker.X -= MainForm.tileSize;
+                    player.pointTracker.X -= MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourLeft);
-                    villainTile = unitTile.neighbourLeft;
+                    heroTile = unitTile.neighbourLeft;
                 }
                 else if (direction.Equals(unitTile.all_Directions[1]))
                 {
-                    unit.pointTracker.X += MainForm.tileSize;
+                    player.pointTracker.X += MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourRight);
-                    villainTile = unitTile.neighbourRight;
+                    heroTile = unitTile.neighbourRight;
                 }
                 else if (direction.Equals(unitTile.all_Directions[2]))
                 {
-                    unit.pointTracker.Y -= MainForm.tileSize;
+                    player.pointTracker.Y -= MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourTop);
-                    villainTile = unitTile.neighbourTop;
+                    heroTile = unitTile.neighbourTop;
                 }
                 else if (direction.Equals(unitTile.all_Directions[3]))
                 {
-                    unit.pointTracker.Y += MainForm.tileSize;
+                    player.pointTracker.Y += MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourBottom);
-                    villainTile = unitTile.neighbourBottom;
+                    heroTile = unitTile.neighbourBottom;
                 }
             }
             

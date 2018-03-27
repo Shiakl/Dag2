@@ -70,17 +70,20 @@ namespace Vang_de_volger
         public bool[] moveArray = new bool[4];
         public bool[] moveArrayVillain = new bool[4];
 
-        private void Possible_moves()
+        public void Possible_moves()
         {
             for(int i = 0; i < 4; i++)
             {
-               if( _myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i]== null)
-                {
-                    moveArray[i] = false;
-                }
-                else
-                {
-                    moveArray[i] = true;
+               if(_myNeighbours[i] != null)
+               {
+                    if (_myNeighbours[i].MyType == TILETYPE.BLOCK)
+                    {
+                        moveArray[i] = false;
+                    }
+                    else
+                    {
+                        moveArray[i] = true;
+                    }
                 }
             }
         }

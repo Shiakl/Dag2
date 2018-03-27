@@ -66,19 +66,23 @@ namespace Vang_de_volger
         {
             if (e.KeyCode == Keys.Left)
             {
-                
+                playZone.Hero_move(playZone.heroTile, 0);
+                playZone.Draw(pbLevel);
             }
             else if (e.KeyCode == Keys.Right)
             {
-        
+                playZone.Hero_move(playZone.heroTile, 1);
+                playZone.Draw(pbLevel);
             }
             else if (e.KeyCode == Keys.Up)
             {
-
+                playZone.Hero_move(playZone.heroTile, 2);
+                playZone.Draw(pbLevel);
             }
             else if (e.KeyCode == Keys.Down)
             {
-
+                playZone.Hero_move(playZone.heroTile, 3);
+                playZone.Draw(pbLevel);
             }
         }
 
