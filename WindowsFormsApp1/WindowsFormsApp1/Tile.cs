@@ -81,11 +81,31 @@ namespace Vang_de_volger
                     {
                         moveArray[i] = false;
                     }
+                    else if(_myNeighbours[i].MyType == TILETYPE.BOX)
+                    {
+                        moveArray[i] = Check_Again(_myNeighbours[i],i);
+                    }
                     else
                     {
                         moveArray[i] = true;
                     }
                 }
+            }
+        }
+
+        private bool Check_Again(Tile neighbourTile, int direction)
+        {
+           if(neighbourTile._myNeighbours[direction].MyType == TILETYPE.TILE)
+            {
+                return true;
+            }
+            else if (neighbourTile._myNeighbours[direction].MyType == TILETYPE.BOX)
+            {
+                Check_Again(neighbourTile,direction);
+            }
+            else
+            {
+                return false;
             }
         }
 
