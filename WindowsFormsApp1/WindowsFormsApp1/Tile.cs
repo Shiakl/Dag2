@@ -13,7 +13,6 @@ namespace Vang_de_volger
     {       
         public Image myImage;
         public Point pointTracker;
-        public string[] directions = new string[4] { "Left", "Right", "Top", "Bottom" };
 
         public Tile(TILETYPE type, Point firstPoint, Image baseImage)
         {
@@ -40,6 +39,18 @@ namespace Vang_de_volger
             VILLAIN
         }
 
+        public TILETYPE MyType { get; set; }
+
+        public enum DIRECTION
+        {
+            LEFT,
+            RIGHT,
+            UP,
+            DOWN
+        }
+
+        public DIRECTION Direction { get; set; }
+
         public void Check_Tile_Type()
         {
             if(MyType == TILETYPE.BLOCK)
@@ -52,7 +63,7 @@ namespace Vang_de_volger
             }          
         }
 
-
+        /*
         public void Tile_check_movement(Point heroPoint, String direction)
         {
             if (direction.Equals("Left") && moveArray[0] == true)
@@ -73,8 +84,7 @@ namespace Vang_de_volger
                 heroPoint.Y += MainForm.tileSize;
             }
         }
-
-        public TILETYPE MyType { get; set; }
+        */
 
         private Tile[] _myNeighbours = new Tile[4];
         public Tile neighbourLeft;
@@ -107,21 +117,25 @@ namespace Vang_de_volger
             }
         }
 
+        public string[] all_Directions = new string[4] {"Left","Right","Up","Down"};
         public void Possible_moves_villain()
         {
             for (int i = 0; i < 4; i++)
             {
                 if(_myNeighbours[i] != null)
                 {
-                if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i].MyType == TILETYPE.BOX)
-                {
-                    moveArrayVillain[i] = false;
-                }
-                else
-                {
-                    moveArrayVillain[i] = true;
-                }
-
+                    if (_myNeighbours[i].MyType == TILETYPE.HERO)
+                    {
+                        //Go to the hero
+                    }
+                    else if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i].MyType == TILETYPE.BOX)
+                    {
+                        moveArrayVillain[i] = false;
+                    }
+                    else
+                    {
+                        moveArrayVillain[i] = true;
+                    }
                 }
             }
         }
@@ -172,11 +186,6 @@ namespace Vang_de_volger
             {
                 neighbourBottom = value;
             }
-        }
-
-        public void Villain_Move(string direction)
-        {
-
         }
     }
 }
