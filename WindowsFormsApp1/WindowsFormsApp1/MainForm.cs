@@ -13,7 +13,7 @@ namespace Vang_de_volger
     public partial class MainForm : Form
     {
         Field playZone = new Field();
-        int villainMoveInterval = 1000; //interval at which villain moves in milliseconds
+        int villainMoveInterval = 10; //interval at which villain moves in milliseconds
         Timer timerVillainMove = new Timer();
         public const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
         public const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field

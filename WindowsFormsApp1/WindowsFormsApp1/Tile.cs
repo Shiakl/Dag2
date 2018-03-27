@@ -12,6 +12,7 @@ namespace Vang_de_volger
     {       
         public Image myImage;
         public Point pointTracker;
+        public Box MyBox = new Box();
 
         public Tile(TILETYPE type, Point firstPoint, Image baseImage)
         {
