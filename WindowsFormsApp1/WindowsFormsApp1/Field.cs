@@ -102,8 +102,8 @@ namespace Vang_de_volger
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
                 //Create a grid of pictureboxes
-                int tilecounter = 0;
                 _box = new Box[boxRatio];
+                int tilecounter = 0;
                 int boxcounter = 0;
                 for (int y = 0; y < MainForm.y_gridSize; y++)
                 {
@@ -121,6 +121,7 @@ namespace Vang_de_volger
                         {
                             _box[boxcounter] = new Box();
                             _box[boxcounter].pointTracker = playfield[tilecounter].pointTracker;
+                            playfield[tilecounter].MyBox = _box[boxcounter];
                             graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
                             boxcounter++;
                         }
