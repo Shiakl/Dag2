@@ -249,33 +249,65 @@ namespace Vang_de_volger
         }
 
         //Changes the unit's point according to the move executed. Note: Use swap contain after to notify the tile the unit it's on that it has moved.
-        public void Move_Unit(Villain unit, string direction,Tile unitTile)
+        public void Move_Unit(Unit unit, string direction,Tile unitTile)
         {
-            //unit.pointTracker.X -= MainForm.tileSize;
-            if (direction.Equals(unitTile.all_Directions[0]))
+            if(unit is Villain)
             {
-                unit.pointTracker.X -= MainForm.tileSize;
-                Swap_MyType(unitTile, unitTile.NeighbourLeft);
-                villainTile = unitTile.neighbourLeft;
+                //unit.pointTracker.X -= MainForm.tileSize;
+                if (direction.Equals(unitTile.all_Directions[0]))
+                {
+                    unit.pointTracker.X -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourLeft);
+                    villainTile = unitTile.neighbourLeft;
+                }
+                else if (direction.Equals(unitTile.all_Directions[1]))
+                {
+                    unit.pointTracker.X += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourRight);
+                    villainTile = unitTile.neighbourRight;
+                }
+                else if (direction.Equals(unitTile.all_Directions[2]))
+                {
+                    unit.pointTracker.Y -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourTop);
+                    villainTile = unitTile.neighbourTop;
+                }
+                else if (direction.Equals(unitTile.all_Directions[3]))
+                {
+                    unit.pointTracker.Y += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourBottom);
+                    villainTile = unitTile.neighbourBottom;
+                }
             }
-            else if (direction.Equals(unitTile.all_Directions[1]))
+            if(unit is Hero)
             {
-                unit.pointTracker.X += MainForm.tileSize;
-                Swap_MyType(unitTile, unitTile.NeighbourRight);
-                villainTile = unitTile.neighbourRight;
+                //unit.pointTracker.X -= MainForm.tileSize;
+                if (direction.Equals(unitTile.all_Directions[0]))
+                {
+                    unit.pointTracker.X -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourLeft);
+                    villainTile = unitTile.neighbourLeft;
+                }
+                else if (direction.Equals(unitTile.all_Directions[1]))
+                {
+                    unit.pointTracker.X += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourRight);
+                    villainTile = unitTile.neighbourRight;
+                }
+                else if (direction.Equals(unitTile.all_Directions[2]))
+                {
+                    unit.pointTracker.Y -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourTop);
+                    villainTile = unitTile.neighbourTop;
+                }
+                else if (direction.Equals(unitTile.all_Directions[3]))
+                {
+                    unit.pointTracker.Y += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourBottom);
+                    villainTile = unitTile.neighbourBottom;
+                }
             }
-            else if (direction.Equals(unitTile.all_Directions[2]))
-            {
-                unit.pointTracker.Y -= MainForm.tileSize;
-                Swap_MyType(unitTile, unitTile.NeighbourTop);
-                villainTile = unitTile.neighbourTop;
-            }
-            else if (direction.Equals(unitTile.all_Directions[3]))
-            {
-                unit.pointTracker.Y += MainForm.tileSize;
-                Swap_MyType(unitTile, unitTile.NeighbourBottom);
-                villainTile = unitTile.neighbourBottom;
-            }
+            
         }
     }
 }
