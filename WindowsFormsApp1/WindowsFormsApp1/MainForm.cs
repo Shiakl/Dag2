@@ -12,8 +12,8 @@ namespace Vang_de_volger
 {
     public partial class MainForm : Form
     {
-        Field _playZone = new Field();
-        int villainMoveInterval = 500; //interval at which villain moves in milliseconds
+        Field playZone = new Field();
+        int villainMoveInterval = 1000; //interval at which villain moves in milliseconds
         Timer timerVillainMove = new Timer();
         public const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
         public const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field
@@ -29,22 +29,28 @@ namespace Vang_de_volger
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
+            //timerVillainMove.Start();
         }
 
 
 
+        int testcounter = 0;
         public void TimerVillainMove_Tick(object sender, EventArgs e)
         {
-            //Make the villain do funky stuff
+                 playZone.Villain_random_move(playZone.villainTile);
+            //   playZone.Draw(pbLevel);
+               playZone.testVillainMove(pbLevel);
 
+            textBox1.Text = testcounter.ToString();
+            testcounter++;
+            this.Refresh();
         }
 
         public void GenerateField()
         {
             this.Invalidate();
-            _playZone.CreateTiles();
-            _playZone.ShuffleTiles();
-            _playZone.CreateField(this,pbLevel);
+            playZone.Create_Tiles();
+            playZone.CreateField(this,pbLevel);
             this.Refresh();
         }
 
@@ -52,32 +58,49 @@ namespace Vang_de_volger
         {
             if (e.KeyCode == Keys.Left)
             {
-                _playZone.Move_check_field("Left");
+                playZone.Move_check_field("Left");
             }
             else if (e.KeyCode == Keys.Right)
             {
-                _playZone.Move_check_field("Right");            
+                playZone.Move_check_field("Right");            
             }
             else if (e.KeyCode == Keys.Up)
             {
-                _playZone.Move_check_field("Up");
+                playZone.Move_check_field("Up");
             }
             else if (e.KeyCode == Keys.Down)
             {
-                _playZone.Move_check_field("Down");
+                playZone.Move_check_field("Down");
             }
         }
 
         //Spacebar activates this function as well
         private void button1_Click(object sender, EventArgs e)
         {
-            //_playZone.Draw();
             GenerateField();
         }
 
         private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            playZone.Draw(pbLevel);
+            //playZone.CreateField(this, pbLevel);
+            textBox1.Text = testcounter.ToString();
+            testcounter++;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            timerVillainMove.Start();
         }
     }
 }

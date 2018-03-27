@@ -18,9 +18,11 @@ namespace Vang_de_volger
 
         public Villain()
         {
-            myImage = Image.FromFile(@"..\..\Resources\VillainTemp.png");
+            myImage = Image.FromFile(@"..\..\Resources\Villain.png");
             pointTracker = new Point();
         }
+
+
 
     }
 }
