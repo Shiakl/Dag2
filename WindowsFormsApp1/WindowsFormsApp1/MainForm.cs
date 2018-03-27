@@ -45,7 +45,6 @@ namespace Vang_de_volger
             else
             {
                 playZone.Villain_random_move(playZone.villainTile);
-                //   playZone.Draw(pbLevel);
                 playZone.Draw(pbLevel);
 
                 textBox1.Text = testcounter.ToString();
