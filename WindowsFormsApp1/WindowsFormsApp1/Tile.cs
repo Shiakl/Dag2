@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace Vang_de_volger
 {
+
     class Tile: Unit
     {       
         public Image myImage;
@@ -50,6 +51,7 @@ namespace Vang_de_volger
                 myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
             }          
         }
+
 
         public void Tile_check_movement(Point heroPoint, String direction)
         {

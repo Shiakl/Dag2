@@ -17,12 +17,10 @@ namespace Vang_de_volger
         public Image testImage;
 
         public Bitmap _buffer; //Bitmap that draws the field
-        public Bitmap _unitBuffer; //Bitmap that draws the field
+        public Bitmap _unitBuffer; //Bitmap that draws the units (Hero, Box, Villain) on field
         public Size bufferSize; //Size of the bitmap
-                                // public Point heroPosition = new Point(); //Position of the Hero
-        public Tile heroTile;
-        //public Point villainPosition = new Point(); //Position of the Villain
-        public Tile villainTile;
+        public Tile heroTile; // public Point heroPosition = new Point(); //Position of the Hero
+        public Tile villainTile; //public Point villainPosition = new Point(); //Position of the Villain
         Hero mouse = new Hero();
         Villain slime = new Villain();
 
@@ -154,7 +152,7 @@ namespace Vang_de_volger
                 }
 
                 //Draw the hero on the field
-                slime.pointTracker.X = playfield[0].pointTracker.X; slime.pointTracker.Y = playfield[0].pointTracker.Y;
+                mouse.pointTracker.X = playfield[0].pointTracker.X; mouse.pointTracker.Y = playfield[0].pointTracker.Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
                 slime.pointTracker.X = playfield[NUM_OF_TILES - 1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES - 1].pointTracker.Y;
                 playfield[NUM_OF_TILES - 1].MyType = Tile.TILETYPE.VILLAIN;
