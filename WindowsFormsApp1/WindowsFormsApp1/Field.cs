@@ -23,8 +23,8 @@ namespace Vang_de_volger
         public Tile heroTile;
         //public Point villainPosition = new Point(); //Position of the Villain
         public Tile villainTile;
-        Hero mouse = new Hero();
-        Villain slime = new Villain();
+        Hero player = new Hero();
+        Villain enemy = new Villain();
 
         public Point[] tilePoint = new Point[NUM_OF_TILES];
         private Tile.TILETYPE[] typeArray_Tiles = new Tile.TILETYPE[NUM_OF_TILES];
@@ -152,13 +152,14 @@ namespace Vang_de_volger
                 }
 
                 //Draw the hero on the field
-                slime.pointTracker.X = playfield[0].pointTracker.X; slime.pointTracker.Y = playfield[0].pointTracker.Y;
+                player.pointTracker.X = playfield[0].pointTracker.X; player.pointTracker.Y = playfield[0].pointTracker.Y;
                 playfield[0].MyType = Tile.TILETYPE.HERO;
+                heroTile = playfield[0];
                 villainTile = playfield[NUM_OF_TILES - 1];
-                slime.pointTracker.X = playfield[NUM_OF_TILES - 1].pointTracker.X; slime.pointTracker.Y = playfield[NUM_OF_TILES - 1].pointTracker.Y;
+                enemy.pointTracker.X = playfield[NUM_OF_TILES - 1].pointTracker.X; enemy.pointTracker.Y = playfield[NUM_OF_TILES - 1].pointTracker.Y;
                 playfield[NUM_OF_TILES - 1].MyType = Tile.TILETYPE.VILLAIN;
-                graphics.DrawImage(mouse.myImage, mouse.pointTracker.X, mouse.pointTracker.Y, mouse.myImage.Size.Width, mouse.myImage.Size.Height);
-                graphics.DrawImage(slime.myImage, slime.pointTracker.X, slime.pointTracker.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
+                graphics.DrawImage(player.myImage, player.pointTracker.X, player.pointTracker.Y, player.myImage.Size.Width, player.myImage.Size.Height);
+                graphics.DrawImage(enemy.myImage, enemy.pointTracker.X, enemy.pointTracker.Y, enemy.myImage.Size.Width, enemy.myImage.Size.Height);
             }
             picture.Image = _buffer;
         }
@@ -182,12 +183,13 @@ namespace Vang_de_volger
                     graphics.DrawImage(_box[i].myImage, _box[i].pointTracker.X, _box[i].pointTracker.Y, _box[i].myImage.Size.Width, _box[i].myImage.Size.Height);
                 }
                 //Draw Hero and villain
-                graphics.DrawImage(mouse.myImage, mouse.pointTracker.X, mouse.pointTracker.Y, mouse.myImage.Size.Width, mouse.myImage.Size.Height);
-                graphics.DrawImage(slime.myImage, slime.pointTracker.X, slime.pointTracker.Y, slime.myImage.Size.Width, slime.myImage.Size.Height);
+                graphics.DrawImage(player.myImage, player.pointTracker.X, player.pointTracker.Y, player.myImage.Size.Width, player.myImage.Size.Height);
+                graphics.DrawImage(enemy.myImage, enemy.pointTracker.X, enemy.pointTracker.Y, enemy.myImage.Size.Width, enemy.myImage.Size.Height);
             }
             picture.Image = _buffer;
         }
 
+        //Swaps two Tile class MyTypes
         public void Swap_MyType(Tile old_Tile, Tile new_Tile)
         {
             Point temppPoint = new Point(0, 0);
@@ -198,16 +200,9 @@ namespace Vang_de_volger
             new_Tile.MyType = temp_Tile.MyType;
         }
 
-        /*
-        public void Move_check_field(string direction)
-        {
-            using (Graphics graphics = Graphics.FromImage(_buffer))
-            {
-                heroTile.Tile_check_movement(mouse.pointTracker, direction);
-            }
-        }
-        */
-
+        /// <summary>
+        ///     Method for randomly moving the Villain.   
+        /// </summary>
         string chosen_Random_Direction;
         string[] possible_Directions = new string[4];
         public void Villain_random_move(Tile villainTile)
@@ -227,10 +222,10 @@ namespace Vang_de_volger
             Random rndDirection = new Random();
             int villain_Direction = rndDirection.Next(0, arraycount);
             chosen_Random_Direction = possible_Directions[villain_Direction];
-
-            Move_Unit(slime,chosen_Random_Direction, villainTile);
+            Move_Unit(enemy,chosen_Random_Direction, villainTile);
         }
 
+        //Count the not-possible moves for the villain, if the move_count is 4 the villain has no possible moves and loses
         int move_count;
         public bool villain_Lose()
         {
