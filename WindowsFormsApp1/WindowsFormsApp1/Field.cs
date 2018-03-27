@@ -193,12 +193,21 @@ namespace Vang_de_volger
         //Swaps two Tile class MyTypes
         public void Swap_MyType(Tile old_Tile, Tile new_Tile)
         {
-            Point temppPoint = new Point(0, 0);
-            Tile temp_Tile = new Tile(Tile.TILETYPE.TILE, temppPoint, Image.FromFile(@"..\..\Resources\Tile.jpg"));
+            Tile.TILETYPE tempType = new Tile.TILETYPE();
 
-            temp_Tile.MyType = old_Tile.MyType;
+            tempType = old_Tile.MyType;
             old_Tile.MyType = new_Tile.MyType;
-            new_Tile.MyType = temp_Tile.MyType;
+            new_Tile.MyType = tempType;
+        }
+
+        //Swaps two Tile class MyBoxes
+        public void Swap_MyBox(Tile old_Tile, Tile new_Tile)
+        {
+            Box temp_Box = new Box();
+
+            temp_Box = old_Tile.MyBox;
+            old_Tile.MyBox = new_Tile.MyBox;
+            new_Tile.MyBox = temp_Box;
         }
 
         /// <summary>
