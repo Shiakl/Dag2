@@ -13,7 +13,7 @@ namespace Vang_de_volger
     public partial class MainForm : Form
     {
         Field playZone = new Field();
-        int villainMoveInterval = 500; //interval at which villain moves in milliseconds
+        int villainMoveInterval = 1000; //interval at which villain moves in milliseconds
         Timer timerVillainMove = new Timer();
         public const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
         public const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field
@@ -66,19 +66,19 @@ namespace Vang_de_volger
         {
             if (e.KeyCode == Keys.Left)
             {
-               //playZone.Move_check_field("Left");
+                
             }
             else if (e.KeyCode == Keys.Right)
             {
-                //playZone.Move_check_field("Right");            
+        
             }
             else if (e.KeyCode == Keys.Up)
             {
-               //playZone.Move_check_field("Up");
+
             }
             else if (e.KeyCode == Keys.Down)
             {
-                //playZone.Move_check_field("Down");
+
             }
         }
 
@@ -88,22 +88,12 @@ namespace Vang_de_volger
             GenerateField();
         }
 
-        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             playZone.Draw(pbLevel);
             //playZone.CreateField(this, pbLevel);
             textBox1.Text = testcounter.ToString();
             testcounter++;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button3_Click(object sender, EventArgs e)

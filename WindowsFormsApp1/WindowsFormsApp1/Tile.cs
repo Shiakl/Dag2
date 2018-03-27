@@ -41,16 +41,6 @@ namespace Vang_de_volger
 
         public TILETYPE MyType { get; set; }
 
-        public enum DIRECTION
-        {
-            LEFT,
-            RIGHT,
-            UP,
-            DOWN
-        }
-
-        public DIRECTION Direction { get; set; }
-
         public void Check_Tile_Type()
         {
             if(MyType == TILETYPE.BLOCK)
@@ -63,28 +53,6 @@ namespace Vang_de_volger
             }          
         }
 
-        /*
-        public void Tile_check_movement(Point heroPoint, String direction)
-        {
-            if (direction.Equals("Left") && moveArray[0] == true)
-            {
-                heroPoint.X += MainForm.tileSize;
-                
-            }
-            else if (direction.Equals("Right") && moveArray[1] == true)
-            {
-                heroPoint.X += MainForm.tileSize;
-            }
-            else if (direction.Equals("Up") && moveArray[2] == true)
-            {
-                heroPoint.Y -= MainForm.tileSize;
-            }
-            else if (direction.Equals("Down") && moveArray[3] == true)
-            {
-                heroPoint.Y += MainForm.tileSize;
-            }
-        }
-        */
 
         private Tile[] _myNeighbours = new Tile[4];
         public Tile neighbourLeft;

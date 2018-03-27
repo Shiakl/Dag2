@@ -38,7 +38,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(670, 40);
+            this.button1.Location = new System.Drawing.Point(858, 14);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 23);
             this.button1.TabIndex = 0;
@@ -57,7 +57,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(670, 70);
+            this.button2.Location = new System.Drawing.Point(858, 44);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 23);
             this.button2.TabIndex = 2;
@@ -67,15 +67,14 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(670, 129);
+            this.textBox1.Location = new System.Drawing.Point(858, 103);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 3;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(670, 100);
+            this.button3.Location = new System.Drawing.Point(858, 74);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(96, 23);
             this.button3.TabIndex = 4;
@@ -89,7 +88,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(826, 511);
+            this.ClientSize = new System.Drawing.Size(980, 578);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
@@ -99,7 +98,6 @@
             this.Name = "MainForm";
             this.Text = "Vang de volger";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.pbLevel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
