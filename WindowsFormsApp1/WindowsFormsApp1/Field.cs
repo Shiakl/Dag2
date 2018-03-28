@@ -325,16 +325,24 @@ namespace Vang_de_volger
             else return false;
         }
 
-        public void Catch_Hero(Tile enemyTile)
+        public bool Catch_Hero(Tile enemyTile)
         {
             for (int scan = 0; scan < 4; scan++)
             {
-                if (enemyTile.myNeighbours[scan].MyType == Tile.TILETYPE.HERO)
+                if (enemyTile.myNeighbours[scan] != null)
                 {
-                    Move_Unit(enemy,enemyTile.all_Directions[scan],enemyTile);
+                    if (enemyTile.myNeighbours[scan].MyType == Tile.TILETYPE.HERO)
+                    {
+                        Move_Unit(enemy, enemyTile.all_Directions[scan], enemyTile);
+                        return true;
+                    }
                 }
             }
+            return false;
         }
+
+
+        public bool hero_lose = false;
 
         /// <summary>
         /// Move a unit after possible move direction is confirmed.

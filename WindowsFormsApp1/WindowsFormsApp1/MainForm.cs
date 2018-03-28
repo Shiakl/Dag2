@@ -41,6 +41,10 @@ namespace Vang_de_volger
             {
                 timerVillainMove.Stop();
                 textBox1.Text = "Villain Lost!";
+            }else if (playZone.Catch_Hero(playZone.villainTile) == true)
+            {
+                timerVillainMove.Stop();
+                textBox1.Text = "Hero Lost!";
             }
             else
             {
