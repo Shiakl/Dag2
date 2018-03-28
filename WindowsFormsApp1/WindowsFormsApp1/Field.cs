@@ -297,7 +297,26 @@ namespace Vang_de_volger
 
         public void Box_Move(Tile boxTile, int box_direction)
         {
+            if (boxTile.myNeighbours[box_direction].MyType == Tile.TILETYPE.BOX)
+            {
+                Box_MoveCheck(boxTile.myNeighbours[box_direction],box_direction);
+            }
+            else
+            {
 
+            }
+        }
+
+        public void Box_MoveCheck(Tile boxTile, int box_direction)
+        {
+            if (boxTile.moveArray[box_direction] == true)
+            {
+                Box_Move(boxTile,box_direction);
+            }
+            else
+            {
+
+            }
         }
 
         public void Catch_Hero(Tile enemyTile)
