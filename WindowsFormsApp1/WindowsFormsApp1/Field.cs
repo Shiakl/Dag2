@@ -325,6 +325,34 @@ namespace Vang_de_volger
                     heroTile = unitTile.neighbourBottom;
                 }
             }
+            if (unit is Box)
+            {
+                //unit.pointTracker.X -= MainForm.tileSize;
+                if (direction.Equals(unitTile.all_Directions[0]))
+                {
+                    unitTile.MyBox.pointTracker.X -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourLeft);
+                    Swap_MyBox(unitTile, unitTile.neighbourLeft);
+                }
+                else if (direction.Equals(unitTile.all_Directions[1]))
+                {
+                    unitTile.MyBox.pointTracker.X += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourRight);
+                    Swap_MyBox(unitTile, unitTile.neighbourRight);
+                }
+                else if (direction.Equals(unitTile.all_Directions[2]))
+                {
+                    unitTile.MyBox.pointTracker.Y -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourTop);
+                    Swap_MyBox(unitTile, unitTile.neighbourTop);
+                }
+                else if (direction.Equals(unitTile.all_Directions[3]))
+                {
+                    unitTile.MyBox.pointTracker.Y += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourBottom);
+                    Swap_MyBox(unitTile, unitTile.neighbourBottom);
+                }
+            }
         }
     }
 }
