@@ -304,7 +304,7 @@ namespace Vang_de_volger
             }
             boxes_to_push.Clear();
             tiles_to_swap.Clear();
-        }
+        }      
 
         public bool Check_Box_Row(Tile heroTile, int direction)
         {
