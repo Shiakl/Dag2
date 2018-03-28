@@ -55,17 +55,17 @@ namespace Vang_de_volger
         }
 
 
-        private Tile[] _myNeighbours = new Tile[4];
+        public Tile[] myNeighbours = new Tile[4];
         public Tile neighbourLeft;
         public Tile neighbourRight;
         public Tile neighbourTop;
         public Tile neighbourBottom;
         public void AddNeighbours()
         {
-            _myNeighbours[0] = neighbourLeft;
-            _myNeighbours[1] = neighbourRight;
-            _myNeighbours[2] = neighbourTop;
-            _myNeighbours[3] = neighbourBottom;
+            myNeighbours[0] = neighbourLeft;
+            myNeighbours[1] = neighbourRight;
+            myNeighbours[2] = neighbourTop;
+            myNeighbours[3] = neighbourBottom;
         }
 
         public bool[] moveArray = new bool[4];
@@ -75,24 +75,35 @@ namespace Vang_de_volger
         {
             for(int i = 0; i < 4; i++)
             {
-               if(_myNeighbours[i] != null)
+               if(myNeighbours[i] != null)
                {
-                    if (_myNeighbours[i].MyType == TILETYPE.BLOCK)
+                    if(MyType == TILETYPE.BOX)
                     {
-                        moveArray[i] = false;
-                    }
-                    else if(_myNeighbours[i].MyType == TILETYPE.BOX)
-                    {
-                        moveArray[i] = Check_Again(_myNeighbours[i],i);
+                        if (myNeighbours[i].MyType == TILETYPE.TILE)
+                        {
+                            moveArray[i] = true;
+                        }
+                        else
+                        {
+                            moveArray[i] = false;
+                        }
                     }
                     else
                     {
-                        moveArray[i] = true;
+                        if (myNeighbours[i].MyType == TILETYPE.BLOCK || myNeighbours[i].MyType == TILETYPE.VILLAIN)
+                        {
+                            moveArray[i] = false;
+                        }
+                        else
+                        {
+                            moveArray[i] = true;
+                        }
                     }
                 }
             }
         }
 
+        /*
         private bool Check_Again(Tile neighbourTile, int direction)
         {
            if(neighbourTile._myNeighbours[direction].MyType == TILETYPE.TILE)
@@ -108,19 +119,20 @@ namespace Vang_de_volger
                 return false;
             }
         }
+        */
 
         public string[] all_Directions = new string[4] {"Left","Right","Up","Down"};
         public void Possible_moves_villain()
         {
             for (int i = 0; i < 4; i++)
             {
-                if(_myNeighbours[i] != null)
+                if(myNeighbours[i] != null)
                 {
-                    if (_myNeighbours[i].MyType == TILETYPE.HERO)
+                    if (myNeighbours[i].MyType == TILETYPE.HERO)
                     {
                         //Go to the hero
                     }
-                    else if (_myNeighbours[i].MyType == TILETYPE.BLOCK || _myNeighbours[i].MyType == TILETYPE.BOX)
+                    else if (myNeighbours[i].MyType == TILETYPE.BLOCK || myNeighbours[i].MyType == TILETYPE.BOX)
                     {
                         moveArrayVillain[i] = false;
                     }

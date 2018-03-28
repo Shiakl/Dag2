@@ -216,24 +216,40 @@ namespace Vang_de_volger
         string chosen_Random_Direction; //For the Villain
         string chosen_Direction;        //For the hero
         string[] possible_Directions = new string[4];
+        bool hero_Search = false;
         public void Villain_random_move(Tile villainTile)
         {
             villainTile.Possible_moves_villain();
             int move_Numbers = 0;
             int arraycount = 0;
-            for (int a = 0; a < villainTile.moveArray.Length; a++)
+
+            for (int scan = 0; scan < 4; scan++)
             {
-                if (villainTile.moveArrayVillain[a] == true)
+                if (villainTile.myNeighbours[scan] != null)
                 {
-                        possible_Directions[arraycount] = villainTile.all_Directions[a];
-                        arraycount++;     
+                    if (villainTile.myNeighbours[scan].MyType == Tile.TILETYPE.HERO)
+                    {
+                        hero_Search = true;
+                        Move_Unit(enemy, villainTile.all_Directions[scan], villainTile);
+                    }
                 }
             }
+            if (hero_Search == false)
+            {
+                for (int a = 0; a < villainTile.moveArray.Length; a++)
+                {
+                    if (villainTile.moveArrayVillain[a] == true)
+                    {
+                        possible_Directions[arraycount] = villainTile.all_Directions[a];
+                        arraycount++;
+                    }
+                }
 
-            Random rndDirection = new Random();
-            int villain_Direction = rndDirection.Next(0, arraycount);
-            chosen_Random_Direction = possible_Directions[villain_Direction];
-            Move_Unit(enemy,chosen_Random_Direction, villainTile);
+                Random rndDirection = new Random();
+                int villain_Direction = rndDirection.Next(0, arraycount);
+                chosen_Random_Direction = possible_Directions[villain_Direction];
+                Move_Unit(enemy, chosen_Random_Direction, villainTile);
+            }
         }
 
         //Count the not-possible moves for the villain, if the move_count is 4 the villain has no possible moves and loses
@@ -259,17 +275,51 @@ namespace Vang_de_volger
         public void Hero_move(Tile heroTile, int hero_Direction)
         {
             heroTile.Possible_moves();
-            if(heroTile.moveArray[hero_Direction] == true)
+            if (heroTile.myNeighbours[hero_Direction] != null)
             {
-                chosen_Direction = heroTile.all_Directions[hero_Direction];
-                Move_Unit(player, chosen_Direction, heroTile);
+                if (heroTile.myNeighbours[hero_Direction].MyType == Tile.TILETYPE.BOX)
+                {
+                    heroTile.myNeighbours[hero_Direction].Possible_moves();
+                    if (heroTile.myNeighbours[hero_Direction].moveArray[hero_Direction] == true)
+                    {
+                        chosen_Direction = heroTile.all_Directions[hero_Direction];
+                        Move_Unit(heroTile.myNeighbours[hero_Direction].MyBox, chosen_Direction, heroTile.myNeighbours[hero_Direction]);
+                        Move_Unit(player, chosen_Direction, heroTile);
+                    }
+                }
+                else if (heroTile.moveArray[hero_Direction] == true)
+                {
+                    chosen_Direction = heroTile.all_Directions[hero_Direction];
+                    Move_Unit(player, chosen_Direction, heroTile);
+                }
             }
         }
 
-        //Changes the unit's point according to the move executed. Note: Use swap contain after to notify the tile the unit it's on that it has moved.
-        public void Move_Unit(Unit unit, string direction,Tile unitTile)
+        public void Box_Move(Tile boxTile, int box_direction)
         {
-            if(unit is Villain)
+
+        }
+
+        public void Catch_Hero(Tile enemyTile)
+        {
+            for (int scan = 0; scan < 4; scan++)
+            {
+                if (enemyTile.myNeighbours[scan].MyType == Tile.TILETYPE.HERO)
+                {
+                    Move_Unit(enemy,enemyTile.all_Directions[scan],enemyTile);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Move a unit after possible move direction is confirmed.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="direction"></param>
+        /// <param name="unitTile"></param>
+        public void Move_Unit(Unit unit, string direction, Tile unitTile)
+        {
+            if (unit is Villain)
             {
                 //unit.pointTracker.X -= MainForm.tileSize;
                 if (direction.Equals(unitTile.all_Directions[0]))
@@ -297,7 +347,7 @@ namespace Vang_de_volger
                     villainTile = unitTile.neighbourBottom;
                 }
             }
-            if(unit is Hero)
+            else if (unit is Hero)
             {
                 //unit.pointTracker.X -= MainForm.tileSize;
                 if (direction.Equals(unitTile.all_Directions[0]))
@@ -325,7 +375,7 @@ namespace Vang_de_volger
                     heroTile = unitTile.neighbourBottom;
                 }
             }
-            if (unit is Box)
+            else if (unit is Box)
             {
                 //unit.pointTracker.X -= MainForm.tileSize;
                 if (direction.Equals(unitTile.all_Directions[0]))
@@ -333,6 +383,7 @@ namespace Vang_de_volger
                     unitTile.MyBox.pointTracker.X -= MainForm.tileSize;
                     Swap_MyType(unitTile, unitTile.NeighbourLeft);
                     Swap_MyBox(unitTile, unitTile.neighbourLeft);
+
                 }
                 else if (direction.Equals(unitTile.all_Directions[1]))
                 {
@@ -353,6 +404,7 @@ namespace Vang_de_volger
                     Swap_MyBox(unitTile, unitTile.neighbourBottom);
                 }
             }
+            
         }
     }
 }
