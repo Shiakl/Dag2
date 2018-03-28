@@ -29,6 +29,7 @@ namespace Vang_de_volger
             {
                 myImage = Image.FromFile(@"..\..\Resources\Tile.jpg");
             }
+            Possible_moves();
         }
 
         public enum TILETYPE
@@ -79,7 +80,7 @@ namespace Vang_de_volger
                {
                     if(MyType == TILETYPE.BOX)
                     {
-                        if (myNeighbours[i].MyType == TILETYPE.TILE)
+                        if (myNeighbours[i].MyType == TILETYPE.TILE && myNeighbours[i].MyType == TILETYPE.BOX)
                         {
                             moveArray[i] = true;
                         }

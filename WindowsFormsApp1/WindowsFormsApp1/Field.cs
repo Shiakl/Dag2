@@ -280,30 +280,21 @@ namespace Vang_de_volger
                 if (heroTile.myNeighbours[hero_Direction].MyType == Tile.TILETYPE.BOX)
                 {
                     heroTile.myNeighbours[hero_Direction].Possible_moves();
+                    Box_MoveCheck(heroTile,hero_Direction);
+                    /*
                     if (heroTile.myNeighbours[hero_Direction].moveArray[hero_Direction] == true)
                     {
                         chosen_Direction = heroTile.all_Directions[hero_Direction];
                         Move_Unit(heroTile.myNeighbours[hero_Direction].MyBox, chosen_Direction, heroTile.myNeighbours[hero_Direction]);
                         Move_Unit(player, chosen_Direction, heroTile);
                     }
+                    */
                 }
                 else if (heroTile.moveArray[hero_Direction] == true)
                 {
                     chosen_Direction = heroTile.all_Directions[hero_Direction];
                     Move_Unit(player, chosen_Direction, heroTile);
                 }
-            }
-        }
-
-        public void Box_Move(Tile boxTile, int box_direction)
-        {
-            if (boxTile.myNeighbours[box_direction].MyType == Tile.TILETYPE.BOX)
-            {
-                Box_MoveCheck(boxTile.myNeighbours[box_direction],box_direction);
-            }
-            else
-            {
-
             }
         }
 
@@ -316,6 +307,19 @@ namespace Vang_de_volger
             else
             {
 
+            }
+        }
+
+        public void Box_Move(Tile boxTile, int box_direction)
+        {
+            if (boxTile.myNeighbours[box_direction].MyType == Tile.TILETYPE.BOX)
+            {
+                Box_MoveCheck(boxTile.myNeighbours[box_direction],box_direction);
+            }
+            else
+            {
+                chosen_Direction = boxTile.all_Directions[box_direction];
+                Move_Unit(boxTile.MyBox, chosen_Direction, boxTile);
             }
         }
 
