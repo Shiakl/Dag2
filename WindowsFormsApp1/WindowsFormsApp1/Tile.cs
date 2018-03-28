@@ -80,7 +80,7 @@ namespace Vang_de_volger
                {
                     if(MyType == TILETYPE.BOX)
                     {
-                        if (myNeighbours[i].MyType == TILETYPE.TILE || myNeighbours[i].MyType == TILETYPE.BOX)
+                        if (myNeighbours[i].MyType == TILETYPE.TILE)
                         {
                             moveArray[i] = true;
                         }
@@ -103,24 +103,6 @@ namespace Vang_de_volger
                 }
             }
         }
-
-        /*
-        private bool Check_Again(Tile neighbourTile, int direction)
-        {
-           if(neighbourTile._myNeighbours[direction].MyType == TILETYPE.TILE)
-            {
-                return true;
-            }
-            else if (neighbourTile._myNeighbours[direction].MyType == TILETYPE.BOX)
-            {
-                Check_Again(neighbourTile,direction);
-            }
-            else
-            {
-                return false;
-            }
-        }
-        */
 
         public string[] all_Directions = new string[4] {"Left","Right","Up","Down"};
         public void Possible_moves_villain()

@@ -38,7 +38,7 @@ namespace Vang_de_volger
 
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
-        int boxRatio = NUM_OF_TILES / 5;
+        int boxRatio = NUM_OF_TILES / 4;
 
         void ButtonClick(object sender, EventArgs e)
         {
@@ -272,23 +272,28 @@ namespace Vang_de_volger
             return false;
         }
 
+
+        public List<Box> boxes_to_push = new List<Box>();
+        private int boxpushcounter = 0;
         public void Hero_move(Tile heroTile, int hero_Direction)
         {
+            boxpushcounter = 0;
             heroTile.Possible_moves();
             if (heroTile.myNeighbours[hero_Direction] != null)
             {
                 if (heroTile.myNeighbours[hero_Direction].MyType == Tile.TILETYPE.BOX)
                 {
                     heroTile.myNeighbours[hero_Direction].Possible_moves();
-                    Box_MoveCheck(heroTile,hero_Direction);
-                    
-                    if (heroTile.myNeighbours[hero_Direction].moveArray[hero_Direction] == true)
+                    if (Check_Box_Row(heroTile,hero_Direction) == true)
                     {
                         chosen_Direction = heroTile.all_Directions[hero_Direction];
-                        Move_Unit(heroTile.myNeighbours[hero_Direction].MyBox, chosen_Direction, heroTile.myNeighbours[hero_Direction]);
+                        for(int b = boxes_to_push.Count()-1; b>=0; b--)
+                        {
+                        Move_Unit(boxes_to_push[b], chosen_Direction, heroTile.myNeighbours[hero_Direction]);
+                        }
+
                         Move_Unit(player, chosen_Direction, heroTile);
                     }
-                    
                 }
                 else if (heroTile.moveArray[hero_Direction] == true)
                 {
@@ -296,35 +301,28 @@ namespace Vang_de_volger
                     Move_Unit(player, chosen_Direction, heroTile);
                 }
             }
+            boxes_to_push.Clear();
         }
 
-        public void Box_MoveCheck(Tile boxTile, int box_direction)
+        public bool Check_Box_Row(Tile heroTile, int direction)
         {
-            if (boxTile.moveArray[box_direction] == true)
+            if (heroTile.myNeighbours[direction] != null)
             {
-                Box_Move(boxTile,box_direction);
+                if (heroTile.myNeighbours[direction].MyType == Tile.TILETYPE.BOX)
+                {
+                    boxes_to_push.Add(heroTile.myNeighbours[direction].MyBox);
+                    return Check_Box_Row(heroTile.myNeighbours[direction], direction);
+                }
+                else if (heroTile.myNeighbours[direction].MyType == Tile.TILETYPE.TILE)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                boxTile.moveArray[box_direction] = false;
-            }
-
-        }
-
-        public void Box_Move(Tile boxTile, int box_direction)
-        {
-            if (boxTile.myNeighbours[box_direction].MyType == Tile.TILETYPE.BOX)
-            {
-                boxTile.myNeighbours[box_direction].Possible_moves();
-                Box_MoveCheck(boxTile.myNeighbours[box_direction],box_direction);
-            }
-            else
-            {
-                chosen_Direction = boxTile.all_Directions[box_direction];
-                Move_Unit(boxTile.MyBox, chosen_Direction, boxTile);
-            }
-
-
+            else return false;
         }
 
         public void Catch_Hero(Tile enemyTile)
