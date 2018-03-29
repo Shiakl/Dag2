@@ -28,23 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.pbLevel = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.reset_Button = new System.Windows.Forms.Button();
+            this.pause_Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbLevel)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(858, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Generate";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pbLevel
             // 
@@ -55,32 +44,32 @@
             this.pbLevel.TabIndex = 1;
             this.pbLevel.TabStop = false;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(858, 44);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(96, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Re-draw";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(858, 103);
+            this.textBox1.Location = new System.Drawing.Point(858, 50);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 3;
             // 
-            // button3
+            // reset_Button
             // 
-            this.button3.Location = new System.Drawing.Point(858, 74);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(96, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Move Villain";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.reset_Button.Location = new System.Drawing.Point(858, 90);
+            this.reset_Button.Name = "reset_Button";
+            this.reset_Button.Size = new System.Drawing.Size(100, 23);
+            this.reset_Button.TabIndex = 4;
+            this.reset_Button.Text = "Reset";
+            this.reset_Button.UseVisualStyleBackColor = true;
+            this.reset_Button.Click += new System.EventHandler(this.reset_Button_Click);
+            // 
+            // pause_Button
+            // 
+            this.pause_Button.Location = new System.Drawing.Point(858, 131);
+            this.pause_Button.Name = "pause_Button";
+            this.pause_Button.Size = new System.Drawing.Size(100, 23);
+            this.pause_Button.TabIndex = 5;
+            this.pause_Button.Text = "Pause(esc)";
+            this.pause_Button.UseVisualStyleBackColor = true;
+            this.pause_Button.Click += new System.EventHandler(this.pause_Button_Click);
             // 
             // MainForm
             // 
@@ -89,11 +78,10 @@
             this.AutoSize = true;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(980, 578);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.pause_Button);
+            this.Controls.Add(this.reset_Button);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.pbLevel);
-            this.Controls.Add(this.button1);
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "Vang de volger";
@@ -105,12 +93,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pbLevel;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button reset_Button;
+        private System.Windows.Forms.Button pause_Button;
     }
 }
 

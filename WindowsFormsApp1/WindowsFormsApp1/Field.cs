@@ -38,7 +38,7 @@ namespace Vang_de_volger
 
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
-        int boxRatio = NUM_OF_TILES / 4;
+        int boxRatio = NUM_OF_TILES / 6;
 
         void ButtonClick(object sender, EventArgs e)
         {
@@ -97,7 +97,7 @@ namespace Vang_de_volger
             bufferSize = new Size(MainForm.x_gridSize * MainForm.tileSize, MainForm.x_gridSize * MainForm.tileSize);
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
             _unitBuffer = new Bitmap(bufferSize.Width, bufferSize.Height);
-
+            
             //Draw all the tiles and units
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
@@ -272,9 +272,8 @@ namespace Vang_de_volger
             return false;
         }
 
-
-        public List<Box> boxes_to_push = new List<Box>();
         public List<Tile> tiles_to_swap = new List<Tile>();
+        public List<Box> boxes_to_push = new List<Box>();
         private int boxpushcounter = 0;
         public void Hero_move(Tile heroTile, int hero_Direction)
         {
