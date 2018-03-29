@@ -46,6 +46,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(858, 50);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
@@ -82,7 +83,6 @@
             this.Controls.Add(this.reset_Button);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pbLevel);
-            this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "Vang de volger";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);

@@ -45,6 +45,7 @@ namespace Vang_de_volger
             {
                 timerVillainMove.Stop();
                 textBox1.Text = "Hero Lost!";
+                paused = true;
             }
             else
             {
@@ -105,12 +106,13 @@ namespace Vang_de_volger
             }
         }
 
-
         private void reset_Button_Click(object sender, EventArgs e)
         {
+            textBox1.Text = "";
             timerVillainMove.Stop();
             GenerateField();
             timerVillainMove.Start();
+            paused = false;
         }
 
         //Pause the game with the button
@@ -127,7 +129,5 @@ namespace Vang_de_volger
                 timerVillainMove.Start();
             }
         }
-
-
     }
 }

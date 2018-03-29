@@ -89,8 +89,8 @@ namespace Vang_de_volger
             }
         }
 
-        Point tempPoint;
         //Function for creating the field and all the tiles.
+        Point tempPoint;
         public void CreateField(Form PlayForm, PictureBox picture)
         {
             //Create buffering bitmap
@@ -258,9 +258,9 @@ namespace Vang_de_volger
         {
             villainTile.Possible_moves_villain();
             move_count = 0;
-            for(int cc = 0; cc < 4; cc++)
+            for(int vd = 0; vd < 4; vd++)
             {
-                if (villainTile.moveArrayVillain[cc] == false)
+                if (villainTile.moveArrayVillain[vd] == false)
                 {
                     move_count++;
                 }
