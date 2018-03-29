@@ -28,12 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pbLevel = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.reset_Button = new System.Windows.Forms.Button();
-            this.pause_Button = new System.Windows.Forms.Button();
+            this.pbLevel = new System.Windows.Forms.PictureBox();
+            this.pause_Label = new System.Windows.Forms.Label();
+            this.restart_Button = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbLevel)).BeginInit();
             this.SuspendLayout();
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(858, 50);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 3;
             // 
             // pbLevel
             // 
@@ -44,33 +52,27 @@
             this.pbLevel.TabIndex = 1;
             this.pbLevel.TabStop = false;
             // 
-            // textBox1
+            // pause_Label
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(858, 50);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 3;
+            this.pause_Label.AutoSize = true;
+            this.pause_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pause_Label.Location = new System.Drawing.Point(834, 111);
+            this.pause_Label.Name = "pause_Label";
+            this.pause_Label.Size = new System.Drawing.Size(87, 19);
+            this.pause_Label.TabIndex = 4;
+            this.pause_Label.Text = "Pause(ESC)";
+            this.pause_Label.Click += new System.EventHandler(this.pause_Label_Click);
             // 
-            // reset_Button
+            // restart_Button
             // 
-            this.reset_Button.Location = new System.Drawing.Point(858, 90);
-            this.reset_Button.Name = "reset_Button";
-            this.reset_Button.Size = new System.Drawing.Size(100, 23);
-            this.reset_Button.TabIndex = 4;
-            this.reset_Button.Text = "Reset";
-            this.reset_Button.UseVisualStyleBackColor = true;
-            this.reset_Button.Click += new System.EventHandler(this.reset_Button_Click);
-            // 
-            // pause_Button
-            // 
-            this.pause_Button.Location = new System.Drawing.Point(858, 131);
-            this.pause_Button.Name = "pause_Button";
-            this.pause_Button.Size = new System.Drawing.Size(100, 23);
-            this.pause_Button.TabIndex = 5;
-            this.pause_Button.Text = "Pause(esc)";
-            this.pause_Button.UseVisualStyleBackColor = true;
-            this.pause_Button.Click += new System.EventHandler(this.pause_Button_Click);
+            this.restart_Button.AutoSize = true;
+            this.restart_Button.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.restart_Button.Location = new System.Drawing.Point(834, 148);
+            this.restart_Button.Name = "restart_Button";
+            this.restart_Button.Size = new System.Drawing.Size(56, 19);
+            this.restart_Button.TabIndex = 5;
+            this.restart_Button.Text = "Restart";
+            this.restart_Button.Click += new System.EventHandler(this.restart_Button_Click);
             // 
             // MainForm
             // 
@@ -79,8 +81,8 @@
             this.AutoSize = true;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(980, 578);
-            this.Controls.Add(this.pause_Button);
-            this.Controls.Add(this.reset_Button);
+            this.Controls.Add(this.restart_Button);
+            this.Controls.Add(this.pause_Label);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pbLevel);
             this.Name = "MainForm";
@@ -95,8 +97,8 @@
         #endregion
         private System.Windows.Forms.PictureBox pbLevel;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button reset_Button;
-        private System.Windows.Forms.Button pause_Button;
+        private System.Windows.Forms.Label pause_Label;
+        private System.Windows.Forms.Label restart_Button;
     }
 }
 

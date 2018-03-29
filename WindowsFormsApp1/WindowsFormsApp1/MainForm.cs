@@ -106,17 +106,7 @@ namespace Vang_de_volger
             }
         }
 
-        private void reset_Button_Click(object sender, EventArgs e)
-        {
-            textBox1.Text = "";
-            timerVillainMove.Stop();
-            GenerateField();
-            timerVillainMove.Start();
-            paused = false;
-        }
-
-        //Pause the game with the button
-        private void pause_Button_Click(object sender, EventArgs e)
+        private void pause_Label_Click(object sender, EventArgs e)
         {
             if (paused == false)
             {
@@ -128,6 +118,15 @@ namespace Vang_de_volger
                 paused = false;
                 timerVillainMove.Start();
             }
+        }
+
+        private void restart_Button_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            timerVillainMove.Stop();
+            GenerateField();
+            timerVillainMove.Start();
+            paused = false;
         }
     }
 }

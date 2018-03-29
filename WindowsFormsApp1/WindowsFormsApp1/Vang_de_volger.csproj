@@ -101,6 +101,7 @@
     <None Include="Resources\Tile.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Block.png" />
     <Content Include="Resources\Box.jpg" />
     <Content Include="Resources\Box.png" />
     <Content Include="Resources\Hero.png" />
