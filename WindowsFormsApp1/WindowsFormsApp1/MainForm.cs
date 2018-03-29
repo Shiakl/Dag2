@@ -51,7 +51,7 @@ namespace Vang_de_volger
                 playZone.Villain_random_move(playZone.villainTile);
                 playZone.Draw(pbLevel);
 
-                textBox1.Text = testcounter.ToString();
+                //textBox1.Text = testcounter.ToString();
                 testcounter++;
                 this.Refresh();
             }
@@ -105,13 +105,16 @@ namespace Vang_de_volger
             }
         }
 
-        //Spacebar activates this function as well
-        private void button1_Click(object sender, EventArgs e)
+
+        private void reset_Button_Click(object sender, EventArgs e)
         {
+            timerVillainMove.Stop();
             GenerateField();
+            timerVillainMove.Start();
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        //Pause the game with the button
+        private void pause_Button_Click(object sender, EventArgs e)
         {
             if (paused == false)
             {
@@ -124,5 +127,7 @@ namespace Vang_de_volger
                 timerVillainMove.Start();
             }
         }
+
+
     }
 }

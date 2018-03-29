@@ -38,7 +38,7 @@ namespace Vang_de_volger
 
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
-        int boxRatio = NUM_OF_TILES / 5;
+        int boxRatio = NUM_OF_TILES / 6;
 
         void ButtonClick(object sender, EventArgs e)
         {
