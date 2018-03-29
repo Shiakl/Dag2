@@ -13,7 +13,7 @@ namespace Vang_de_volger
     public partial class MainForm : Form
     {
         Field playZone = new Field();
-        int villainMoveInterval = 1000; //interval at which villain moves in milliseconds
+        int villainMoveInterval = 500; //interval at which villain moves in milliseconds
         Timer timerVillainMove = new Timer();
         public const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
         public const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field
@@ -41,11 +41,14 @@ namespace Vang_de_volger
             {
                 timerVillainMove.Stop();
                 textBox1.Text = "Villain Lost!";
+            }else if (playZone.Catch_Hero(playZone.villainTile) == true)
+            {
+                timerVillainMove.Stop();
+                textBox1.Text = "Hero Lost!";
             }
             else
             {
                 playZone.Villain_random_move(playZone.villainTile);
-                //   playZone.Draw(pbLevel);
                 playZone.Draw(pbLevel);
 
                 textBox1.Text = testcounter.ToString();
@@ -66,19 +69,23 @@ namespace Vang_de_volger
         {
             if (e.KeyCode == Keys.Left)
             {
-                
+                playZone.Hero_move(playZone.heroTile, 0);
+                playZone.Draw(pbLevel);
             }
             else if (e.KeyCode == Keys.Right)
             {
-        
+                playZone.Hero_move(playZone.heroTile, 1);
+                playZone.Draw(pbLevel);
             }
             else if (e.KeyCode == Keys.Up)
             {
-
+                playZone.Hero_move(playZone.heroTile, 2);
+                playZone.Draw(pbLevel);
             }
             else if (e.KeyCode == Keys.Down)
             {
-
+                playZone.Hero_move(playZone.heroTile, 3);
+                playZone.Draw(pbLevel);
             }
         }
 

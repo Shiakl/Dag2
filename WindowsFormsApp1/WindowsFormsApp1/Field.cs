@@ -17,7 +17,7 @@ namespace Vang_de_volger
         public Image testImage;
 
         public Bitmap _buffer; //Bitmap that draws the field
-        public Bitmap _unitBuffer; //Bitmap that draws the field
+        public Bitmap _unitBuffer; //Bitmap that draws the units (Hero, Box, Villain) on field
         public Size bufferSize; //Size of the bitmap
                                 // public Point heroPosition = new Point(); //Position of the Hero
         public Tile heroTile;
@@ -38,7 +38,7 @@ namespace Vang_de_volger
 
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
-        int boxRatio = NUM_OF_TILES / 5;
+        int boxRatio = NUM_OF_TILES / 4;
 
         void ButtonClick(object sender, EventArgs e)
         {
@@ -102,8 +102,8 @@ namespace Vang_de_volger
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
                 //Create a grid of pictureboxes
-                int tilecounter = 0;
                 _box = new Box[boxRatio];
+                int tilecounter = 0;
                 int boxcounter = 0;
                 for (int y = 0; y < MainForm.y_gridSize; y++)
                 {
@@ -121,6 +121,7 @@ namespace Vang_de_volger
                         {
                             _box[boxcounter] = new Box();
                             _box[boxcounter].pointTracker = playfield[tilecounter].pointTracker;
+                            playfield[tilecounter].MyBox = _box[boxcounter];
                             graphics.DrawImage(_box[boxcounter].myImage, _box[boxcounter].pointTracker.X, _box[boxcounter].pointTracker.Y, _box[boxcounter].myImage.Size.Width, _box[boxcounter].myImage.Size.Height);
                             boxcounter++;
                         }
@@ -192,37 +193,63 @@ namespace Vang_de_volger
         //Swaps two Tile class MyTypes
         public void Swap_MyType(Tile old_Tile, Tile new_Tile)
         {
-            Point temppPoint = new Point(0, 0);
-            Tile temp_Tile = new Tile(Tile.TILETYPE.TILE, temppPoint, Image.FromFile(@"..\..\Resources\Tile.jpg"));
+            Tile.TILETYPE tempType = new Tile.TILETYPE();
 
-            temp_Tile.MyType = old_Tile.MyType;
+            tempType = old_Tile.MyType;
             old_Tile.MyType = new_Tile.MyType;
-            new_Tile.MyType = temp_Tile.MyType;
+            new_Tile.MyType = tempType;
+        }
+
+        //Swaps two Tile class MyBoxes
+        public void Swap_MyBox(Tile old_Tile, Tile new_Tile)
+        {
+            Box temp_Box = new Box();
+
+            temp_Box = old_Tile.MyBox;
+            old_Tile.MyBox = new_Tile.MyBox;
+            new_Tile.MyBox = temp_Box;
         }
 
         /// <summary>
         ///     Method for randomly moving the Villain.   
         /// </summary>
-        string chosen_Random_Direction;
+        string chosen_Random_Direction; //For the Villain
+        string chosen_Direction;        //For the hero
         string[] possible_Directions = new string[4];
+        bool hero_Search = false;
         public void Villain_random_move(Tile villainTile)
         {
             villainTile.Possible_moves_villain();
             int move_Numbers = 0;
             int arraycount = 0;
-            for (int a = 0; a < villainTile.moveArray.Length; a++)
+
+            for (int scan = 0; scan < 4; scan++)
             {
-                if (villainTile.moveArrayVillain[a] == true)
+                if (villainTile.myNeighbours[scan] != null)
                 {
-                        possible_Directions[arraycount] = villainTile.all_Directions[a];
-                        arraycount++;     
+                    if (villainTile.myNeighbours[scan].MyType == Tile.TILETYPE.HERO)
+                    {
+                        hero_Search = true;
+                        Move_Unit(enemy, villainTile.all_Directions[scan], villainTile);
+                    }
                 }
             }
+            if (hero_Search == false)
+            {
+                for (int a = 0; a < villainTile.moveArray.Length; a++)
+                {
+                    if (villainTile.moveArrayVillain[a] == true)
+                    {
+                        possible_Directions[arraycount] = villainTile.all_Directions[a];
+                        arraycount++;
+                    }
+                }
 
-            Random rndDirection = new Random();
-            int villain_Direction = rndDirection.Next(0, arraycount);
-            chosen_Random_Direction = possible_Directions[villain_Direction];
-            Move_Unit(enemy,chosen_Random_Direction, villainTile);
+                Random rndDirection = new Random();
+                int villain_Direction = rndDirection.Next(0, arraycount);
+                chosen_Random_Direction = possible_Directions[villain_Direction];
+                Move_Unit(enemy, chosen_Random_Direction, villainTile);
+            }
         }
 
         //Count the not-possible moves for the villain, if the move_count is 4 the villain has no possible moves and loses
@@ -245,34 +272,175 @@ namespace Vang_de_volger
             return false;
         }
 
-        //Changes the unit's point according to the move executed. Note: Use swap contain after to notify the tile the unit it's on that it has moved.
-        public void Move_Unit(Villain unit, string direction,Tile unitTile)
+
+        public List<Box> boxes_to_push = new List<Box>();
+        public List<Tile> tiles_to_swap = new List<Tile>();
+        private int boxpushcounter = 0;
+        public void Hero_move(Tile heroTile, int hero_Direction)
         {
-            //unit.pointTracker.X -= MainForm.tileSize;
-            if (direction.Equals(unitTile.all_Directions[0]))
+            boxpushcounter = 0;
+            heroTile.Possible_moves();
+            if (heroTile.myNeighbours[hero_Direction] != null)
             {
-                unit.pointTracker.X -= MainForm.tileSize;
-                Swap_MyType(unitTile, unitTile.NeighbourLeft);
-                villainTile = unitTile.neighbourLeft;
+                if (heroTile.myNeighbours[hero_Direction].MyType == Tile.TILETYPE.BOX)
+                {
+                    heroTile.myNeighbours[hero_Direction].Possible_moves();
+                    if (Check_Box_Row(heroTile,hero_Direction) == true)
+                    {
+                        chosen_Direction = heroTile.all_Directions[hero_Direction];
+                        for(int b = boxes_to_push.Count()-1; b>=0; b--)
+                        {
+                        Move_Unit(boxes_to_push[b], chosen_Direction, tiles_to_swap[b]);
+                        }
+
+                        Move_Unit(player, chosen_Direction, heroTile);
+                    }
+                }
+                else if (heroTile.moveArray[hero_Direction] == true)
+                {
+                    chosen_Direction = heroTile.all_Directions[hero_Direction];
+                    Move_Unit(player, chosen_Direction, heroTile);
+                }
             }
-            else if (direction.Equals(unitTile.all_Directions[1]))
+            boxes_to_push.Clear();
+            tiles_to_swap.Clear();
+        }      
+
+        public bool Check_Box_Row(Tile heroTile, int direction)
+        {
+            if (heroTile.myNeighbours[direction] != null)
             {
-                unit.pointTracker.X += MainForm.tileSize;
-                Swap_MyType(unitTile, unitTile.NeighbourRight);
-                villainTile = unitTile.neighbourRight;
+                if (heroTile.myNeighbours[direction].MyType == Tile.TILETYPE.BOX)
+                {
+                    boxes_to_push.Add(heroTile.myNeighbours[direction].MyBox);
+                    tiles_to_swap.Add(heroTile.myNeighbours[direction]);
+                    return Check_Box_Row(heroTile.myNeighbours[direction], direction);
+                }
+                else if (heroTile.myNeighbours[direction].MyType == Tile.TILETYPE.TILE)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else if (direction.Equals(unitTile.all_Directions[2]))
+            else return false;
+        }
+
+        public bool Catch_Hero(Tile enemyTile)
+        {
+            for (int scan = 0; scan < 4; scan++)
             {
-                unit.pointTracker.Y -= MainForm.tileSize;
-                Swap_MyType(unitTile, unitTile.NeighbourTop);
-                villainTile = unitTile.neighbourTop;
+                if (enemyTile.myNeighbours[scan] != null)
+                {
+                    if (enemyTile.myNeighbours[scan].MyType == Tile.TILETYPE.HERO)
+                    {
+                        Move_Unit(enemy, enemyTile.all_Directions[scan], enemyTile);
+                        return true;
+                    }
+                }
             }
-            else if (direction.Equals(unitTile.all_Directions[3]))
+            return false;
+        }
+
+
+        public bool hero_lose = false;
+
+        /// <summary>
+        /// Move a unit after possible move direction is confirmed.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="direction"></param>
+        /// <param name="unitTile"></param>
+        public void Move_Unit(Unit unit, string direction, Tile unitTile)
+        {
+            if (unit is Villain)
             {
-                unit.pointTracker.Y += MainForm.tileSize;
-                Swap_MyType(unitTile, unitTile.NeighbourBottom);
-                villainTile = unitTile.neighbourBottom;
+                //unit.pointTracker.X -= MainForm.tileSize;
+                if (direction.Equals(unitTile.all_Directions[0]))
+                {
+                    enemy.pointTracker.X -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourLeft);
+                    villainTile = unitTile.neighbourLeft;
+                }
+                else if (direction.Equals(unitTile.all_Directions[1]))
+                {
+                    enemy.pointTracker.X += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourRight);
+                    villainTile = unitTile.neighbourRight;
+                }
+                else if (direction.Equals(unitTile.all_Directions[2]))
+                {
+                    enemy.pointTracker.Y -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourTop);
+                    villainTile = unitTile.neighbourTop;
+                }
+                else if (direction.Equals(unitTile.all_Directions[3]))
+                {
+                    enemy.pointTracker.Y += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourBottom);
+                    villainTile = unitTile.neighbourBottom;
+                }
             }
+            else if (unit is Hero)
+            {
+                //unit.pointTracker.X -= MainForm.tileSize;
+                if (direction.Equals(unitTile.all_Directions[0]))
+                {
+                    player.pointTracker.X -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourLeft);
+                    heroTile = unitTile.neighbourLeft;
+                }
+                else if (direction.Equals(unitTile.all_Directions[1]))
+                {
+                    player.pointTracker.X += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourRight);
+                    heroTile = unitTile.neighbourRight;
+                }
+                else if (direction.Equals(unitTile.all_Directions[2]))
+                {
+                    player.pointTracker.Y -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourTop);
+                    heroTile = unitTile.neighbourTop;
+                }
+                else if (direction.Equals(unitTile.all_Directions[3]))
+                {
+                    player.pointTracker.Y += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourBottom);
+                    heroTile = unitTile.neighbourBottom;
+                }
+            }
+            else if (unit is Box)
+            {
+                //unit.pointTracker.X -= MainForm.tileSize;
+                if (direction.Equals(unitTile.all_Directions[0]))
+                {
+                    unitTile.MyBox.pointTracker.X -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourLeft);
+                    Swap_MyBox(unitTile, unitTile.neighbourLeft);
+
+                }
+                else if (direction.Equals(unitTile.all_Directions[1]))
+                {
+                    unitTile.MyBox.pointTracker.X += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourRight);
+                    Swap_MyBox(unitTile, unitTile.neighbourRight);
+                }
+                else if (direction.Equals(unitTile.all_Directions[2]))
+                {
+                    unitTile.MyBox.pointTracker.Y -= MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourTop);
+                    Swap_MyBox(unitTile, unitTile.neighbourTop);
+                }
+                else if (direction.Equals(unitTile.all_Directions[3]))
+                {
+                    unitTile.MyBox.pointTracker.Y += MainForm.tileSize;
+                    Swap_MyType(unitTile, unitTile.NeighbourBottom);
+                    Swap_MyBox(unitTile, unitTile.neighbourBottom);
+                }
+            }
+            
         }
     }
 }

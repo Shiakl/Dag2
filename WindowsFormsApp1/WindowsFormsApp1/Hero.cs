@@ -11,7 +11,7 @@ namespace Vang_de_volger
 
         public Hero()
         {
-            myImage = Image.FromFile(@"..\..\Resources\HeroTemp.png");
+            myImage = Image.FromFile(@"..\..\Resources\Hero.png");
             pointTracker = new Point();
         }    
     }
