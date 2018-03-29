@@ -274,7 +274,6 @@ namespace Vang_de_volger
 
 
         public List<Box> boxes_to_push = new List<Box>();
-        public List<Tile> tiles_to_swap = new List<Tile>();
         private int boxpushcounter = 0;
         public void Hero_move(Tile heroTile, int hero_Direction)
         {
@@ -290,7 +289,7 @@ namespace Vang_de_volger
                         chosen_Direction = heroTile.all_Directions[hero_Direction];
                         for(int b = boxes_to_push.Count()-1; b>=0; b--)
                         {
-                        Move_Unit(boxes_to_push[b], chosen_Direction, tiles_to_swap[b]);
+                        Move_Unit(boxes_to_push[b], chosen_Direction, heroTile.myNeighbours[hero_Direction]);
                         }
 
                         Move_Unit(player, chosen_Direction, heroTile);
@@ -303,7 +302,6 @@ namespace Vang_de_volger
                 }
             }
             boxes_to_push.Clear();
-            tiles_to_swap.Clear();
         }
 
         public bool Check_Box_Row(Tile heroTile, int direction)
@@ -313,7 +311,6 @@ namespace Vang_de_volger
                 if (heroTile.myNeighbours[direction].MyType == Tile.TILETYPE.BOX)
                 {
                     boxes_to_push.Add(heroTile.myNeighbours[direction].MyBox);
-                    tiles_to_swap.Add(heroTile.myNeighbours[direction]);
                     return Check_Box_Row(heroTile.myNeighbours[direction], direction);
                 }
                 else if (heroTile.myNeighbours[direction].MyType == Tile.TILETYPE.TILE)
