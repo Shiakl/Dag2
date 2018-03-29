@@ -29,7 +29,7 @@ namespace Vang_de_volger
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
-            //timerVillainMove.Start();
+            timerVillainMove.Start();
         }
 
 
@@ -65,27 +65,43 @@ namespace Vang_de_volger
             this.Refresh();
         }
 
+        private bool paused = false;
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
+            if (paused == false)
             {
-                playZone.Hero_move(playZone.heroTile, 0);
-                playZone.Draw(pbLevel);
+                if (e.KeyCode == Keys.Left)
+                {
+                    playZone.Hero_move(playZone.heroTile, 0);
+                    playZone.Draw(pbLevel);
+                }
+                else if (e.KeyCode == Keys.Right)
+                {
+                    playZone.Hero_move(playZone.heroTile, 1);
+                    playZone.Draw(pbLevel);
+                }
+                else if (e.KeyCode == Keys.Up)
+                {
+                    playZone.Hero_move(playZone.heroTile, 2);
+                    playZone.Draw(pbLevel);
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    playZone.Hero_move(playZone.heroTile, 3);
+                    playZone.Draw(pbLevel);
+                }
             }
-            else if (e.KeyCode == Keys.Right)
+
+            //Pause the game
+            if (e.KeyCode == Keys.Escape && paused == false)
             {
-                playZone.Hero_move(playZone.heroTile, 1);
-                playZone.Draw(pbLevel);
+                paused = true;
+                timerVillainMove.Stop();
             }
-            else if (e.KeyCode == Keys.Up)
+            else if (e.KeyCode == Keys.Escape && paused == true)
             {
-                playZone.Hero_move(playZone.heroTile, 2);
-                playZone.Draw(pbLevel);
-            }
-            else if (e.KeyCode == Keys.Down)
-            {
-                playZone.Hero_move(playZone.heroTile, 3);
-                playZone.Draw(pbLevel);
+                paused = false;
+                timerVillainMove.Start();
             }
         }
 
@@ -95,17 +111,18 @@ namespace Vang_de_volger
             GenerateField();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
-            playZone.Draw(pbLevel);
-            //playZone.CreateField(this, pbLevel);
-            textBox1.Text = testcounter.ToString();
-            testcounter++;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            timerVillainMove.Start();
+            if (paused == false)
+            {
+                paused = true;
+                timerVillainMove.Stop();
+            }
+            else if (paused == true)
+            {
+                paused = false;
+                timerVillainMove.Start();
+            }
         }
     }
 }
