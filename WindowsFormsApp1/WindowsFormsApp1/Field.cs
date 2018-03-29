@@ -97,7 +97,7 @@ namespace Vang_de_volger
             bufferSize = new Size(MainForm.x_gridSize * MainForm.tileSize, MainForm.x_gridSize * MainForm.tileSize);
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
             _unitBuffer = new Bitmap(bufferSize.Width, bufferSize.Height);
-
+            
             //Draw all the tiles and units
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
