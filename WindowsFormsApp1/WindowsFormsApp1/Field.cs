@@ -38,7 +38,7 @@ namespace Vang_de_volger
 
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
-        int boxRatio = NUM_OF_TILES / 4;
+        int boxRatio = NUM_OF_TILES / 5;
 
         void ButtonClick(object sender, EventArgs e)
         {
@@ -272,7 +272,7 @@ namespace Vang_de_volger
             return false;
         }
 
-
+        public List<Tile> tiles_to_swap = new List<Tile>();
         public List<Box> boxes_to_push = new List<Box>();
         private int boxpushcounter = 0;
         public void Hero_move(Tile heroTile, int hero_Direction)
@@ -289,7 +289,7 @@ namespace Vang_de_volger
                         chosen_Direction = heroTile.all_Directions[hero_Direction];
                         for(int b = boxes_to_push.Count()-1; b>=0; b--)
                         {
-                        Move_Unit(boxes_to_push[b], chosen_Direction, heroTile.myNeighbours[hero_Direction]);
+                        Move_Unit(boxes_to_push[b], chosen_Direction, tiles_to_swap[b]);
                         }
 
                         Move_Unit(player, chosen_Direction, heroTile);
@@ -312,6 +312,7 @@ namespace Vang_de_volger
                 if (heroTile.myNeighbours[direction].MyType == Tile.TILETYPE.BOX)
                 {
                     boxes_to_push.Add(heroTile.myNeighbours[direction].MyBox);
+                    tiles_to_swap.Add(heroTile.myNeighbours[direction]);
                     return Check_Box_Row(heroTile.myNeighbours[direction], direction);
                 }
                 else if (heroTile.myNeighbours[direction].MyType == Tile.TILETYPE.TILE)
