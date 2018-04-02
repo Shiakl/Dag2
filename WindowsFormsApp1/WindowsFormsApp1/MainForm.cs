@@ -150,5 +150,10 @@ namespace Vang_de_volger
             timerVillainMove.Start();
             paused = false;
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
