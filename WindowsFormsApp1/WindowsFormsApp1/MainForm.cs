@@ -58,6 +58,7 @@ namespace Vang_de_volger
             }
         }
 
+        //Generates the field and calls for the Create_Tiles funtion to generate the standard amount of tiles.
         public void GenerateField()
         {
             this.Invalidate();
@@ -66,6 +67,7 @@ namespace Vang_de_volger
             this.Refresh();
         }
 
+        // Adds movement via keyinput for the hero using LEFT/RIGHT/UP/DOWN arrow keys
         private bool paused = false;
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {

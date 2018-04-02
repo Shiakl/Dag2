@@ -271,10 +271,15 @@ namespace Vang_de_volger
             }
             return false;
         }
-
-        public List<Tile> tiles_to_swap = new List<Tile>();
-        public List<Box> boxes_to_push = new List<Box>();
+ 
+        public List<Tile> tiles_to_swap = new List<Tile>(); /// tiles_to_swap is used to swap the tile in the direction with the current tile
+        public List<Box> boxes_to_push = new List<Box>(); /// boxes_to_push is called and used when a hero encounters a box. It will check the neighbour of the box using the current direction of the hero.
         private int boxpushcounter = 0;
+        /// <summary>
+        /// Handles moving behaviour of the heroTile. Interactions with the BOX, TILE and VILLAIN objects are handled here.
+        /// </summary>
+        /// <param name="heroTile">Tile object of the heroTile needed here.</param>
+        /// <param name="hero_Direction">Take an int value that corresponds with the moveArray row numbers.</param>
         public void Hero_move(Tile heroTile, int hero_Direction)
         {
             boxpushcounter = 0;
