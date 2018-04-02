@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//Created by: Shivam Akloe[17057620] & Sang Phan Thanh[17119081]
+
 namespace Vang_de_volger
 {
     public partial class StartScreen : Form
