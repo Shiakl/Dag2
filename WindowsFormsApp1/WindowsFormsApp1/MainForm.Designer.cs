@@ -90,7 +90,6 @@
             this.Controls.Add(this.pbLevel);
             this.Name = "MainForm";
             this.Text = "Vang de volger";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.endPb)).EndInit();
