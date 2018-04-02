@@ -27,6 +27,7 @@ namespace Vang_de_volger
         Size pbSize;
         Size endPbSize;
 
+        //Constructor handling the field and tile elements.
         public MainForm()
         {
             InitializeComponent();
@@ -42,12 +43,16 @@ namespace Vang_de_volger
             endPb.Visible = false;
             endPb.BackColor = Color.Transparent;
 
+            //Start the movement of the Villain
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
             timerVillainMove.Start();
         }
 
+
+        //Move handler and win/lose handler of the Villain
+        int testcounter = 0;
         public void TimerVillainMove_Tick(object sender, EventArgs e)
         {
             if (playZone.villain_Lose() == true)
@@ -73,6 +78,7 @@ namespace Vang_de_volger
             }
         }
 
+        //Generates the field and calls for the Create_Tiles funtion to generate the standard amount of tiles.
         public void GenerateField()
         {
             this.Invalidate();
@@ -81,6 +87,8 @@ namespace Vang_de_volger
             this.Refresh();
         }
 
+        // Adds movement via keyinput for the hero using LEFT/RIGHT/UP/DOWN arrow keys
+        private bool paused = false;
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (paused == false)
@@ -123,6 +131,11 @@ namespace Vang_de_volger
             }
         }
 
+        /// <summary>
+        /// Handles the behavior for the Villain during the Pause instance
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pause_Label_Click(object sender, EventArgs e)
         {
             if (paused == false)
@@ -140,6 +153,11 @@ namespace Vang_de_volger
             }
         }
 
+        /// <summary>
+        /// Restart the game by regenarating the field with the randomised tiles.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void restart_Button_Click(object sender, EventArgs e)
         {
             timerVillainMove.Stop();
@@ -147,6 +165,11 @@ namespace Vang_de_volger
             timerVillainMove.Start();
             endPb.Visible = false;
             paused = false;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

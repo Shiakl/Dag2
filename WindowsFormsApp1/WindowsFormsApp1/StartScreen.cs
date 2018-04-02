@@ -12,11 +12,13 @@ namespace Vang_de_volger
 {
     public partial class StartScreen : Form
     {
+        //Constructor
         public StartScreen()
         {
             InitializeComponent();
         }
 
+        //Call the MainForm class to start its game and hide the current Startscreen
         private void Start_Button_Click(object sender, EventArgs e)
         {
             MainForm mainForm = new MainForm();
@@ -24,9 +26,15 @@ namespace Vang_de_volger
             this.Hide();
         }
 
+        //Closes the game
         private void Exit_button_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void StartScreen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

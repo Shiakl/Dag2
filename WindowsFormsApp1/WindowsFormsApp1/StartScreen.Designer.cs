@@ -61,6 +61,7 @@
             this.Controls.Add(this.Start_Button);
             this.Name = "StartScreen";
             this.Text = "StartScreen";
+            this.Load += new System.EventHandler(this.StartScreen_Load);
             this.ResumeLayout(false);
 
         }

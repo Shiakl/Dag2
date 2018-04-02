@@ -15,7 +15,7 @@ namespace Vang_de_volger
         public Image myImage;
         public Point pointTracker;
         
-
+        //Constructor sending the Image and Point of the Villain class.
         public Villain()
         {
             myImage = Image.FromFile(@"..\..\Resources\Villain.png");
