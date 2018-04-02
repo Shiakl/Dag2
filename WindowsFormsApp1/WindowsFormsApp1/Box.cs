@@ -8,7 +8,7 @@ namespace Vang_de_volger
         public Image myImage;
         public Point pointTracker;
 
-        //Constructor
+        //Constructor sending the Image and Point of the Box class.
         public Box()
         {
             myImage = Image.FromFile(@"..\..\Resources\Box.png");

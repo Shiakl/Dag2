@@ -9,6 +9,7 @@ namespace Vang_de_volger
         public Image myImage;
         public Point pointTracker;
 
+        //Constructor sending the Image and Point of the Hero class.
         public Hero()
         {
             myImage = Image.FromFile(@"..\..\Resources\Hero.png");
