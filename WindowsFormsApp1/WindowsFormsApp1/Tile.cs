@@ -46,7 +46,7 @@ namespace Vang_de_volger
         }
 
         /// <summary>
-        /// Function added to check the TileType
+        /// Method to check the TileType
         /// </summary>
         public TILETYPE MyType { get; set; }
         public void Check_Tile_Type()
@@ -77,8 +77,8 @@ namespace Vang_de_volger
             myNeighbours[3] = neighbourBottom;
         }
 
-        public bool[] moveArray = new bool[_NUM_OF_DIRECTIONS];
-        public bool[] moveArrayVillain = new bool[_NUM_OF_DIRECTIONS];
+        public bool[] moveArray = new bool[_NUM_OF_DIRECTIONS]; //Array containing bool's that are used to determine whether a direction is moveable for boxes and the hero
+        public bool[] moveArrayVillain = new bool[_NUM_OF_DIRECTIONS];  //Array containing bool's that are used to determine whether a direction is moveable for the villain
 
         /// <summary>
         /// Moves by using the direction value caught by the key eventlistener in the mainform.

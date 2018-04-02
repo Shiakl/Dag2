@@ -73,7 +73,6 @@
             this.Controls.Add(this.Start_Button);
             this.Name = "StartScreen";
             this.Text = "Vang de volger";
-            this.Load += new System.EventHandler(this.StartScreen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

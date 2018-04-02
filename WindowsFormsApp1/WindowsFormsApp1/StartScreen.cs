@@ -31,10 +31,5 @@ namespace Vang_de_volger
         {
             this.Close();
         }
-
-        private void StartScreen_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
