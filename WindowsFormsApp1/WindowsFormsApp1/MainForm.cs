@@ -20,12 +20,21 @@ namespace Vang_de_volger
         public const int tileSize = 40;
         
         Size pbSize;
+        Size endPbSize;
 
         public MainForm()
         {
             InitializeComponent();
             pbSize = new Size(x_gridSize * tileSize, x_gridSize * tileSize);
             pbLevel.Size = pbSize;
+            pbLevel.Left = 0; pbLevel.Top = 0;
+            pause_Label.Left = x_gridSize * tileSize + tileSize;
+            restart_Button.Left = x_gridSize * tileSize + tileSize;
+            endPbSize = new Size(x_gridSize * tileSize, x_gridSize * tileSize);
+            endPb.Size = endPbSize;
+            endPb.Left = 0;  endPb.Top = 0;
+            endPb.Visible = false;
+
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
@@ -40,19 +49,19 @@ namespace Vang_de_volger
             if (playZone.villain_Lose() == true)
             {
                 timerVillainMove.Stop();
-                textBox1.Text = "Villain Lost!";
+                endPb.Visible = true;
+                paused = true;
             }else if (playZone.Catch_Hero(playZone.villainTile) == true)
             {
                 timerVillainMove.Stop();
-                textBox1.Text = "Hero Lost!";
+                endPb.Visible = true;
                 paused = true;
             }
             else
             {
                 playZone.Villain_random_move(playZone.villainTile);
                 playZone.Draw(pbLevel);
-
-                //textBox1.Text = testcounter.ToString();
+                playZone.Draw(pbLevel);
                 testcounter++;
                 this.Refresh();
             }
@@ -63,7 +72,7 @@ namespace Vang_de_volger
         {
             this.Invalidate();
             playZone.Create_Tiles();
-            playZone.CreateField(this,pbLevel);
+            playZone.CreateField(this,pbLevel,pause_Label,restart_Button);
             this.Refresh();
         }
 
@@ -124,7 +133,6 @@ namespace Vang_de_volger
 
         private void restart_Button_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "";
             timerVillainMove.Stop();
             GenerateField();
             timerVillainMove.Start();
