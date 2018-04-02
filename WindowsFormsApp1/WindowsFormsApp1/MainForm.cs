@@ -17,11 +17,12 @@ namespace Vang_de_volger
         Timer timerVillainMove = new Timer();
         public const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
         public const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field
-        public const int tileSize = 40;
+        public const int tileSize = 40;    //Size of tiles
         
         Size pbSize;
         Size endPbSize;
 
+        //Constructor handling the field and tile elements.
         public MainForm()
         {
             InitializeComponent();
@@ -35,6 +36,7 @@ namespace Vang_de_volger
             endPb.Left = 0;  endPb.Top = 0;
             endPb.Visible = false;
 
+            //Start the movement of the Villain
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
             GenerateField();
@@ -42,7 +44,7 @@ namespace Vang_de_volger
         }
 
 
-
+        //Move handler and win/lose handler of the Villain
         int testcounter = 0;
         public void TimerVillainMove_Tick(object sender, EventArgs e)
         {
@@ -117,6 +119,11 @@ namespace Vang_de_volger
             }
         }
 
+        /// <summary>
+        /// Handles the behavior for the Villain during the Pause instance
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pause_Label_Click(object sender, EventArgs e)
         {
             if (paused == false)
@@ -131,6 +138,11 @@ namespace Vang_de_volger
             }
         }
 
+        /// <summary>
+        /// Restart the game by regenarating the field with the randomised tiles.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void restart_Button_Click(object sender, EventArgs e)
         {
             timerVillainMove.Stop();

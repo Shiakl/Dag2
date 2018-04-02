@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Vang_de_volger
 {
 
-    class Tile: Unit
+    class Tile
     {       
         public Image myImage; //The tile or wall Image
         public Point pointTracker; //The position of the tile on the field
@@ -17,6 +17,7 @@ namespace Vang_de_volger
         static int _NUM_OF_DIRECTIONS = 4; //Define the amount of directions and neighbours each tile has. See "public string all_Directions".     
         public string[] all_Directions = new string[] { "Left", "Right", "Up", "Down" };  //All specified directions. In this case Left will always have the index 0 for every direction array used as a vector for the movement methods.
 
+        //constructor
         public Tile(TILETYPE type, Point firstPoint, Image baseImage)
         {
             MyType = type;
@@ -44,8 +45,10 @@ namespace Vang_de_volger
             VILLAIN
         }
 
+        /// <summary>
+        /// Function added to check the TileType
+        /// </summary>
         public TILETYPE MyType { get; set; }
-
         public void Check_Tile_Type()
         {
             if(MyType == TILETYPE.BLOCK)
@@ -77,6 +80,10 @@ namespace Vang_de_volger
         public bool[] moveArray = new bool[_NUM_OF_DIRECTIONS];
         public bool[] moveArrayVillain = new bool[_NUM_OF_DIRECTIONS];
 
+        /// <summary>
+        /// Moves by using the direction value caught by the key eventlistener in the mainform.
+        /// Handles the different kind of TILETYPES objects the Hero could interact with.
+        /// </summary>
         public void Possible_moves()
         {
             for(int i = 0; i < _NUM_OF_DIRECTIONS; i++)
@@ -109,6 +116,10 @@ namespace Vang_de_volger
             }
         }
 
+        /// <summary>
+        /// Moves by using the direction value caught by the random movement function in the Field.class.
+        /// Handles the different kind of TILETYPES objects the Villain could interact with.
+        /// </summary>
         public void Possible_moves_villain()
         {
             for (int i = 0; i < 4; i++)
@@ -127,6 +138,9 @@ namespace Vang_de_volger
             }
         }
 
+        /// <summary>
+        /// Getters and setters for the many movements used in this game.
+        /// </summary>
         public Tile NeighbourLeft
         {
             get
