@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Vang_de_volger
 {
 
-    class Tile: Unit
+    class Tile
     {       
         public Image myImage; //The tile or wall Image
         public Point pointTracker; //The position of the tile on the field

@@ -18,7 +18,12 @@ namespace Vang_de_volger
         public const int x_gridSize = 15;  //Amount of tiles in X-direction on the field
         public const int y_gridSize = 15;  //Amount of tiles in Y-direction on the field
         public const int tileSize = 40;
-        
+        public bool paused;
+
+        Image victoryImage = Image.FromFile(@"..\..\Resources\Victory.png");
+        Image loseImage = Image.FromFile(@"..\..\Resources\Lose.png");
+        Image pauseImage = Image.FromFile(@"..\..\Resources\Paused.png");
+
         Size pbSize;
         Size endPbSize;
 
@@ -26,6 +31,7 @@ namespace Vang_de_volger
         {
             InitializeComponent();
             pbSize = new Size(x_gridSize * tileSize, x_gridSize * tileSize);
+            paused = false;
             pbLevel.Size = pbSize;
             pbLevel.Left = 0; pbLevel.Top = 0;
             pause_Label.Left = x_gridSize * tileSize + tileSize;
@@ -34,6 +40,7 @@ namespace Vang_de_volger
             endPb.Size = endPbSize;
             endPb.Left = 0;  endPb.Top = 0;
             endPb.Visible = false;
+            endPb.BackColor = Color.Transparent;
 
             timerVillainMove.Interval = villainMoveInterval;
             timerVillainMove.Tick += TimerVillainMove_Tick;
@@ -41,20 +48,20 @@ namespace Vang_de_volger
             timerVillainMove.Start();
         }
 
-
-
-        int testcounter = 0;
         public void TimerVillainMove_Tick(object sender, EventArgs e)
         {
             if (playZone.villain_Lose() == true)
             {
                 timerVillainMove.Stop();
                 endPb.Visible = true;
+                endPb.Image = victoryImage;
                 paused = true;
-            }else if (playZone.Catch_Hero(playZone.villainTile) == true)
+            }
+            else if (playZone.Catch_Hero(playZone.villainTile) == true)
             {
                 timerVillainMove.Stop();
                 endPb.Visible = true;
+                endPb.Image = loseImage;
                 paused = true;
             }
             else
@@ -62,7 +69,6 @@ namespace Vang_de_volger
                 playZone.Villain_random_move(playZone.villainTile);
                 playZone.Draw(pbLevel);
                 playZone.Draw(pbLevel);
-                testcounter++;
                 this.Refresh();
             }
         }
@@ -75,7 +81,6 @@ namespace Vang_de_volger
             this.Refresh();
         }
 
-        private bool paused = false;
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (paused == false)
@@ -106,11 +111,14 @@ namespace Vang_de_volger
             if (e.KeyCode == Keys.Escape && paused == false)
             {
                 paused = true;
+                endPb.Visible = true;
+                endPb.Image = pauseImage;
                 timerVillainMove.Stop();
             }
             else if (e.KeyCode == Keys.Escape && paused == true)
             {
                 paused = false;
+                endPb.Visible = false;
                 timerVillainMove.Start();
             }
         }
@@ -121,10 +129,13 @@ namespace Vang_de_volger
             {
                 paused = true;
                 timerVillainMove.Stop();
+                endPb.Visible = true;
+                endPb.Image = pauseImage;
             }
             else if (paused == true)
             {
                 paused = false;
+                endPb.Visible = false;
                 timerVillainMove.Start();
             }
         }
@@ -134,6 +145,7 @@ namespace Vang_de_volger
             timerVillainMove.Stop();
             GenerateField();
             timerVillainMove.Start();
+            endPb.Visible = false;
             paused = false;
         }
     }

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
 
+
 namespace Vang_de_volger
 {
     class Field
@@ -14,7 +15,7 @@ namespace Vang_de_volger
         const int NUM_OF_TILES = MainForm.x_gridSize * MainForm.y_gridSize; //Number of tiles on the field
         private Tile[] playfield; //Tile class array
         private Box[] _box;
-        public Image testImage;
+        public Image pauseImage;
 
         public Bitmap _buffer; //Bitmap that draws the field
         public Bitmap _unitBuffer; //Bitmap that draws the units (Hero, Box, Villain) on field
@@ -36,7 +37,7 @@ namespace Vang_de_volger
 
 
         //Assign Type values to tiles in a Tile class array depending on playfield size
-        int boxRatio = NUM_OF_TILES / 6;
+        int boxRatio = Convert.ToInt32(Math.Floor(NUM_OF_TILES* 0.2));
 
         void ButtonClick(object sender, EventArgs e)
         {
@@ -57,7 +58,7 @@ namespace Vang_de_volger
                     typeArray_Tiles[i] = Tile.TILETYPE.BLOCK;
                     i++;
                 }
-                else if (i < (NUM_OF_TILES * wallRatio + boxRatio) && i >= (NUM_OF_TILES * wallRatio))
+                else if (i <= (NUM_OF_TILES * wallRatio + boxRatio) && i > (NUM_OF_TILES * wallRatio))
                 {
                     typeArray_Tiles[i] = Tile.TILETYPE.BOX;
                     i++;
@@ -184,6 +185,7 @@ namespace Vang_de_volger
                 //Draw Hero and villain
                 graphics.DrawImage(player.myImage, player.pointTracker.X, player.pointTracker.Y, player.myImage.Size.Width, player.myImage.Size.Height);
                 graphics.DrawImage(enemy.myImage, enemy.pointTracker.X, enemy.pointTracker.Y, enemy.myImage.Size.Width, enemy.myImage.Size.Height);
+                              
             }
             picture.Image = _buffer;
         }
