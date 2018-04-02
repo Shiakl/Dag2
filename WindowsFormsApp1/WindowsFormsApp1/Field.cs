@@ -19,9 +19,7 @@ namespace Vang_de_volger
         public Bitmap _buffer; //Bitmap that draws the field
         public Bitmap _unitBuffer; //Bitmap that draws the units (Hero, Box, Villain) on field
         public Size bufferSize; //Size of the bitmap
-                                // public Point heroPosition = new Point(); //Position of the Hero
         public Tile heroTile;
-        //public Point villainPosition = new Point(); //Position of the Villain
         public Tile villainTile;
         Hero player = new Hero();
         Villain enemy = new Villain();
@@ -91,13 +89,13 @@ namespace Vang_de_volger
 
         //Function for creating the field and all the tiles.
         Point tempPoint;
-        public void CreateField(Form PlayForm, PictureBox picture)
+        public void CreateField(Form PlayForm, PictureBox picture, Label button1, Label button2)
         {
             //Create buffering bitmap
-            bufferSize = new Size(MainForm.x_gridSize * MainForm.tileSize, MainForm.x_gridSize * MainForm.tileSize);
+            bufferSize = new Size(MainForm.x_gridSize * MainForm.tileSize, MainForm.y_gridSize * MainForm.tileSize);
             _buffer = new Bitmap(bufferSize.Width, bufferSize.Height);
             _unitBuffer = new Bitmap(bufferSize.Width, bufferSize.Height);
-            
+
             //Draw all the tiles and units
             using (Graphics graphics = Graphics.FromImage(_buffer))
             {
@@ -137,7 +135,7 @@ namespace Vang_de_volger
                     {
                         playfield[tc].neighbourTop = playfield[tc - MainForm.x_gridSize];
                     }
-                    if (tc < NUM_OF_TILES - 1 - MainForm.x_gridSize)
+                    if (tc < NUM_OF_TILES - MainForm.x_gridSize)
                     {
                         playfield[tc].neighbourBottom = playfield[tc + MainForm.x_gridSize];
                     }
@@ -157,8 +155,8 @@ namespace Vang_de_volger
                 playfield[0].MyType = Tile.TILETYPE.HERO;
                 heroTile = playfield[0];
                 villainTile = playfield[NUM_OF_TILES - 1];
-                enemy.pointTracker.X = playfield[NUM_OF_TILES - 1].pointTracker.X; enemy.pointTracker.Y = playfield[NUM_OF_TILES - 1].pointTracker.Y;
                 playfield[NUM_OF_TILES - 1].MyType = Tile.TILETYPE.VILLAIN;
+                enemy.pointTracker.X = playfield[NUM_OF_TILES - 1].pointTracker.X; enemy.pointTracker.Y = playfield[NUM_OF_TILES - 1].pointTracker.Y;
                 graphics.DrawImage(player.myImage, player.pointTracker.X, player.pointTracker.Y, player.myImage.Size.Width, player.myImage.Size.Height);
                 graphics.DrawImage(enemy.myImage, enemy.pointTracker.X, enemy.pointTracker.Y, enemy.myImage.Size.Width, enemy.myImage.Size.Height);
             }
@@ -356,7 +354,6 @@ namespace Vang_de_volger
         {
             if (unit is Villain)
             {
-                //unit.pointTracker.X -= MainForm.tileSize;
                 if (direction.Equals(unitTile.all_Directions[0]))
                 {
                     enemy.pointTracker.X -= MainForm.tileSize;
@@ -384,7 +381,6 @@ namespace Vang_de_volger
             }
             else if (unit is Hero)
             {
-                //unit.pointTracker.X -= MainForm.tileSize;
                 if (direction.Equals(unitTile.all_Directions[0]))
                 {
                     player.pointTracker.X -= MainForm.tileSize;
@@ -412,7 +408,6 @@ namespace Vang_de_volger
             }
             else if (unit is Box)
             {
-                //unit.pointTracker.X -= MainForm.tileSize;
                 if (direction.Equals(unitTile.all_Directions[0]))
                 {
                     unitTile.MyBox.pointTracker.X -= MainForm.tileSize;

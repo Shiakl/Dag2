@@ -107,7 +107,6 @@
     <Content Include="Resources\Hero.png" />
     <Content Include="Resources\HeroTemp.png" />
     <Content Include="Resources\Villain.png" />
-    <Content Include="Resources\VillainTemp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
